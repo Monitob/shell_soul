@@ -37,7 +37,7 @@ EXECUTION :
 ***********************
 
 
-All the files should have
+All the files should have:
 
 prefix_init  --> to initilize the fonction
 prefix_clear --> to clean or destroy the fonction
@@ -46,7 +46,7 @@ prfix_error  --> to handle the error case
 ===================================
 
 
-the main struct  *****
+the main struct:
 
 
 typedef struct		s_shell
@@ -59,7 +59,7 @@ typedef struct		s_shell
 	....
 }					t_shell;
 
-termcaps structi *****
+termcaps struct :
 
 typedef struct 		s_tercs
 {
