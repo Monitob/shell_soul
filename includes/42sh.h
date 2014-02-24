@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 16:18:35 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/24 17:54:48 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/24 19:03:56 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,12 @@ typedef struct			s_stack
 	struct struct		*prev;
 }						t_stack;
 
+/*
+ * init_shell.c
+ */
+t_node		*init_shell(t_shell *root);
+char		**init_env(void);
+int			set_fd(void);
+int			error_fd(char *s, int fd);
 	
 #endif

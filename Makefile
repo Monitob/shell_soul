@@ -6,13 +6,13 @@
 #    By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/04 22:30:52 by jbernabe          #+#    #+#              #
-#    Updated: 2014/02/24 16:13:50 by jbernabe         ###   ########.fr        #
+#    Updated: 2014/02/24 19:04:14 by jbernabe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = cc
 
-NAME = ft_minishell3
+NAME = 42sh 
 
 CFLAGS = -Wall -Wextra -Werror
 

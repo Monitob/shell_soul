@@ -6,11 +6,11 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 16:17:08 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/24 18:50:26 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/24 19:00:23 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42.h"
+#include "42sh.h"
 
 int	main(void)
 {
@@ -28,13 +28,8 @@ t_node		*init_shell(t_shell *root)
 	root->data = (t_command *)malloc(sizeof(*(root->data)));
 	root->tcs = (t_tercs *)malloc(sizeof(*(root->tcs)));
 	if (root == NULL || root->data = NULL || roots->tcs == NULL)
-	{
-		ft_putstr_fd("Not enought memory", 2);
-		_exit(0);
-	}
+		error_fd("Not enought memory", 2);
 	root->tcs->tty_fd = set_fd();
-
-
 	return (root);
 }
 

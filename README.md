@@ -34,14 +34,13 @@ TERMCAPS :
 EXECUTION :
 		Prefix : exec_
 
-***********************
-
+===================================
 
 All the files should have:
 
 prefix_init  --> to initilize the fonction
 prefix_clear --> to clean or destroy the fonction
-prfix_error  --> to handle the error case
+prefix_error  --> to handle the error case
 
 ===================================
 
@@ -83,5 +82,3 @@ typedef struct 		s_tercs
 https://github.com/Monitob/shell_soul.git
 
 ==========
-
-
