@@ -29,7 +29,7 @@ PARSER:
 		Prefix : par_
 
 TERMCAPS :
-		Prefix : terc_
+		Prefix : tercs_
 
 EXECUTION :
 		Prefix : exec_
