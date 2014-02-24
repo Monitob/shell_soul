@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   42sh.h                                             :+:      :+:    :+:   */
+/*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/24 16:18:35 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/24 19:03:56 by jbernabe         ###   ########.fr       */
+/*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
+/*   Updated: 2014/02/24 19:22:48 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef 42_SH_H
-# define 42_SH_H
+#ifndef SHELL_H
+# define SHELL_H
 
 # include <unistd.h>
 # include <fcntl.h>
@@ -22,17 +22,19 @@
 # include <termcap.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include "libft.h"
 
 # define BUFFER_R 5
 
 extern char **environ;
 
-typedef struct			s_shell
+
+typedef struct			s_stack
 {
-	t_command			*data;
-	t_tercs				*tcs;
-	char				**env;
-}						t_shell;
+	char				*hist;
+	struct s_stack		*next;
+	struct s_stack		*prev;
+}						t_stack;
 
 typedef struct			s_command
 {	
@@ -52,17 +54,18 @@ typedef struct			s_tercs
 	size_t				line_len;
 }						t_tercs;
 
-typedef struct			s_stack
+typedef struct			s_shell
 {
-	char				*hist;
-	struct struct		*next;
-	struct struct		*prev;
-}						t_stack;
+	t_command			*data;
+	t_tercs				*tcs;
+	char				**env;
+}						t_shell;
 
 /*
  * init_shell.c
  */
-t_node		*init_shell(t_shell *root);
+
+t_shell		*init_shell(t_shell *root);
 char		**init_env(void);
 int			set_fd(void);
 int			error_fd(char *s, int fd);
