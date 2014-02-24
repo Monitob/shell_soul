@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 16:17:08 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/24 20:34:50 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/24 23:59:59 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int			main(void)
 	root = init_shell(root);
 	root->env = init_env();
 	show_prompt();
+	init_line(root);
 	return (0);
 }
 
@@ -29,24 +30,12 @@ t_shell		*init_shell(t_shell *root)
 	root->data = (t_command *)malloc(sizeof(*(root->data)));
 	root->tcs = (t_tercs *)malloc(sizeof(*(root->tcs)));
 	root->tcs->hist = (t_stack *)malloc(sizeof(*(root->tcs->hist)));
-	if (root == NULL || root->data == NULL || root->tcs == NULL)
+	if (root == NULL || root->data == NULL || root->tcs == NULL
+				|| root->tcs->hist == NULL)
 		error_fd("Not enought memory", 2);
 	root->tcs->tty_fd = set_fd();
+	init_trcs(root->tcs);
 	return (root);
-}
-
-int			set_fd(void)
-{
-	int		fd;
-	char	*path_fd;
-
-	if (!(isatty(STDIN_FILENO)))
-		error_fd("Not a terminal", 2);
-	if ((path_fd = ttyname(STDIN_FILENO)) == NULL)
-		error_fd("ttayname fail", 2);
-	if ((fd = open(path_fd, O_WRONLY | O_NOCTTY)) < 0)
-		error_fd("open fail", 2);
-	return (fd);
 }
 
 char		**init_env(void)
@@ -66,11 +55,4 @@ char		**init_env(void)
 	}
 	env[i] = NULL;
 	return (env);
-}
-	
-int			error_fd(char *s, int fd)
-{
-			ft_putstr_fd(s, fd);
-			ft_putchar('\n');
-			_exit(1);
 }

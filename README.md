@@ -49,7 +49,7 @@ the main struct:
 
 
 typedef struct		s_shell
-{
+
 	t_command		*data;
 	char			**env;
 	t_tercs			tcs;

@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/24 19:55:17 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/25 00:07:23 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 # include <sys/types.h>
 # include "libft.h"
 
-# define BUFFER_R 5
+# define BUFFER_R	5
+# define TPUTS(id)	tputs(tgetstr(#id, NULL), 1, trcs_putchar)
 
 extern char **environ;
 
@@ -67,13 +68,22 @@ typedef struct			s_shell
 
 t_shell		*init_shell(t_shell *root);
 char		**init_env(void);
-int			set_fd(void);
-int			error_fd(char *s, int fd);
 
 /*
 ** init_shell2.c
 */
 
 void		show_prompt(void);
-	
+int			init_line(t_shell *root);
+
+/*
+** tercs_init.c
+*/
+
+void		reset_term(t_shell	*root);
+int			trcs_putchar(int c);
+void		init_trcs(t_tercs *tcs);
+int			set_fd(void);
+int			error_fd(char *s, int fd);
+
 #endif
