@@ -6,19 +6,20 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 16:17:08 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/24 19:23:05 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/24 19:52:09 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int	main(void)
+int			main(void)
 {
 	t_shell	*root;
 
 	root = NULL;
 	root = init_shell(root);
 	root->env = init_env();
+	show_prompt();
 	return (0);
 }
 
@@ -35,7 +36,6 @@ t_shell		*init_shell(t_shell *root)
 
 int			set_fd(void)
 {
-
 	int		fd;
 	char	*path_fd;
 
@@ -67,9 +67,9 @@ char		**init_env(void)
 	return (env);
 }
 	
-int		error_fd(char *s, int fd)
+int			error_fd(char *s, int fd)
 {
-		ft_putstr_fd(s, fd);
-		ft_putchar('\n');
-		_exit(1);
+			ft_putstr_fd(s, fd);
+			ft_putchar('\n');
+			_exit(1);
 }

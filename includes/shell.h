@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/24 19:22:48 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/24 19:55:17 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,18 @@ typedef struct			s_shell
 }						t_shell;
 
 /*
- * init_shell.c
- */
+** init_shell.c
+*/
 
 t_shell		*init_shell(t_shell *root);
 char		**init_env(void);
 int			set_fd(void);
 int			error_fd(char *s, int fd);
+
+/*
+** init_shell2.c
+*/
+
+void		show_prompt(void);
 	
 #endif
