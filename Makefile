@@ -6,7 +6,7 @@
 #    By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/04 22:30:52 by jbernabe          #+#    #+#              #
-#    Updated: 2014/02/24 19:50:38 by jbernabe         ###   ########.fr        #
+#    Updated: 2014/02/24 20:35:14 by jbernabe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = cc
 
 NAME = 42sh 
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g --debug -Wall -Wextra -Werror
 
 PATH_SRC = ./src
 PATH_OBJ = ./objs

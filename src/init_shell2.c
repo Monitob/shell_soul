@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/24 19:51:29 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/24 20:39:31 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ void		show_prompt(void)
 		i++;
 	temp = ft_strsplit(environ[i], '=');
 	temp++;
+	ft_putstr(*temp);
 	ft_putstr("\033[35m -> \033[0m");
-	free(temp);
-	temp = NULL;
 	return ;
 }
 
