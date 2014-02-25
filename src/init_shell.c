@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 16:17:08 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/24 23:59:59 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/25 02:50:57 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int			main(void)
 	root->env = init_env();
 	show_prompt();
 	init_line(root);
+	reset_term(root);
 	return (0);
 }
 

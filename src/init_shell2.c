@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/25 00:24:43 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/25 03:52:12 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,24 @@ void		show_prompt(void)
 int				init_line(t_shell *root)
 {
 	t_command	line;
-//	t_tercs		*list;
+	int			i;
+	void		(*fontions_list[6])(t_command *); 
 
-	ft_memset(line.buffer, 0, 5);
 	if (root)
 	{
+		i = -1;
+		init_key_control(fontions_list, &line);
 		root->data->cmd_arg = NULL;
-		ft_bzero(line.buffer, 5);
+		root->tcs->cursor = 0;
 		while (!(line.buffer[0] == 27 && line.buffer[1] == 0
-					&& line.buffer[2] == 0))
+					&& line.buffer[2] == 0) && line.buffer[0] != 10)
 		{
-			ft_bzero(line.buffer, 4);
+			ft_bzero(line.buffer, 8);
 			read(0, line.buffer, BUFFER_R);
+			/*here I do the verification of key and the I write*/
+			while(fontions_list[++i])
+				fontions_list[i](&line);
 			write(1, line.buffer, 1);
-			if (line.buffer[2] == 0 && line.buffer[3] == 0)
-			{
-			//	list = cursor_control(line);
-			//	root->data->arg_line = list_to_string(list);
-			}
-		/*	if (line.buffer[0] == 27 && line.buffer[1] == 91)
-				ft_key_control(&list, line);*/
-	/*		if (line.buffer[0] == 10)
-				return (1);*/
 			line.buffer[1] = 0;
 			line.buffer[2] = 0;
 			line.buffer[3] = 0;
@@ -60,30 +56,16 @@ int				init_line(t_shell *root)
 	}
 	return (0);
 }
-/*
-void		ft_key_control(t_tercs **list, t_command line)
-{
-	t_tercs	**aux;
 
-	aux = list;
-	if ((*list != NULL))
-	{
-		if ((line.buffer[2]) == 68)
-		{
-			if ((*aux)->previous == NULL)
-				return ;
-			tputs(tgetstr("le", NULL), 1, put_shell);
-			*aux = (*aux)->previous;
-		}
-		if ((line.buffer[2]) == 67)
-		{
-			ft_putstr("dere");
-			tputs(tgetstr("nd", NULL), 1, put_shell);
-		}
-		if ((line.buffer[2]) == 65)
-			ft_putstr("arriba");
-		if ((line.buffer[2]) == 66)
-			ft_putstr("abajo");
-	}
+void		init_key_control(void (*fontions_list[])(), t_command *key)
+{
+	fontions_list[0] = &tercs_up_hist;
+	fontions_list[1] = &tercs_down_hist;
+	fontions_list[2] = &tercs_insert;
+	fontions_list[3] = &tercs_delete_hist;
+	fontions_list[4] = &exec_line;
+	fontions_list[5] = &tercs_edit_line;
+	fontions_list[6] = NULL;
+	ft_bzero(key->buffer, 8);
+	ft_bzero(key->line, ft_strlen(key->line));
 }
-*/

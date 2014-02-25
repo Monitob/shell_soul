@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/25 00:07:23 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/25 04:00:38 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@
 # include <sys/types.h>
 # include "libft.h"
 
-# define BUFFER_R	5
+# define BUFFER_R	8	
 # define TPUTS(id)	tputs(tgetstr(#id, NULL), 1, trcs_putchar)
 
 extern char **environ;
 
+typedef struct s_tercs	t_tercs;
 
 typedef struct			s_stack
 {
@@ -43,9 +44,10 @@ typedef struct			s_command
 	char				*path;
 	char				**cmd_arg;
 	char				buffer[BUFFER_R];
+	t_tercs				*curr_hist;
 }						t_command;
 
-typedef struct			s_tercs
+struct					s_tercs
 {
 	int					tty_fd;
 	t_stack				*hist;
@@ -53,7 +55,7 @@ typedef struct			s_tercs
 	struct termios		term_save;
 	size_t				cursor;
 	size_t				line_len;
-}						t_tercs;
+};
 
 typedef struct			s_shell
 {
@@ -61,6 +63,8 @@ typedef struct			s_shell
 	t_tercs				*tcs;
 	char				**env;
 }						t_shell;
+
+typedef void	fontions_list();
 
 /*
 ** init_shell.c
@@ -75,6 +79,7 @@ char		**init_env(void);
 
 void		show_prompt(void);
 int			init_line(t_shell *root);
+void		init_key_control(void (*fontions_list[])(), t_command *key);
 
 /*
 ** tercs_init.c
@@ -85,5 +90,16 @@ int			trcs_putchar(int c);
 void		init_trcs(t_tercs *tcs);
 int			set_fd(void);
 int			error_fd(char *s, int fd);
+
+/*
+** tercs_control.c
+*/
+
+void		tercs_edit_line(t_command *key);
+void		tercs_up_hist(t_command *key);
+void		tercs_down_hist(t_command *key);
+void		tercs_insert(t_command *key);
+void		tercs_delete_hist(t_command *key);
+void		exec_line(t_command *key);
 
 #endif

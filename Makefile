@@ -6,7 +6,7 @@
 #    By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/04 22:30:52 by jbernabe          #+#    #+#              #
-#    Updated: 2014/02/24 23:56:44 by jbernabe         ###   ########.fr        #
+#    Updated: 2014/02/25 03:14:18 by jbernabe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ PATH_OBJ = ./objs
 PATH_INC = ./includes
 LFLAGS = -ltermcap
 
-SRC = init_shell.c init_shell2.c tercs_init.c
+SRC = init_shell.c init_shell2.c tercs_init.c tercs_control.c
 
 OBJ = $(patsubst %.c, $(PATH_OBJ)/%.o, $(SRC))
 
