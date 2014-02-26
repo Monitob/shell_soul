@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/26 12:30:43 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/26 13:33:25 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,13 @@ static void		init_key_control(t_shell *shell)
 
 static void		exec_type(t_shell *shell, int type, char key[8])
 {
-
-	/*/!\ IL Y A 3 POUR L'INSTANT!, MAIS CA VA AUGMENTER EN 
-	 * RAISON DES NOMBRES DE
-	 * FONTONS /!\*/
-	void		(*key_control[4])(t_shell *, char [8]) = EXEC_INST; 
+	void		(*key_control[5])(t_shell *, char [8]) = EXEC_INST; 
 	int			i;
 
 	i = 0;
 	while(i < 5)
 	{
-		key_control[i](shell, key[8]);
+		key_control[i](shell, key);
 		if (i == type)
 			key_control[i](shell, key);
 		i++;

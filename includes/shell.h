@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/26 12:31:39 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/26 13:30:15 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct			s_command
 	char				*line;
 	char				*path;
 	char				**cmd_arg;
-	char				buffer[BUFFER_R];
 	t_tercs				*curr_hist;
 }						t_command;
 
@@ -106,5 +105,10 @@ int			error_fd(char *s, int fd);
 ** tercs_control.c
 */
 
+void	tercs_up(t_shell *shell, char key[8]);
+void	tercs_ascii(t_shell *shell, char key[8]);
+void	tercs_down(t_shell *shell, char key[8]);
+void	tercs_right(t_shell *shell, char key[8]);
+void	tercs_left(t_shell *shell, char key[8]);
 
 #endif
