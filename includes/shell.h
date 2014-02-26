@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/25 04:00:38 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/26 11:29:11 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 # define BUFFER_R	8	
 # define TPUTS(id)	tputs(tgetstr(#id, NULL), 1, trcs_putchar)
+# define EXEC_INST	{tercs_ascii, tercs_up, tercs_down, tercs_right, tercs_left}
 
 extern char **environ;
 
@@ -64,7 +65,11 @@ typedef struct			s_shell
 	char				**env;
 }						t_shell;
 
-typedef void	fontions_list();
+enum					e_key
+{
+	RETURN = -1, ASCII = 0, UP = 1, DOWN = 2,
+	RIGHT = 3, LEFT = 4
+};
 
 /*
 ** init_shell.c
@@ -79,7 +84,12 @@ char		**init_env(void);
 
 void		show_prompt(void);
 int			init_line(t_shell *root);
-void		init_key_control(void (*fontions_list[])(), t_command *key);
+
+/*
+**	init_types.c
+*/
+
+int			set_type(char key[8]);
 
 /*
 ** tercs_init.c

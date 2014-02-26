@@ -6,17 +6,17 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/25 03:52:12 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/26 11:29:53 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 #include <stdio.h>
 
-void		show_prompt(void)
+void			show_prompt(void)
 {
-	int		i;
-	char	**temp;
+	int			i;
+	char		**temp;
 
 	i = 0;
 	while (strncmp(environ[i], "USER=", 5) != 0)
@@ -31,23 +31,26 @@ void		show_prompt(void)
 int				init_line(t_shell *root)
 {
 	t_command	line;
-	int			i;
-	void		(*fontions_list[6])(t_command *); 
+	int			type;
 
+	type = 0;
 	if (root)
 	{
-		i = -1;
-		init_key_control(fontions_list, &line);
-		root->data->cmd_arg = NULL;
-		root->tcs->cursor = 0;
+		init_key_control(root, line.buffer);
 		while (!(line.buffer[0] == 27 && line.buffer[1] == 0
 					&& line.buffer[2] == 0) && line.buffer[0] != 10)
 		{
-			ft_bzero(line.buffer, 8);
-			read(0, line.buffer, BUFFER_R);
-			/*here I do the verification of key and the I write*/
-			while(fontions_list[++i])
-				fontions_list[i](&line);
+			read_key(line.buffer, 0);
+			type = set_type(line.buffer);
+			if (type > -1)
+			{
+				exec_type(root, type, line.buffer);
+			}
+			if (type == -1)
+			{
+				ft_putstr("enter");
+				exit(0);
+			}
 			write(1, line.buffer, 1);
 			line.buffer[1] = 0;
 			line.buffer[2] = 0;
@@ -57,15 +60,35 @@ int				init_line(t_shell *root)
 	return (0);
 }
 
-void		init_key_control(void (*fontions_list[])(), t_command *key)
+static void		read_key(char key[8], int fd)
 {
-	fontions_list[0] = &tercs_up_hist;
-	fontions_list[1] = &tercs_down_hist;
-	fontions_list[2] = &tercs_insert;
-	fontions_list[3] = &tercs_delete_hist;
-	fontions_list[4] = &exec_line;
-	fontions_list[5] = &tercs_edit_line;
-	fontions_list[6] = NULL;
+	ft_bzero(key, 9);
+	read(0, key, BUFFER_R);
+}
+
+static void		init_key_control(t_shell *shell, t_command *key)
+{
+
 	ft_bzero(key->buffer, 8);
 	ft_bzero(key->line, ft_strlen(key->line));
+	shell->data->cmd_arg = NULL;
+	shell->tcs->cursor = 0;
+}
+
+static void		exec_type(t_shell *shell, int type, char key[8])
+{
+
+	/*/!\ IL Y A 3 POUR L'INSTANT!, MAIS CA VA AUGMENTER EN RAISON DES NOMBRES DE
+	 * FONTONS /!\*/
+	void		(*key_control[4])(t_command *, char [8]) = EXEC_INST; 
+	int			i;
+
+	i = 0;
+	while(i < 5)
+	{
+		key_control[i](shell, key[8]);
+		if (i == type)
+			key_control[i](shell, key);
+		i++;
+	}
 }

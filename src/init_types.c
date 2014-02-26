@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tercs_control.c                                    :+:      :+:    :+:   */
+/*   init_types.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/25 02:51:39 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/26 11:52:28 by jbernabe         ###   ########.fr       */
+/*   Created: 2014/02/26 11:08:59 by jbernabe          #+#    #+#             */
+/*   Updated: 2014/02/26 11:29:18 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	tercs_up(t_shell *shell, char key[8])
+int			set_type(char key[8])
 {
-	ft_putstr("go up");
-}
-
-void	tercs_ascii(t_shell *shell, char key[8])
-{
-
-}
-
-void	tercs_down(t_shell *shell, char key[8])
-{
-		ft_putstr("down");
-}
-
-void	tercs_right(t_shell *shell, char key[8])
-{
-
-		ft_putstr("up");
+	if (key[0] == 27 && key[1] == 91)
+	{
+		if	(key[2] == 65)
+			return (UP);
+		if	(key[2] == 66)
+			return (DOWN);
+		if	(key[2] == 67)
+			return (RIGHT);
+		if	(key[2] == 68)
+			return (LEFT);
+	}
+	if (key[0] == 10)
+		return (RETURN);
+	return (-2);
 }
