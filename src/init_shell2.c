@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/26 13:33:25 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/26 14:30:20 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ void			show_prompt(void)
 
 static void		init_key_control(t_shell *shell)
 {
-	ft_bzero(shell->data->line, ft_strlen(shell->data->line));
 	shell->data->cmd_arg = NULL;
 	shell->tcs->cursor = 0;
+	shell->tcs->line_len = 0;
+	shell->tcs->index = 0;
 }
 
 static void		exec_type(t_shell *shell, int type, char key[8])
@@ -73,6 +74,7 @@ int				init_line(t_shell *root)
 				ft_putstr("enter");
 				exit(0);
 			}
+			write(1, key, 1);
 			key[1] = 0;
 			key[2] = 0;
 			key[3] = 0;

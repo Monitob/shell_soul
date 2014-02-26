@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/26 13:30:15 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/26 14:19:01 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ typedef struct s_tercs	t_tercs;
 
 typedef struct			s_stack
 {
-	char				*hist;
-	struct s_stack		*next;
-	struct s_stack		*prev;
+	char				**str_tab;
+	struct s_stack		*right;
+	struct s_stack		*left;
 }						t_stack;
 
 typedef struct			s_command
@@ -49,11 +49,12 @@ typedef struct			s_command
 
 struct					s_tercs
 {
-	int					tty_fd;
+	int					tty_fd;	
 	t_stack				*hist;
 	struct termios		term_fd;
 	struct termios		term_save;
 	size_t				cursor;
+	size_t				index;
 	size_t				line_len;
 };
 
