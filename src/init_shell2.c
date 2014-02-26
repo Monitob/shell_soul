@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/26 11:29:53 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/26 12:30:43 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,49 +28,9 @@ void			show_prompt(void)
 	return ;
 }
 
-int				init_line(t_shell *root)
+static void		init_key_control(t_shell *shell)
 {
-	t_command	line;
-	int			type;
-
-	type = 0;
-	if (root)
-	{
-		init_key_control(root, line.buffer);
-		while (!(line.buffer[0] == 27 && line.buffer[1] == 0
-					&& line.buffer[2] == 0) && line.buffer[0] != 10)
-		{
-			read_key(line.buffer, 0);
-			type = set_type(line.buffer);
-			if (type > -1)
-			{
-				exec_type(root, type, line.buffer);
-			}
-			if (type == -1)
-			{
-				ft_putstr("enter");
-				exit(0);
-			}
-			write(1, line.buffer, 1);
-			line.buffer[1] = 0;
-			line.buffer[2] = 0;
-			line.buffer[3] = 0;
-		}
-	}
-	return (0);
-}
-
-static void		read_key(char key[8], int fd)
-{
-	ft_bzero(key, 9);
-	read(0, key, BUFFER_R);
-}
-
-static void		init_key_control(t_shell *shell, t_command *key)
-{
-
-	ft_bzero(key->buffer, 8);
-	ft_bzero(key->line, ft_strlen(key->line));
+	ft_bzero(shell->data->line, ft_strlen(shell->data->line));
 	shell->data->cmd_arg = NULL;
 	shell->tcs->cursor = 0;
 }
@@ -78,9 +38,10 @@ static void		init_key_control(t_shell *shell, t_command *key)
 static void		exec_type(t_shell *shell, int type, char key[8])
 {
 
-	/*/!\ IL Y A 3 POUR L'INSTANT!, MAIS CA VA AUGMENTER EN RAISON DES NOMBRES DE
+	/*/!\ IL Y A 3 POUR L'INSTANT!, MAIS CA VA AUGMENTER EN 
+	 * RAISON DES NOMBRES DE
 	 * FONTONS /!\*/
-	void		(*key_control[4])(t_command *, char [8]) = EXEC_INST; 
+	void		(*key_control[4])(t_shell *, char [8]) = EXEC_INST; 
 	int			i;
 
 	i = 0;
@@ -92,3 +53,36 @@ static void		exec_type(t_shell *shell, int type, char key[8])
 		i++;
 	}
 }
+
+int				init_line(t_shell *root)
+{
+	int			type;
+	char		key[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+
+	type = 0;
+	if (root)
+	{
+		init_key_control(root);
+		while (!(key[0] == 27 && key[1] == 0
+					&& key[2] == 0) && key[0] != 10)
+		{
+			read_key(key, 0);
+			type = set_type(key);
+			if (type > -1)
+			{
+				exec_type(root, type, key);
+			}
+			if (type == -1)
+			{
+				ft_putstr("enter");
+				exit(0);
+			}
+			key[1] = 0;
+			key[2] = 0;
+			key[3] = 0;
+		}
+	}
+	return (0);
+}
+
+

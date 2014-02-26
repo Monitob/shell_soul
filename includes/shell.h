@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/26 11:29:11 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/26 12:31:39 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <dirent.h>
 # include <termios.h>
 # include <signal.h>
-# include <termcap.h>
+# include <term.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include "libft.h"
@@ -90,6 +90,7 @@ int			init_line(t_shell *root);
 */
 
 int			set_type(char key[8]);
+void		read_key(char key[8], int fd);
 
 /*
 ** tercs_init.c
@@ -105,11 +106,5 @@ int			error_fd(char *s, int fd);
 ** tercs_control.c
 */
 
-void		tercs_edit_line(t_command *key);
-void		tercs_up_hist(t_command *key);
-void		tercs_down_hist(t_command *key);
-void		tercs_insert(t_command *key);
-void		tercs_delete_hist(t_command *key);
-void		exec_line(t_command *key);
 
 #endif

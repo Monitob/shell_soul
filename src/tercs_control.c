@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/25 02:51:39 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/26 11:52:28 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/26 12:04:16 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	tercs_up(t_shell *shell, char key[8])
 
 void	tercs_ascii(t_shell *shell, char key[8])
 {
+	/*Get the line*/
+	write(1, key, 1);
 
 }
 
