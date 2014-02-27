@@ -25,8 +25,6 @@ void	tercs_up(t_shell *shell, char key[8])
 
 void	tercs_ascii(t_shell *shell, char key[8])
 {
-	/*Get the line*/
-		write(1, key, 1);
 	if (shell)
 	{
 		write(1, key, 1);

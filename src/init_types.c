@@ -33,5 +33,7 @@ int			set_type(char key[8])
 	}
 	if (key[0] == 10)
 		return (RETURN);
+	if (key[0])
+		return (ASCII);
 	return (-2);
 }

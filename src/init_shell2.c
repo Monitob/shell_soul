@@ -65,6 +65,7 @@ int				init_line(t_shell *root)
 		{
 			read_key(key, 0);
 			type = set_type(key);
+			ft_putnbr(type);
 			if (type > -1)
 			{
 				exec_type(root, type, key);
@@ -74,10 +75,14 @@ int				init_line(t_shell *root)
 				ft_putstr("enter");
 				exit(0);
 			}
-			write(1, key, 1);
+	//		write(1, key, 1);
 			key[1] = 0;
 			key[2] = 0;
 			key[3] = 0;
+			key[4] = 0;
+			key[5] = 0;
+			key[6] = 0;
+			key[7] = 0;
 		}
 	}
 	return (0);
