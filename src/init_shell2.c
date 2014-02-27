@@ -46,7 +46,9 @@ static void		exec_type(t_shell *shell, int type, char key[8])
 	{
 		key_control[i](shell, key);
 		if (i == type)
+		{
 			key_control[i](shell, key);
+		}
 		i++;
 	}
 }
@@ -60,21 +62,17 @@ int				init_line(t_shell *root)
 	if (root)
 	{
 		init_key_control(root);
-		while (!(key[0] == 27 && key[1] == 0
-					&& key[2] == 0) && key[0] != 10)
+		while (!(key[0] == 27 && key[1] == 0))
 		{
 			read_key(key, 0);
 			type = set_type(key);
-			ft_putnbr(type);
 			if (type > -1)
-			{
 				exec_type(root, type, key);
-			}
-			if (type == -1)
+	/*		if (type == -1)
 			{
 				ft_putstr("enter");
 				exit(0);
-			}
+			}*/
 	//		write(1, key, 1);
 			key[1] = 0;
 			key[2] = 0;
@@ -83,6 +81,7 @@ int				init_line(t_shell *root)
 			key[5] = 0;
 			key[6] = 0;
 			key[7] = 0;
+			type = 0;
 		}
 	}
 	return (0);

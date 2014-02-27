@@ -18,18 +18,31 @@ void	tercs_up(t_shell *shell, char key[8])
 		return ;
 	if (shell->tcs->cursor)
 	{
+		ft_putnbr(key[1]);
+		ft_putnbr(key[2]);
+		ft_putnbr(key[3]);
+		ft_putnbr(key[4]);
+		ft_putnbr(key[5]);
+		ft_putnbr(key[6]);
+		ft_putnbr(key[7]);
 		ft_putstr("go up");
 	}
-	(void)key;
 }
 
 void	tercs_ascii(t_shell *shell, char key[8])
 {
 	if (shell)
 	{
-		write(1, key, 1);
+		ft_putnbr(key[1]);
+		ft_putnbr(key[2]);
+		ft_putnbr(key[3]);
+		ft_putnbr(key[4]);
+		ft_putnbr(key[5]);
+		ft_putnbr(key[6]);
+		ft_putchar_fd(key[0], 2);
 	}
 	(void)key;
+	return ;
 }
 
 void	tercs_down(t_shell *shell, char key[8])
