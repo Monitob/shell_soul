@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 11:08:59 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/27 11:31:56 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/27 20:09:39 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		read_key(char key[8], int fd)
 {
-	ft_bzero(key, 9);
+	ft_bzero(key, 8);
 	read(fd, key, BUFFER_R);
 }
 

@@ -6,12 +6,13 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/27 14:08:11 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/27 20:45:53 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-#include <stdio.h>
+
+#include <stdio.h> ////////
 
 void			show_prompt(void)
 {
@@ -63,18 +64,22 @@ int				init_line(t_shell *root)
 	char		key[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 	type = 0;
+	list_current = NULL;
 	if (root)
 	{
 		init_key_control(root);
 		while (!(key[0] == 27 && key[1] == 0))
 		{
 			ft_memset(key, 0, 8);
-			read_key(key, 0);
+			read(0, key, BUFFER_R);
 			type = set_type(key);
 			if (type > -1)
 				exec_type(root, type, key);
-			if (key[2] == 0  && key[3] == 0)
-				list_current = init_ascii(key);
+			if (key[2] == 0 && key[3] == 0)
+			{
+				init_ascii(&list_current, key[0]);
+				display_list_test(list_current); //
+			}
 			key[2] = 0;
 			key[3] = 0;
 			key[5] = 0;

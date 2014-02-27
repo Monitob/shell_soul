@@ -6,40 +6,50 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/27 12:14:31 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/27 14:12:51 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/27 20:45:58 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-
-static t_letter *insert_char(t_letter **current_list, char key[8])
+static void	insert_char(t_letter **current_list, char key)
 {
 	t_letter	*let;
 	t_letter	*temp;
 
-	let = (t_letter *)malloc(sizeof(t_letter));
-	let->letter = key[0];
+	temp = NULL;
+	if (!(let = (t_letter *)malloc(sizeof(t_letter))))
+		return ;
+	let->letter = key;
 	let->next = NULL;
 	let->prev = NULL;
 	if (*current_list == NULL)
-		return (let);
+		*current_list = let;
 	else
 	{
 		temp = *current_list;
 		while (temp->next != NULL)
 			temp = temp->next;
-		temp->next =  let;
+		temp->next = let;
 		let->prev = temp;
-		return (*current_list);
 	}
 }
 
-t_letter	*init_ascii(char key[8])
+void	init_ascii(t_letter **head, char key)
 {
-	static t_letter	*current_list = NULL;
+	insert_char(head, key);
+	ft_putchar(key);
+}
 
-	current_list = insert_char(&current_list, key);
-	ft_putchar(key[0]);
-	return (current_list);
+void	display_list_test(t_letter *head)
+{
+	t_letter *temp;
+
+	temp = head;
+	while (temp != NULL)
+	{
+		ft_putchar(temp->letter);
+		temp = temp->next;
+	}
+	write(1, "\n", 1);
 }

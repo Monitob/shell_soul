@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/27 14:07:58 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/27 20:12:24 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct			s_command
 
 typedef struct			s_letter
 {
-	int					letter;
+	char				letter;
 	struct s_letter		*next;
 	struct s_letter		*prev;
 }						t_letter;
@@ -123,6 +123,8 @@ void	tercs_left(t_shell *shell, char key[8]);
 ** init_current_list.c
 */
 
-t_letter	*init_ascii(char key[8]);
+void	init_ascii(t_letter **head, char key);
 
+/*debug*/
+void	display_list_test(t_letter *head);
 #endif
