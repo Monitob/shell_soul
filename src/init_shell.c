@@ -46,11 +46,11 @@ char		**init_env(void)
 	int		len_env;
 
 	len_env = ft_tab_len(environ);
-	env = (char **)malloc(sizeof(char **) * len_env);
+	env = (char **)malloc(sizeof(char *) * len_env);
 	i = 0;
 	while (i < len_env)
 	{
-		env[i] = (char *)malloc(sizeof(char *) * ft_strlen(environ[i]) + 1);
+		env[i] = (char *)malloc(sizeof(char) * (ft_strlen(environ[i]) + 1));
 		ft_strcpy(env[i], environ[i]);
 		i++;
 	}
