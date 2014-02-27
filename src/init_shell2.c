@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/26 14:30:20 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/27 14:08:11 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,26 @@ void			show_prompt(void)
 static void		init_key_control(t_shell *shell)
 {
 	shell->data->cmd_arg = NULL;
-	shell->tcs->cursor = 0;
+	shell->data->path = NULL;
+	shell->data->line = NULL;
+	shell->tcs->hist->str_tab = NULL;
+	shell->tcs->hist->left = NULL;
 	shell->tcs->line_len = 0;
 	shell->tcs->index = 0;
 }
 
 static void		exec_type(t_shell *shell, int type, char key[8])
 {
-	void		(*key_control[5])(t_shell *, char [8]) = EXEC_INST; 
+	void		(*key_control[4])(t_shell *, char [8]) = EXEC_INST; 
 	int			i;
 
 	i = 0;
-	while(i < 5)
+	while(i < 4)
 	{
 		key_control[i](shell, key);
 		if (i == type)
 		{
-			key_control[i](shell, key);
+			key_control[type](shell, key);
 		}
 		i++;
 	}
@@ -56,6 +59,7 @@ static void		exec_type(t_shell *shell, int type, char key[8])
 int				init_line(t_shell *root)
 {
 	int			type;
+	t_letter	*list_current;
 	char		key[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 	type = 0;
@@ -64,27 +68,17 @@ int				init_line(t_shell *root)
 		init_key_control(root);
 		while (!(key[0] == 27 && key[1] == 0))
 		{
+			ft_memset(key, 0, 8);
 			read_key(key, 0);
 			type = set_type(key);
 			if (type > -1)
 				exec_type(root, type, key);
-	/*		if (type == -1)
-			{
-				ft_putstr("enter");
-				exit(0);
-			}*/
-	//		write(1, key, 1);
-			key[1] = 0;
+			if (key[2] == 0  && key[3] == 0)
+				list_current = init_ascii(key);
 			key[2] = 0;
 			key[3] = 0;
-			key[4] = 0;
 			key[5] = 0;
-			key[6] = 0;
-			key[7] = 0;
-			type = 0;
 		}
 	}
 	return (0);
 }
-
-

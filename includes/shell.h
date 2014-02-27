@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/26 14:19:01 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/27 14:07:58 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 # define BUFFER_R	8	
 # define TPUTS(id)	tputs(tgetstr(#id, NULL), 1, trcs_putchar)
-# define EXEC_INST	{tercs_ascii, tercs_up, tercs_down, tercs_right, tercs_left}
+# define EXEC_INST	{tercs_up, tercs_down, tercs_right, tercs_left}
 
 extern char **environ;
 
@@ -44,13 +44,20 @@ typedef struct			s_command
 	char				*line;
 	char				*path;
 	char				**cmd_arg;
-	t_tercs				*curr_hist;
 }						t_command;
+
+typedef struct			s_letter
+{
+	int					letter;
+	struct s_letter		*next;
+	struct s_letter		*prev;
+}						t_letter;
 
 struct					s_tercs
 {
 	int					tty_fd;	
 	t_stack				*hist;
+	t_letter			*current;
 	struct termios		term_fd;
 	struct termios		term_save;
 	size_t				cursor;
@@ -67,8 +74,8 @@ typedef struct			s_shell
 
 enum					e_key
 {
-	RETURN = -1, ASCII = 0, UP = 1, DOWN = 2,
-	RIGHT = 3, LEFT = 4
+	RETURN = -1, UP = 0, DOWN = 1,
+	RIGHT = 2, LEFT = 3
 };
 
 /*
@@ -111,5 +118,11 @@ void	tercs_ascii(t_shell *shell, char key[8]);
 void	tercs_down(t_shell *shell, char key[8]);
 void	tercs_right(t_shell *shell, char key[8]);
 void	tercs_left(t_shell *shell, char key[8]);
+
+/*
+** init_current_list.c
+*/
+
+t_letter	*init_ascii(char key[8]);
 
 #endif
