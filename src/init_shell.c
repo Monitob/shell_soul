@@ -46,7 +46,7 @@ char		**init_env(void)
 	int		len_env;
 
 	len_env = ft_tab_len(environ);
-	env = (char **)malloc(sizeof(char *) * len_env);
+	env = (char **)malloc(sizeof(char *) * (len_env + 1));
 	i = 0;
 	while (i < len_env)
 	{

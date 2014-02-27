@@ -1,0 +1,40 @@
+==11616== Memcheck, a memory error detector
+==11616== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==11616== Using Valgrind-3.9.0 and LibVEX; rerun with -h for copyright info
+==11616== Command: ./42sh
+==11616== Parent PID: 2452
+==11616== 
+==11616== Syscall param ioctl(TCSET{S,SW,SF}) points to uninitialised byte(s)
+==11616==    at 0x514D8C6: tcsetattr (tcsetattr.c:87)
+==11616==    by 0x401038: init_trcs (tercs_init.c:35)
+==11616==    by 0x400BF5: init_shell (init_shell.c:38)
+==11616==    by 0x400B07: main (init_shell.c:20)
+==11616==  Address 0xfff0002a0 is on thread 1's stack
+==11616== 
+==11616== 
+==11616== HEAP SUMMARY:
+==11616==     in use at exit: 2,858 bytes in 67 blocks
+==11616==   total heap usage: 68 allocs, 1 frees, 6,954 bytes allocated
+==11616== 
+==11616== 34 (24 direct, 10 indirect) bytes in 1 blocks are definitely lost in loss record 4 of 8
+==11616==    at 0x4C2C934: malloc (vg_replace_malloc.c:291)
+==11616==    by 0x4016E0: initialize_tab (ft_strsplit.c:46)
+==11616==    by 0x401869: ft_strsplit (ft_strsplit.c:97)
+==11616==    by 0x400D59: show_prompt (init_shell2.c:24)
+==11616==    by 0x400B1D: main (init_shell.c:22)
+==11616== 
+==11616== 2,824 (24 direct, 2,800 indirect) bytes in 1 blocks are definitely lost in loss record 8 of 8
+==11616==    at 0x4C2C934: malloc (vg_replace_malloc.c:291)
+==11616==    by 0x400B53: init_shell (init_shell.c:30)
+==11616==    by 0x400B07: main (init_shell.c:20)
+==11616== 
+==11616== LEAK SUMMARY:
+==11616==    definitely lost: 48 bytes in 2 blocks
+==11616==    indirectly lost: 2,810 bytes in 65 blocks
+==11616==      possibly lost: 0 bytes in 0 blocks
+==11616==    still reachable: 0 bytes in 0 blocks
+==11616==         suppressed: 0 bytes in 0 blocks
+==11616== 
+==11616== For counts of detected and suppressed errors, rerun with: -v
+==11616== Use --track-origins=yes to see where uninitialised values come from
+==11616== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)
