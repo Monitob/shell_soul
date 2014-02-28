@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 23:02:18 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/25 00:28:12 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/28 15:03:12 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,20 @@ int			set_fd(void)
 	return (fd);
 }
 
-void		init_trcs(t_tercs *tcs)
+static	void	init_term(void)
 {
+	char	*term_type;
+
+	term_type = getenv("TERM");
+	if (term_type == 0)
+		error_command("specify a terminal type with setenv TERM <yourtype>");
+	if (tgetent(NULL, term_type) <= 0)
+		error_command("Could not access to termcap database");
+}
+
+void			init_trcs(t_tercs *tcs)
+{
+	init_term();
 	tcgetattr(tcs->tty_fd, &tcs->term_save);
 	tcs->term_fd.c_iflag &= ~(ECHO | ICANON);
 	tcs->term_fd.c_cc[VMIN] = 1;
@@ -38,13 +50,6 @@ void		init_trcs(t_tercs *tcs)
 	TPUTS(li);
 }
 	
-int			error_fd(char *s, int fd)
-{
-			ft_putstr_fd(s, fd);
-			ft_putchar('\n');
-			_exit(1);
-}
-
 int			trcs_putchar(int c)
 {
 	write(0, &c, 1);
@@ -53,10 +58,9 @@ int			trcs_putchar(int c)
 
 void		reset_term(t_shell	*root)
 {
+	root->tcs->term_save.c_lflag = (ICANON | ECHO);
 	tcsetattr(STDIN_FILENO, TCSANOW, &root->tcs->term_save);
 	TPUTS(cl);
 	TPUTS(te);
 	TPUTS(ve);
-
 }
-	

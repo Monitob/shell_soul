@@ -6,13 +6,13 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/27 12:14:31 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/28 13:19:33 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/28 13:22:02 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	insert_char(t_letter **current_list, char key)
+static void		insert_char(t_letter **current_list, char key)
 {
 	t_letter	*let;
 	t_letter	*temp;
@@ -35,7 +35,7 @@ static void	insert_char(t_letter **current_list, char key)
 	}
 }
 
-void	init_ascii(t_letter **head, char key)
+void			init_ascii(t_letter **head, char key)
 {
 	insert_char(head, key);
 	ft_putchar(key);
@@ -56,7 +56,7 @@ int		ft_list_len(t_letter *head)
 	return (i);
 }
 
-void	char_to_string(t_command **string, t_letter *head)
+void			char_to_string(t_command **string, t_letter *head)
 {
 	t_letter	*temp;
 	int			len_tab;
@@ -76,7 +76,7 @@ void	char_to_string(t_command **string, t_letter *head)
 }
 
 
-void	display_list_test(t_letter *head)
+void			display_list_test(t_letter *head)
 {
 	t_letter	*temp;
 	int			i;

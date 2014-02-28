@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/28 13:07:05 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/28 14:59:23 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int			init_line(t_shell *root);
 */
 
 int			set_type(char key[8]);
-void		read_key(char key[8], int fd);
+int			read_key(char key[8], int fd);
 
 /*
 ** tercs_init.c
@@ -107,7 +107,6 @@ void		reset_term(t_shell	*root);
 int			trcs_putchar(int c);
 void		init_trcs(t_tercs *tcs);
 int			set_fd(void);
-int			error_fd(char *s, int fd);
 
 /*
 ** tercs_control.c
@@ -125,6 +124,13 @@ void	tercs_left(t_shell *shell, char key[8]);
 
 void	init_ascii(t_letter **head, char key);
 void	char_to_string(t_command **string, t_letter *head);
+
+/*
+** error.c
+*/
+
+void	error_command(char *s);
+int		error_fd(char *s, int fd);
 
 /*
 ** debug
