@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/27 12:14:31 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/28 13:17:06 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/28 13:19:33 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	char_to_string(t_command **string, t_letter *head)
 		temp = temp->next;
 		i++;
 	}
+	(*string)->line[i] = '\0';
 }
 
 
