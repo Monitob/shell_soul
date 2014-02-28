@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/28 14:59:23 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/28 19:03:01 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@
 
 # define BUFFER_R	8	
 # define TPUTS(id)	tputs(tgetstr(#id, NULL), 1, trcs_putchar)
+# define TGOTO(id)	tputs(tgoto(tgetstr(#id, NULL), 1, trcs_putchar)
 # define EXEC_INST	{tercs_up, tercs_down, tercs_right, tercs_left}
+# define EXE_PARAM	t_command *line, t_letter *, char [8]
 
 extern char **environ;
 
@@ -44,6 +46,7 @@ typedef struct			s_command
 	char				*line;
 	char				*path;
 	char				**cmd_arg;
+	size_t				index;
 }						t_command;
 
 typedef struct			s_letter
@@ -51,17 +54,15 @@ typedef struct			s_letter
 	char				letter;
 	struct s_letter		*next;
 	struct s_letter		*prev;
+	size_t				cursor;
 }						t_letter;
 
 struct					s_tercs
 {
 	int					tty_fd;	
 	t_stack				*hist;
-	t_letter			*current;
 	struct termios		term_fd;
 	struct termios		term_save;
-	size_t				cursor;
-	size_t				index;
 	size_t				line_len;
 };
 
@@ -70,12 +71,13 @@ typedef struct			s_shell
 	t_command			*data;
 	t_tercs				*tcs;
 	char				**env;
+	char				*prompt;
 }						t_shell;
 
 enum					e_key
 {
-	RETURN = -1, UP = 0, DOWN = 1,
-	RIGHT = 2, LEFT = 3
+	RETURN = -1, ASCII = 0, UP = 1, DOWN = 2,
+	RIGHT = 3, LEFT = 4
 };
 
 /*
@@ -89,7 +91,7 @@ char		**init_env(void);
 ** init_shell2.c
 */
 
-void		show_prompt(void);
+void		show_prompt(t_shell **shell);
 int			init_line(t_shell *root);
 
 /*
@@ -112,18 +114,17 @@ int			set_fd(void);
 ** tercs_control.c
 */
 
-void	tercs_up(t_shell *shell, char key[8]);
-void	tercs_ascii(t_shell *shell, char key[8]);
-void	tercs_down(t_shell *shell, char key[8]);
-void	tercs_right(t_shell *shell, char key[8]);
-void	tercs_left(t_shell *shell, char key[8]);
+void	tercs_up(t_command *c_line, t_letter *let,  char key[8]);
+void	tercs_down(t_command *c_line, t_letter *let,  char key[8]);
+void	tercs_right(t_command *c_line, t_letter *let,  char key[8]);
+void	tercs_left(t_command *c_line, t_letter *let,  char key[8]);
 
 /*
 ** init_current_list.c
 */
 
 void	init_ascii(t_letter **head, char key);
-void	char_to_string(t_command **string, t_letter *head);
+void	char_to_string(t_command **string, t_letter *head, char *prom);
 
 /*
 ** error.c

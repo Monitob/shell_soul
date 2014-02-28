@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 16:17:08 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/28 14:59:31 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/28 17:00:16 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			main(void)
 	root = NULL;
 	root = init_shell(root);
 	root->env = init_env();
-	show_prompt();
+	show_prompt(&root);
 	init_line(root);
 	reset_term(root);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 23:02:18 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/28 15:03:12 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/28 15:11:14 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void			init_trcs(t_tercs *tcs)
 	
 int			trcs_putchar(int c)
 {
-	write(0, &c, 1);
+	write(1, &c, 1);
 	return (1);
 }
 
