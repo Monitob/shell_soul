@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/27 20:12:24 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/28 13:07:05 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,13 @@ void	tercs_left(t_shell *shell, char key[8]);
 */
 
 void	init_ascii(t_letter **head, char key);
+void	char_to_string(t_command **string, t_letter *head);
 
-/*debug*/
+/*
+** debug
+*/
+
 void	display_list_test(t_letter *head);
+int		ft_list_len(t_letter *head);
+
 #endif

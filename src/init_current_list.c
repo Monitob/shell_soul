@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/27 12:14:31 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/27 20:45:58 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/02/28 13:17:06 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,49 @@ void	init_ascii(t_letter **head, char key)
 	ft_putchar(key);
 }
 
-void	display_list_test(t_letter *head)
+int		ft_list_len(t_letter *head)
 {
-	t_letter *temp;
+	t_letter	*temp;
+	int			i;
 
 	temp = head;
+	i = 0;
+	while (temp != NULL)
+	{
+		temp = temp->next;
+		i++;
+	}
+	return (i);
+}
+
+void	char_to_string(t_command **string, t_letter *head)
+{
+	t_letter	*temp;
+	int			len_tab;
+	int			i;
+
+	temp = head;
+	len_tab = ft_list_len(temp);
+	i = 0;
+	(*string)->line = (char *)malloc(sizeof(char) * len_tab);
+	while (temp != NULL)
+	{
+		(*string)->line[i] = temp->letter;
+		temp = temp->next;
+		i++;
+	}
+}
+
+
+void	display_list_test(t_letter *head)
+{
+	t_letter	*temp;
+	int			i;
+
+	temp = head;
+	i = 0;
+	i = ft_list_len(temp);
+	ft_putnbr(i);
 	while (temp != NULL)
 	{
 		ft_putchar(temp->letter);
