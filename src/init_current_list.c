@@ -6,13 +6,13 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/27 12:14:31 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/01 17:53:43 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/01 20:37:58 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 #include <stdio.h> //
-static void		insert_char(t_letter **current_list, char key, char *pro)
+static void		insert_char(t_letter **current_list, char key, t_prompt *pro)
 {
 	t_letter	*let;
 	t_letter	*temp;
@@ -34,17 +34,17 @@ static void		insert_char(t_letter **current_list, char key, char *pro)
 		while (temp->next != NULL)
 			temp = temp->next;
 		temp->next = let;
-		temp->cursor = ft_strlen(pro) + 4;
+		temp->cursor = pro->size_prompt;
 		let->prev = temp;
+		*current_list = let;
 		(*current_list)->cursor++;
-		TGOTO(ch, 0, (*current_list)->cursor);
 	}
 }
 
 void			init_ascii(t_letter **head, char key, t_shell **sh)
 {
-	insert_char(head, key, (*sh)->prompt);
-	char_to_string(&(*sh)->data, *head, (*sh)->prompt);
+	insert_char(head, key, (*sh)->pro);
+	//char_to_string(&(*sh)->data, *head, (*sh)->pro->prompt);
 	ft_putchar(key);
 }
 

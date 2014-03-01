@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/01 17:45:12 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/01 19:48:22 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define TGOTO(id, y, x)	tputs(tgoto(tgetstr(#id, NULL), y, x), TRCS_PUT)
 # define EXEC_INST			{tercs_ascii, tercs_up, tercs_down, tercs_right,
 # define EXEC_INST2			tercs_left}
-# define EXE_PARAM			t_command *line, t_letter *
+# define EXE_PARAM			t_command **line, t_letter **
 
 extern char **environ;
 
@@ -62,18 +62,23 @@ typedef struct			s_letter
 struct					s_tercs
 {
 	int					tty_fd;	
-	t_stack				*hist;
 	struct termios		term_fd;
 	struct termios		term_save;
 	size_t				line_len;
 };
+
+typedef struct			s_prompt
+{
+	char				*prompt;
+	int					size_prompt;
+}						t_prompt;
 
 typedef struct			s_shell
 {
 	t_command			*data;
 	t_tercs				*tcs;
 	char				**env;
-	char				*prompt;
+	t_prompt			*pro;
 }						t_shell;
 
 enum					e_key
@@ -116,11 +121,11 @@ int			set_fd(void);
 ** tercs_control.c
 */
 
-void	tercs_up(t_command *c_line, t_letter *let);
-void	tercs_down(t_command *c_line, t_letter *let);
-void	tercs_right(t_command *c_line, t_letter *let);
-void	tercs_left(t_command *c_line, t_letter *let);
-void	tercs_ascii(t_command *c_line, t_letter *let);
+void	tercs_up(t_command **c_line, t_letter **let);
+void	tercs_down(t_command **c_line, t_letter **let);
+void	tercs_right(t_command **c_line, t_letter **let);
+void	tercs_left(t_command **c_line, t_letter **let);
+void	tercs_ascii(t_command **c_line, t_letter **let);
 
 /*
 ** init_current_list.c

@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/25 02:51:39 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/01 17:56:02 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/01 20:30:45 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,47 @@
 
 #include <stdio.h> //
 
-void	tercs_ascii(t_command *c_line, t_letter *let)
+void	tercs_ascii(t_command **c_line, t_letter **let)
 {
 	(void)let;
 	(void)c_line;
-		return ;
+	return ;
 }
-void	tercs_up(t_command *c_line, t_letter *let)
+void	tercs_up(t_command **c_line, t_letter **let)
 {
 	(void)let;
 	(void)c_line;
-		return ;
-}
-
-void	tercs_down(t_command *c_line, t_letter *let)
-{
-	(void)let;
-	(void)c_line;
+	return ;
 }
 
-void	tercs_right(t_command *c_line, t_letter *let)
+void	tercs_down(t_command **c_line, t_letter **let)
 {
-	if (let->next != NULL)
+	(void)let;
+	(void)c_line;
+}
+
+void	tercs_right(t_command **c_line, t_letter **let)
+{
+	if (let)
 	{
-		TGOTO(nd, 0, let->cursor++);
+		if ((*let)->next == NULL)
+			return ;
+		TPUTS(nd);
+		(*let) = (*let)->next;
+		(void)c_line;
+		(void)let;
 	}
-	(void)c_line;
 }
 
-void	tercs_left(t_command *c_line, t_letter *let)
+void	tercs_left(t_command **c_line, t_letter **let)
 {
-	if (let->next != NULL && let->cursor > 11)
+	if (let)
 	{
-		TGOTO(le, 0, let->cursor--);
+		if ((*let)->prev == NULL)
+			return ;
+		TPUTS(le);
+		(*let) = (*let)->prev;
+		(void)c_line;
+		(void)let;
 	}
-	(void)c_line;
 }

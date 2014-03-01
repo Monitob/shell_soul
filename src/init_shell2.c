@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/01 17:50:39 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/01 20:18:37 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ void			show_prompt(t_shell **shell)
 		i++;
 	temp = ft_strsplit(environ[i], '=');
 	temp++;
-	(*shell)->prompt = (char *)malloc(sizeof(char) * ft_strlen(*temp));
-	(*shell)->prompt = *temp;
-	ft_putstr((*shell)->prompt);
+	(*shell)->pro->prompt = (char *)malloc(sizeof(char) * ft_strlen(*temp));
+	(*shell)->pro->prompt = *temp;
+	(*shell)->pro->size_prompt = ft_strlen(*temp) + 3;
+	ft_putstr((*shell)->pro->prompt);
 	ft_putstr("\033[35m -> \033[0m");
 	return ;
 }
@@ -38,12 +39,10 @@ static void		init_key_control(t_shell *shell)
 	shell->data->index = 0;
 	shell->data->path = NULL;
 	shell->data->line = NULL;
-	shell->tcs->hist->str_tab = NULL;
-	shell->tcs->hist->left = NULL;
 	shell->tcs->line_len = 0;
 }
 
-static void		exec_type(t_command *line, t_letter *let, int type)
+static void		exec_type(t_command **line, t_letter **let, int type)
 {
 	void		(*key_control[5])(EXE_PARAM) = EXEC_INST EXEC_INST2;
 	int			i;
@@ -51,10 +50,10 @@ static void		exec_type(t_command *line, t_letter *let, int type)
 	i = 0;
 	while(i < 5)
 	{
-		key_control[i](line, let);
+		key_control[i](line, let); 
 		if (i == type)
 		{
-			key_control[type](line, let);
+			key_control[type](line , let);
 			return ;
 		}
 		i++;
@@ -83,13 +82,12 @@ int				init_line(t_shell *root)
 			ft_putchar('\n');*/
 			//ft_putnbr(type);   //
 			if (type > 0)
-				exec_type(root->data, list_current, type);
+				exec_type(&root->data, &list_current, type);
 			if (key[2] == 0 && key[3] == 0 && key[0] != 10)
 			{
 				init_ascii(&list_current, key[0], &root);
 				//	display_list_test(list_current); //
 			//	char_to_string(&root->data, list_current, root->prompt);
-				//ft_putendl(root->data->line);//
 			}
 			key[2] = 0;
 			key[3] = 0;
