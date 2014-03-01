@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 23:02:18 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/28 15:11:14 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/01 14:57:06 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void			init_trcs(t_tercs *tcs)
 	tcs->term_fd.c_cc[VTIME] = 0;
 	tcsetattr(tcs->tty_fd, TCSADRAIN, &tcs->term_fd);
 	TPUTS(cl);
-	TPUTS(vi);
 	TPUTS(li);
 }
 	

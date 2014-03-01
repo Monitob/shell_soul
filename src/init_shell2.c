@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/28 19:18:08 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/01 17:50:39 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ static void		init_key_control(t_shell *shell)
 	shell->tcs->line_len = 0;
 }
 
-static void		exec_type(t_command *line, t_letter *let, int type, char key[8])
+static void		exec_type(t_command *line, t_letter *let, int type)
 {
-	void		(*key_control[4])(EXE_PARAM) = EXEC_INST;
+	void		(*key_control[5])(EXE_PARAM) = EXEC_INST EXEC_INST2;
 	int			i;
 
 	i = 0;
-	while(i < 4)
+	while(i < 5)
 	{
-		key_control[i](line, let, key);
+		key_control[i](line, let);
 		if (i == type)
 		{
-			key_control[type](line, let, key);
+			key_control[type](line, let);
 			return ;
 		}
 		i++;
@@ -75,19 +75,26 @@ int				init_line(t_shell *root)
 		while (!(key[0] == 27 && key[1] == 0))
 		{
 			type = read_key(key, 0);
+			/*ft_putnbr(key[0]);
+			ft_putnbr(key[1]);
+			ft_putnbr(key[2]);
+			ft_putnbr(key[3]);
+			ft_putnbr(key[4]);
+			ft_putchar('\n');*/
+			//ft_putnbr(type);   //
 			if (type > 0)
-				exec_type(root->data, list_current, type, key);
+				exec_type(root->data, list_current, type);
 			if (key[2] == 0 && key[3] == 0 && key[0] != 10)
 			{
-				init_ascii(&list_current, key[0]);
+				init_ascii(&list_current, key[0], &root);
 				//	display_list_test(list_current); //
-				char_to_string(&root->data, list_current, root->prompt);
+			//	char_to_string(&root->data, list_current, root->prompt);
 				//ft_putendl(root->data->line);//
 			}
 			key[2] = 0;
 			key[3] = 0;
 			key[5] = 0;
 		}
-	}
-	return (0);
+	}return (0);
+
 }

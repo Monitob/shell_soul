@@ -6,13 +6,13 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/27 12:14:31 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/28 18:15:56 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/01 17:53:43 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 #include <stdio.h> //
-static void		insert_char(t_letter **current_list, char key)
+static void		insert_char(t_letter **current_list, char key, char *pro)
 {
 	t_letter	*let;
 	t_letter	*temp;
@@ -34,14 +34,17 @@ static void		insert_char(t_letter **current_list, char key)
 		while (temp->next != NULL)
 			temp = temp->next;
 		temp->next = let;
-		temp->cursor += 1;
+		temp->cursor = ft_strlen(pro) + 4;
 		let->prev = temp;
+		(*current_list)->cursor++;
+		TGOTO(ch, 0, (*current_list)->cursor);
 	}
 }
 
-void			init_ascii(t_letter **head, char key)
+void			init_ascii(t_letter **head, char key, t_shell **sh)
 {
-	insert_char(head, key);
+	insert_char(head, key, (*sh)->prompt);
+	char_to_string(&(*sh)->data, *head, (*sh)->prompt);
 	ft_putchar(key);
 }
 
@@ -69,17 +72,14 @@ void			char_to_string(t_command **string, t_letter *head, char *prom)
 	temp = head;
 	len_tab = ft_list_len(temp);
 	i = 0;
-	head->cursor = ft_strlen(prom) + 4;
+	(void)prom;
 	(*string)->line = (char *)malloc(sizeof(char) * len_tab);
 	while (temp != NULL)
 	{
 		(*string)->line[i] = temp->letter;
 		temp = temp->next;
 		i++;
-		head->cursor++;
-		tputs(tgoto(tgetstr("ch", NULL), 0, head->cursor), 1, trcs_putchar);
 	}
-//		printf("INIT_LINE::%zu", head->cursor);
 	(*string)->line[i] = '\0';
 }
 

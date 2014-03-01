@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/28 19:03:01 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/01 17:45:12 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@
 # include "libft.h"
 
 # define BUFFER_R	8	
-# define TPUTS(id)	tputs(tgetstr(#id, NULL), 1, trcs_putchar)
-# define TGOTO(id)	tputs(tgoto(tgetstr(#id, NULL), 1, trcs_putchar)
-# define EXEC_INST	{tercs_up, tercs_down, tercs_right, tercs_left}
-# define EXE_PARAM	t_command *line, t_letter *, char [8]
+# define TRCS_PUT			1, trcs_putchar
+# define TPUTS(id)			tputs(tgetstr(#id, NULL), TRCS_PUT)
+# define TGOTO(id, y, x)	tputs(tgoto(tgetstr(#id, NULL), y, x), TRCS_PUT)
+# define EXEC_INST			{tercs_ascii, tercs_up, tercs_down, tercs_right,
+# define EXEC_INST2			tercs_left}
+# define EXE_PARAM			t_command *line, t_letter *
 
 extern char **environ;
 
@@ -114,17 +116,18 @@ int			set_fd(void);
 ** tercs_control.c
 */
 
-void	tercs_up(t_command *c_line, t_letter *let,  char key[8]);
-void	tercs_down(t_command *c_line, t_letter *let,  char key[8]);
-void	tercs_right(t_command *c_line, t_letter *let,  char key[8]);
-void	tercs_left(t_command *c_line, t_letter *let,  char key[8]);
+void	tercs_up(t_command *c_line, t_letter *let);
+void	tercs_down(t_command *c_line, t_letter *let);
+void	tercs_right(t_command *c_line, t_letter *let);
+void	tercs_left(t_command *c_line, t_letter *let);
+void	tercs_ascii(t_command *c_line, t_letter *let);
 
 /*
 ** init_current_list.c
 */
 
-void	init_ascii(t_letter **head, char key);
 void	char_to_string(t_command **string, t_letter *head, char *prom);
+void	init_ascii(t_letter **head, char key, t_shell **sh);
 
 /*
 ** error.c

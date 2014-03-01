@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 11:08:59 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/28 19:02:58 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/01 16:03:43 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int			set_type(char key[8])
 			return (RIGHT);
 		if	(key[2] == 68)
 			return (LEFT);
-		if 	(key[2] == 68)
+		if 	(key[2] == 72)
 		{
 			ft_putstr("home not defined");
 			return (-2);
