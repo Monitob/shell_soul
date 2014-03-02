@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/01 20:18:37 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/02 12:37:56 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void			show_prompt(t_shell **shell)
 	int			i;
 	char		**temp;
 
-
 	i = 0;
 	while (strncmp(environ[i], "USER=", 5) != 0)
 		i++;
@@ -27,7 +26,7 @@ void			show_prompt(t_shell **shell)
 	temp++;
 	(*shell)->pro->prompt = (char *)malloc(sizeof(char) * ft_strlen(*temp));
 	(*shell)->pro->prompt = *temp;
-	(*shell)->pro->size_prompt = ft_strlen(*temp) + 3;
+	(*shell)->pro->size_prompt = ft_strlen(*temp) + 4;
 	ft_putstr((*shell)->pro->prompt);
 	ft_putstr("\033[35m -> \033[0m");
 	return ;
@@ -36,7 +35,6 @@ void			show_prompt(t_shell **shell)
 static void		init_key_control(t_shell *shell)
 {
 	shell->data->cmd_arg = NULL;
-	shell->data->index = 0;
 	shell->data->path = NULL;
 	shell->data->line = NULL;
 	shell->tcs->line_len = 0;
@@ -74,20 +72,12 @@ int				init_line(t_shell *root)
 		while (!(key[0] == 27 && key[1] == 0))
 		{
 			type = read_key(key, 0);
-			/*ft_putnbr(key[0]);
-			ft_putnbr(key[1]);
-			ft_putnbr(key[2]);
-			ft_putnbr(key[3]);
-			ft_putnbr(key[4]);
-			ft_putchar('\n');*/
-			//ft_putnbr(type);   //
 			if (type > 0)
 				exec_type(&root->data, &list_current, type);
 			if (key[2] == 0 && key[3] == 0 && key[0] != 10)
 			{
 				init_ascii(&list_current, key[0], &root);
 				//	display_list_test(list_current); //
-			//	char_to_string(&root->data, list_current, root->prompt);
 			}
 			key[2] = 0;
 			key[3] = 0;

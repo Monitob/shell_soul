@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/01 19:48:22 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/02 12:36:06 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct			s_command
 	char				*line;
 	char				*path;
 	char				**cmd_arg;
-	size_t				index;
+
 }						t_command;
 
 typedef struct			s_letter
@@ -56,7 +56,6 @@ typedef struct			s_letter
 	char				letter;
 	struct s_letter		*next;
 	struct s_letter		*prev;
-	size_t				cursor;
 }						t_letter;
 
 struct					s_tercs
@@ -71,7 +70,15 @@ typedef struct			s_prompt
 {
 	char				*prompt;
 	int					size_prompt;
+	int					cursor_l;
 }						t_prompt;
+
+typedef struct			s_history
+{
+	t_letter			*curr;
+	struct s_history	*next_h;
+	struct s_history	*prev_h;
+}						t_history;
 
 typedef struct			s_shell
 {
@@ -147,5 +154,6 @@ int		error_fd(char *s, int fd);
 
 void	display_list_test(t_letter *head);
 int		ft_list_len(t_letter *head);
+void	ft_key_int_type(char key[8], int type);
 
 #endif

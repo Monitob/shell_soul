@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/27 12:14:31 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/01 20:37:58 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/02 12:31:50 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void		insert_char(t_letter **current_list, char key, t_prompt *pro)
 	if (*current_list == NULL)
 	{
 		*current_list = let;
-		(*current_list)->cursor = 0;
+		pro->cursor_l = 1;
 	}
 	else
 	{
@@ -34,10 +34,9 @@ static void		insert_char(t_letter **current_list, char key, t_prompt *pro)
 		while (temp->next != NULL)
 			temp = temp->next;
 		temp->next = let;
-		temp->cursor = pro->size_prompt;
 		let->prev = temp;
 		*current_list = let;
-		(*current_list)->cursor++;
+		pro->cursor_l++;
 	}
 }
 
@@ -45,6 +44,7 @@ void			init_ascii(t_letter **head, char key, t_shell **sh)
 {
 	insert_char(head, key, (*sh)->pro);
 	//char_to_string(&(*sh)->data, *head, (*sh)->pro->prompt);
+	//init_history(head);
 	ft_putchar(key);
 }
 
@@ -81,22 +81,4 @@ void			char_to_string(t_command **string, t_letter *head, char *prom)
 		i++;
 	}
 	(*string)->line[i] = '\0';
-}
-
-
-void			display_list_test(t_letter *head)
-{
-	t_letter	*temp;
-	int			i;
-
-	temp = head;
-	i = 0;
-	i = ft_list_len(temp);
-	ft_putnbr(i);
-	while (temp != NULL)
-	{
-		ft_putchar(temp->letter);
-		temp = temp->next;
-	}
-	write(1, "\n", 1);
 }
