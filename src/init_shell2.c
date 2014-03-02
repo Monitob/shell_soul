@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/02 12:37:56 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/02 18:07:19 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int				init_line(t_shell *root)
 			type = read_key(key, 0);
 			if (type > 0)
 				exec_type(&root->data, &list_current, type);
-			if (key[2] == 0 && key[3] == 0 && key[0] != 10)
+			if (key[2] == 0 && key[3] == 0 && key[0] != 10) 
 			{
 				init_ascii(&list_current, key[0], &root);
 				//	display_list_test(list_current); //

@@ -6,46 +6,46 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/27 12:14:31 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/02 12:31:50 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/02 19:14:59 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 #include <stdio.h> //
+
+
 static void		insert_char(t_letter **current_list, char key, t_prompt *pro)
 {
 	t_letter	*let;
-	t_letter	*temp;
 
-	temp = NULL;
+	let = NULL;
 	if (!(let = (t_letter *)malloc(sizeof(t_letter))))
 		return ;
 	let->letter = key;
 	let->next = NULL;
 	let->prev = NULL;
-	if (*current_list == NULL)
+	if(*current_list == NULL)
 	{
-		*current_list = let;
+		if((*current_list = creat_new_element('*')) == NULL)
+			return ;
+		ft_char_to_list(current_list, let);
+		(void)pro;
 		pro->cursor_l = 1;
 	}
 	else
 	{
-		temp = *current_list;
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = let;
-		let->prev = temp;
-		*current_list = let;
-		pro->cursor_l++;
+		ft_char_to_list(current_list, let);
+//		pro->cursor_l++;
 	}
 }
 
 void			init_ascii(t_letter **head, char key, t_shell **sh)
 {
 	insert_char(head, key, (*sh)->pro);
-	//char_to_string(&(*sh)->data, *head, (*sh)->pro->prompt);
+	char_to_string(&(*sh)->data, *head, (*sh)->pro->prompt);
 	//init_history(head);
 	ft_putchar(key);
+//	ft_putstr((*sh)->data->line);
 }
 
 int		ft_list_len(t_letter *head)

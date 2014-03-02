@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/25 02:51:39 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/01 23:56:26 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/02 19:20:27 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,29 @@ void	tercs_right(t_command **c_line, t_letter **let)
 	{
 		if ((*let)->next == NULL)
 			return ;
-		TPUTS(nd);
-		(*let) = (*let)->next;
-		(void)c_line;
-		(void)let;
+		if ((*let)->letter)
+		{	
+			TPUTS(nd);
+			(*let) = (*let)->next;
+			(void)c_line;
+		}
 	}
 }
 
 void	tercs_left(t_command **c_line, t_letter **let)
 {
+
 	if (let)
 	{
 		if ((*let)->prev == NULL)
-			return ;
-		TPUTS(le);
-		(*let) = (*let)->prev;
-		(void)c_line;
-		(void)let;
+				return ;
+		if (let)
+		{
+			TPUTS(le);
+//tputs(tgetstr("cb", NULL), 1, trcs_putchar);
+			(*let) = (*let)->prev;
+			(void)c_line;
+			(void)let;
+		}
 	}
 }

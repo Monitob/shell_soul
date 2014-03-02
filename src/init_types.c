@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 11:08:59 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/02 00:04:55 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/02 12:51:44 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static	int		set_type_next(char key[8])
 		ft_putstr("return not defined");
 		return (-2);
 	}
-	if (key[0])
-		return (ASCII);
+/*	if (key[0])
+		return (ASCII);*/
 	return (-2);
 }
 
