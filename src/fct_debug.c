@@ -50,11 +50,9 @@ void			ft_key_int_type(char key[8], int type)
 void			display_list_test(t_letter *head)
 {
 	t_letter	*temp;
-	int			i;
 
 	temp = head;
-	i = 0;
-	i = ft_list_len(temp);
+//	i = ft_list_len(temp);
 	while (temp != NULL)
 	{
 		ft_putchar(temp->letter);

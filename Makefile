@@ -43,7 +43,7 @@ $(PATH_OBJ)/%.o: $(addprefix $(PATH_SRC)/, %.c)
 	@echo Compiling object : $<
 
 clean:
-	#@$(MAKE) -C libft $@
+#	@$(MAKE) -C libft $@
 	@rm -f $(OBJ) 
 
 fclean:	clean

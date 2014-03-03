@@ -39,8 +39,9 @@ void	tercs_right(t_command **c_line, t_letter **let)
 	{
 		if ((*let)->next == NULL)
 			return ;
-		if ((*let)->letter)
+		if ((*let)->next)
 		{	
+			printf("RIGHT:: %p", (*let)->next);
 			TPUTS(nd);
 			(*let) = (*let)->next;
 			(void)c_line;

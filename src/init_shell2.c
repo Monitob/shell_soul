@@ -48,7 +48,6 @@ static void		exec_type(t_command **line, t_letter **let, int type)
 	i = 0;
 	while(i < 5)
 	{
-		key_control[i](line, let); 
 		if (i == type)
 		{
 			key_control[type](line , let);
