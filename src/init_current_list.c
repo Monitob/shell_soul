@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/27 12:14:31 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/02 19:14:59 by jbernabe         ###   ########.fr       */
+/*   Created: 2014/03/03 19:30:09 by jbernabe          #+#    #+#             */
+/*   Updated: 2014/03/03 19:31:36 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void			init_ascii(t_letter **head, char key, t_shell **sh)
 	insert_char(head, key, (*sh)->pro);
 	char_to_string(&(*sh)->data, *head, (*sh)->pro->prompt);
 	ft_putchar(key);
-//	ft_putstr((*sh)->data->line);
+	/*	ft_putstr((*sh)->data->line);*/
 }
 
 int		ft_list_len(t_letter *head)

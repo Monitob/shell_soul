@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/01 19:46:41 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/01 21:00:48 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/03 20:06:45 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static t_history	*creat_head_history(t_letter *current_list)
 {
 	t_history	*start;
 
-	if (!(start = (t_history *)malloc(sizeof(t_history));
-		return ;
+	if (!(start = (t_history *)malloc(sizeof(t_history))))
+		return (NULL);
 	start->curr = current_list;
 	start->next_h = NULL;
 	start->prev_h = NULL;

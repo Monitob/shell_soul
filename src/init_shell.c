@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 16:17:08 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/01 23:59:30 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/03 20:12:12 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ t_shell		*init_shell(t_shell *root)
 	root->data = (t_command *)malloc(sizeof(*(root->data)));
 	root->tcs = (t_tercs *)malloc(sizeof(*(root->tcs)));
 	root->pro = (t_prompt *)malloc(sizeof(*(root->pro)));
+	root->line_h = (t_history *)malloc(sizeof(*(root->line_h)));	
 	if (root == NULL || root->data == NULL || root->tcs == NULL
+				|| root->line_h == NULL
 				|| root->pro == NULL)
 		error_fd("Not enought memory", 2);
 	root->tcs->tty_fd = set_fd();

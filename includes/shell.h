@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/02 18:47:37 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/03 20:23:34 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct			s_shell
 {
 	t_command			*data;
 	t_tercs				*tcs;
+	t_history			*line_h;
 	char				**env;
 	t_prompt			*pro;
 }						t_shell;
@@ -135,6 +136,12 @@ void			tercs_left(t_command **c_line, t_letter **let);
 void			tercs_ascii(t_command **c_line, t_letter **let);
 
 /*
+** tercs_control2.c
+*/
+	
+void			tercs_return(t_command **c_line, t_letter **let);
+
+/*
 ** init_current_list.c
 */
 
@@ -147,6 +154,18 @@ void			init_ascii(t_letter **head, char key, t_shell **sh);
 
 void			error_command(char *s);
 int				error_fd(char *s, int fd);
+
+/*
+**	lexer_verify.c
+*/
+
+void			lex_verify(t_shell **shell, t_letter **let)
+
+/*
+** init_hist.c
+*/
+
+void			init_history(t_letter *current_list, t_history **l_hist);
 
 /*
 ** debug
