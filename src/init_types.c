@@ -58,10 +58,10 @@ static	int		set_type_next(char key[8])
 		ft_putstr("clea");
 		return (-2);
 	}
-	if 		(key[0] == 10)
+	if 		(key[0] == 13)
 	{
 		ft_putstr("return not defined");
-		return (-2);
+		return (RETURN);
 	}
 /*	if (key[0])
 		return (ASCII);*/
@@ -86,7 +86,5 @@ int			set_type(char key[8])
 			return (-2);
 		}
 	}
-	if (key[0] == 10)
-		return (RETURN);
 	return (set_type_next(key));
 }

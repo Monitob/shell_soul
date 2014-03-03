@@ -22,6 +22,10 @@ void	tercs_ascii(t_command **c_line, t_letter **let)
 }
 void	tercs_up(t_command **c_line, t_letter **let)
 {
+	t_history	*h_line;
+
+	h_line = NULL;
+	init_history(*let, &h_line);	
 	(void)let;
 	(void)c_line;
 	return ;

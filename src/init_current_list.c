@@ -35,7 +35,7 @@ static void		insert_char(t_letter **current_list, char key, t_prompt *pro)
 	else
 	{
 		ft_char_to_list(current_list, let);
-//		pro->cursor_l++;
+		pro->cursor_l++;
 	}
 }
 
@@ -43,7 +43,6 @@ void			init_ascii(t_letter **head, char key, t_shell **sh)
 {
 	insert_char(head, key, (*sh)->pro);
 	char_to_string(&(*sh)->data, *head, (*sh)->pro->prompt);
-	//init_history(head);
 	ft_putchar(key);
 //	ft_putstr((*sh)->data->line);
 }
