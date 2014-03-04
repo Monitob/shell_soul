@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/03 20:22:36 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/04 15:53:00 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void		exec_type(t_shell **sh, t_letter **let, int type)
 	hist = NULL;
 	if (type == -1)
 	{
-		lex_verify(let, sh);
+		lex_verify(sh, let);
 	}
 	while(i < 5)
 	{

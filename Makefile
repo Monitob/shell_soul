@@ -6,7 +6,7 @@
 #    By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/04 22:30:52 by jbernabe          #+#    #+#              #
-#    Updated: 2014/03/04 15:38:14 by flime            ###   ########.fr        #
+#    Updated: 2014/03/04 15:53:55 by jbernabe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LFLAGS = -ltermcap
 
 SRC = init_shell.c init_shell2.c tercs_init.c init_types.c \
 	  tercs_control.c init_current_list.c \
-	  error.c fct_debug.c init_hist.c
+	  error.c fct_debug.c init_hist.c lexer_verify.c
 
 OBJ = $(patsubst %.c, $(PATH_OBJ)/%.o, $(SRC))
 
