@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/04 15:53:00 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/04 16:22:36 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void			show_prompt(t_shell **shell)
 
 static void		init_key_control(t_shell *shell)
 {
-	shell->data->cmd_arg = NULL;
-	shell->data->path = NULL;
 	shell->data->line = NULL;
 	shell->tcs->line_len = 0;
 }

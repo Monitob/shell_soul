@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/25 02:51:39 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/03 19:36:20 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/04 16:16:51 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	tercs_left(t_command **c_line, t_letter **let)
 		if (let)
 		{
 			TPUTS(le);
-//tputs(tgetstr("cb", NULL), 1, trcs_putchar);
 			(*let) = (*let)->prev;
 			(void)c_line;
 			(void)let;

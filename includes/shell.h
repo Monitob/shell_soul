@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/04 15:49:22 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/04 16:10:45 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <sys/types.h>
 # include "libft.h"
 
-# define BUFFER_R	8	
+# define BUFFER_R			8	
 # define TRCS_PUT			1, trcs_putchar
 # define TPUTS(id)			tputs(tgetstr(#id, NULL), TRCS_PUT)
 # define TGOTO(id, y, x)	tputs(tgoto(tgetstr(#id, NULL), y, x), TRCS_PUT)
@@ -38,7 +38,8 @@ typedef struct s_tercs	t_tercs;
 
 typedef struct			s_stack
 {
-	char				**str_tab;
+	char				*cmd;
+	char				**path;
 	struct s_stack		*right;
 	struct s_stack		*left;
 }						t_stack;
@@ -46,9 +47,6 @@ typedef struct			s_stack
 typedef struct			s_command
 {	
 	char				*line;
-	char				*path;
-	char				**cmd_arg;
-
 }						t_command;
 
 typedef struct			s_letter
@@ -87,6 +85,7 @@ typedef struct			s_shell
 	t_history			*line_h;
 	char				**env;
 	t_prompt			*pro;
+	t_stack				*tree;
 }						t_shell;
 
 enum					e_key
