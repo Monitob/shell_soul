@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/04 16:10:45 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/04 18:19:14 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void			tercs_return(t_command **c_line, t_letter **let);
 ** init_current_list.c
 */
 
-void			char_to_string(t_command **string, t_letter *head, char *prom);
+void			char_to_string(t_command **string, t_letter *head);
 void			init_ascii(t_letter **head, char key, t_shell **sh);
 
 /*
@@ -159,6 +159,7 @@ int				error_fd(char *s, int fd);
 */
 
 void			lex_verify(t_shell **shell, t_letter **let);
+void			ft_start_lexer(t_shell **shell, t_letter **list_let);
 
 /*
 ** init_hist.c

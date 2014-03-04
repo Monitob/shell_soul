@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 19:30:09 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/04 15:52:11 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/04 19:21:08 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ static void		insert_char(t_letter **current_list, char key, t_prompt *pro)
 void			init_ascii(t_letter **head, char key, t_shell **sh)
 {
 	insert_char(head, key, (*sh)->pro);
-	char_to_string(&(*sh)->data, *head, (*sh)->pro->prompt);
 	ft_putchar(key);
-	/*	ft_putstr((*sh)->data->line);*/
 }
 
 int		ft_list_len(t_letter *head)
@@ -56,28 +54,30 @@ int		ft_list_len(t_letter *head)
 	i = 0;
 	while (temp != NULL)
 	{
-		temp = temp->next;
+		temp = temp->prev;
 		i++;
 	}
 	return (i);
 }
 
-void			char_to_string(t_command **string, t_letter *head, char *prom)
+static void			recur_display(t_letter *let, t_command **string, int i)
+{
+	if (let->prev == NULL)
+		return ;
+	else
+		recur_display(let->prev, string, i - 1);
+	(*string)->line[i] = let->letter;
+}
+
+void			char_to_string(t_command **string, t_letter *head)
 {
 	t_letter	*temp;
 	int			len_tab;
-	int			i;
 
 	temp = head;
-	len_tab = ft_list_len(temp);
-	i = 0;
-	(void)prom;
-	(*string)->line = (char *)malloc(sizeof(char) * len_tab);
-	while (temp != NULL)
-	{
-		(*string)->line[i] = temp->letter;
-		temp = temp->next;
-		i++;
-	}
-	(*string)->line[i] = '\0';
+	len_tab = ft_list_len(temp) - 1;
+	(*string)->line = (char *)malloc(sizeof(char) * len_tab + 1);
+	recur_display(temp, string, len_tab - 1);
+	(*string)->line[len_tab] = '\0'; 
+	write(1, "\n", 1);
 }

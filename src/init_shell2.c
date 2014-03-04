@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/04 16:22:36 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/04 19:00:09 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,10 @@ static void		init_key_control(t_shell *shell)
 
 static void		exec_type(t_shell **sh, t_letter **let, int type)
 {
-	t_history	*hist;
 	void		(*key_control[5])(EXE_PARAM) = EXEC_INST EXEC_INST2;
 	int			i;
 
 	i = 0;
-	hist = NULL;
-	if (type == -1)
-	{
-		lex_verify(sh, let);
-	}
 	while(i < 5)
 	{
 		if (i == type)
@@ -80,11 +74,16 @@ int				init_line(t_shell *root)
 			type = read_key(key, 0);
 			if (type > 0)
 				exec_type(&root, &list_current, type);
-			if (key[2] == 0 && key[3] == 0 && key[0] != 10) 
+			if ((key[2] == 0 && key[3] == 0)|| type == -1) 
+			{
+				if (type == -1)
+					ft_start_lexer(&root, &list_current);
 				init_ascii(&list_current, key[0], &root);
+			}
 			key[2] = 0;
 			key[3] = 0;
 			key[5] = 0;
 		}
-	}return (0);
+	}
+	return (0);
 }

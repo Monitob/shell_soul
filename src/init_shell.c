@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 16:17:08 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/03 20:12:12 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/04 19:21:41 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_shell		*init_shell(t_shell *root)
 		error_fd("Not enought memory", 2);
 	root->tcs->tty_fd = set_fd();
 	init_trcs(root->tcs);
+	TPUTS(bc);
 	return (root);
 }
 
