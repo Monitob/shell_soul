@@ -6,13 +6,13 @@
 #    By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/04 22:30:52 by jbernabe          #+#    #+#              #
-#    Updated: 2014/03/03 19:11:50 by jbernabe         ###   ########.fr        #
+#    Updated: 2014/03/04 15:38:14 by flime            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-NAME = 42sh 
+NAME = 42sh
 
 CFLAGS = -g --debug -Wall -Wextra -Werror
 
@@ -30,7 +30,7 @@ OBJ = $(patsubst %.c, $(PATH_OBJ)/%.o, $(SRC))
 all:  lib $(NAME)
 
 lib:
-		@make -C libft 
+		@make -C libft
 
 $(NAME): $(OBJ)
 		@$(MAKE) -C libft
@@ -44,13 +44,13 @@ $(PATH_OBJ)/%.o: $(addprefix $(PATH_SRC)/, %.c)
 
 clean:
 #	@$(MAKE) -C libft $@
-	@rm -f $(OBJ) 
+	@rm -f $(OBJ)
 
 fclean:	clean
 #	@$(MAKE) -C libft $@
 	@rm -f $(OBJ)
 	@rm -f $(NAME)
 
-re: clean fclean all 
+re: fclean all
 
-.PHONY: re, clean, fclean 
+.PHONY: re, clean, fclean
