@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/03 20:23:34 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/04 15:49:22 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int				error_fd(char *s, int fd);
 **	lexer_verify.c
 */
 
-void			lex_verify(t_shell **shell, t_letter **let)
+void			lex_verify(t_shell **shell, t_letter **let);
 
 /*
 ** init_hist.c
