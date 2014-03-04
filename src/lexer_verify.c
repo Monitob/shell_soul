@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 19:51:16 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/04 19:43:18 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/04 20:13:18 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,24 @@ void	ft_start_lexer(t_shell **shell, t_letter **list_let)
 {
 	t_history	*hist;
 	hist = NULL;
+	int i;
+
+	i = 0;
 
 	char_to_string(&(*shell)->data, *list_let);
-	TGOTO(bt,0, (*shell)->pro->size_prompt);
+	TPUTS(do);
+	while (i < (*shell)->pro->size_prompt)
+	{
+		TPUTS(le);
+		i++;
+	}
+	i = 0;
 	show_prompt(shell);
+	while (i < (*shell)->pro->size_prompt)
+	{
+		TPUTS(nd);
+		i++;
+	}
 	lex_verify(shell, list_let);
 }
 

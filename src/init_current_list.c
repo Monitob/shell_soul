@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 19:30:09 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/04 19:21:08 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/04 19:51:34 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,4 @@ void			char_to_string(t_command **string, t_letter *head)
 	(*string)->line = (char *)malloc(sizeof(char) * len_tab + 1);
 	recur_display(temp, string, len_tab - 1);
 	(*string)->line[len_tab] = '\0'; 
-	write(1, "\n", 1);
 }
