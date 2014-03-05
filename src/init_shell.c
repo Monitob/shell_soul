@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 16:17:08 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/04 19:21:41 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/05 19:55:16 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int			main(void)
 	root = NULL;
 	root = init_shell(root);
 	root->env = init_env();
+	get_path(&root->tree, root->env);
 	show_prompt(&root);
 	init_line(root);
 	reset_term(root);
@@ -33,8 +34,8 @@ t_shell		*init_shell(t_shell *root)
 	root->pro = (t_prompt *)malloc(sizeof(*(root->pro)));
 	root->line_h = (t_history *)malloc(sizeof(*(root->line_h)));	
 	if (root == NULL || root->data == NULL || root->tcs == NULL
-				|| root->line_h == NULL
-				|| root->pro == NULL)
+			|| root->line_h == NULL
+			|| root->pro == NULL)
 		error_fd("Not enought memory", 2);
 	root->tcs->tty_fd = set_fd();
 	init_trcs(root->tcs);
@@ -59,4 +60,34 @@ char		**init_env(void)
 	}
 	env[i] = NULL;
 	return (env);
+}
+
+void		get_path(t_stack **tree, char **env)
+{
+	char	**l_path;
+	int		i;
+	int		nb_path;
+
+	i = 0;
+	l_path = NULL;
+	if (!(*tree = (t_stack *)malloc(sizeof(t_stack))))
+			exit(0);
+	while (strncmp(env[i] , "PATH=", 5) != 0)
+		i++;
+	l_path = ft_strsplit(env[i], '=');
+	l_path++;
+	l_path = ft_strsplit(*l_path, ':');
+	nb_path = 0;
+	while (l_path[nb_path])
+	{
+		l_path[nb_path] = ft_strjoin(l_path[nb_path], "/");
+		nb_path++;
+	}
+	l_path[nb_path] = NULL;
+	if (!((*tree)->path = (char **)malloc(sizeof(char) * nb_path)))
+		error_command("\x1b[31Malloc error\x1b[0m");
+	(*tree)->path = l_path;
+	(*tree)->right = NULL;
+	(*tree)->left = NULL;
+	(*tree)->cmd = NULL;
 }

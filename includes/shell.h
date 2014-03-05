@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/05 15:24:42 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/05 19:51:51 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ enum					e_key
 
 t_shell			*init_shell(t_shell *root);
 char			**init_env(void);
+void			get_path(t_stack **tree, char **env);
 
 /*
 ** init_shell2.c
@@ -176,5 +177,6 @@ int				ft_list_len(t_letter *head);
 void			ft_key_int_type(char key[8], int type);
 void			ft_char_to_list(t_letter **ele, t_letter *new_el);
 t_letter		*creat_new_element(char let);
+void			print_path(char **path);
 
 #endif

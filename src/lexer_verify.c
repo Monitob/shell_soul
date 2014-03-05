@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 19:51:16 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/05 16:26:17 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/05 19:31:01 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ void	ft_start_lexer(t_shell **shell, t_letter **list_let)
 		TPUTS(bt);
 		show_prompt(shell);
 	}
+	lex_verify(shell, list_let);
 }
 
 void	lex_verify(t_shell **shell, t_letter **let)
 {
+	
 	(void)shell;
 	(void)let;
 	return ;

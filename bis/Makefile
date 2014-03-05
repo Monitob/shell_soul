@@ -1,5 +1,5 @@
 CC= gcc
-CFLAGS= -Wall -Wextra -Werror
+CFLAGS= -Wall -Wextra -Werror -g --debug
 INCLUDE= -I ./ -I./includes/
 SRC= main.c get_next_line.c ft_strsplit.c ft_strings.c ft_atoi.c \
 	 manage_builtins.c manage_env.c manage_path.c manage_call.c \
