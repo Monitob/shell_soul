@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/25 02:51:39 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/04 16:16:51 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/05 15:53:50 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	tercs_down(t_command **c_line, t_letter **let)
 
 void	tercs_right(t_command **c_line, t_letter **let)
 {
-	if (let)
+	if (let && c_line)
 	{
 		if ((*let)->next == NULL)
 			return ;

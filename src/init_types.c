@@ -5,12 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/03/05 15:54:00 by jbernabe          #+#    #+#             */
+/*   Updated: 2014/03/05 17:14:34 by jbernabe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_types.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 11:08:59 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/04 16:18:20 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/05 15:53:47 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+#include <stdio.h> //
 
 int			read_key(char key[8], int fd)
 {
@@ -18,7 +31,8 @@ int			read_key(char key[8], int fd)
 
 	type = 0;
 	ft_memset(key, 0, 8);
-	read(fd, key, BUFFER_R);
+	if (read(fd, key, BUFFER_R) < 0)
+		return (-2);
 	type = set_type(key);
 	return (type);
 }

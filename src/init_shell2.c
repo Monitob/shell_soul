@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/04 19:00:09 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/05 17:14:27 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void			show_prompt(t_shell **shell)
 		return ;
 	(*shell)->pro->prompt = *temp;
 	(*shell)->pro->size_prompt = ft_strlen(*temp) + 4;
+	TPUTS(bt);
 	ft_putstr((*shell)->pro->prompt);
 	ft_putstr("\033[35m -> \033[0m");
 	return ;
@@ -39,6 +40,7 @@ static void		init_key_control(t_shell *shell)
 {
 	shell->data->line = NULL;
 	shell->tcs->line_len = 0;
+
 }
 
 static void		exec_type(t_shell **sh, t_letter **let, int type)
@@ -78,7 +80,8 @@ int				init_line(t_shell *root)
 			{
 				if (type == -1)
 					ft_start_lexer(&root, &list_current);
-				init_ascii(&list_current, key[0], &root);
+				if (key[0] != 13)
+					init_ascii(&list_current, key[0], &root);
 			}
 			key[2] = 0;
 			key[3] = 0;

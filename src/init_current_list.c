@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 19:30:09 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/04 19:51:34 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/05 17:17:17 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ static void		insert_char(t_letter **current_list, char key, t_prompt *pro)
 void			init_ascii(t_letter **head, char key, t_shell **sh)
 {
 	insert_char(head, key, (*sh)->pro);
-	ft_putchar(key);
+	if (key == 13)
+		return ;
+	trcs_putchar(key);
 }
 
 int		ft_list_len(t_letter *head)
@@ -62,11 +64,14 @@ int		ft_list_len(t_letter *head)
 
 static void			recur_display(t_letter *let, t_command **string, int i)
 {
-	if (let->prev == NULL)
-		return ;
-	else
-		recur_display(let->prev, string, i - 1);
-	(*string)->line[i] = let->letter;
+	if (let)
+	{
+		if (let->prev == NULL)
+			return ;
+		else
+			recur_display(let->prev, string, i - 1);
+		(*string)->line[i] = let->letter;
+	}
 }
 
 void			char_to_string(t_command **string, t_letter *head)
