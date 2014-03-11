@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 19:51:16 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/11 19:25:46 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/11 19:31:51 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,12 @@ static void	ft_run_cmd(const char *path, char **msh_av, char **env)
 	pid_t			cmd;
 	int				status;
 
-	write(1, "aqui0",5);
 	cmd = fork();
-	write(1, "aquil",5);
 	if (cmd == 0)
 	{
 		execve(path, msh_av, env);
 		exit(-1);
-		write(1, "aqui2",5);
 	}
-	write(1, "aqui3",5);
 	wait(&status);
 }
 
@@ -216,19 +212,10 @@ static void	ft_parser(char **msh_av, char **env)
 	char			*abs_path;
 	int				ret;
 
-	dprintf(1, "CMD_PATH %s", msh_av[0]);
-	write(1,"parser1", 7);
 	if (msh_av != NULL && stat(msh_av[0], &check) == 0)
-	{
-		write(1,"parser2", 7);
 		ft_run_cmd(msh_av[0], msh_av, env);
-	}
 	else if (msh_av != NULL && strcmp(msh_av[0], "cd") == 0)
-	{
 		ft_cd(msh_av, env); // lancer cd; avec msh env
-		write(1,"parser3", 7);
-
-	}
 	else
 	{
 		slash_cmd = ft_strjoin("/", msh_av[0]);
