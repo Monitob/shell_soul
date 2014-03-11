@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/05 19:51:51 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/11 12:36:21 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,5 +178,11 @@ void			ft_key_int_type(char key[8], int type);
 void			ft_char_to_list(t_letter **ele, t_letter *new_el);
 t_letter		*creat_new_element(char let);
 void			print_path(char **path);
+
+/*
+** ft_swap_env.c
+*/
+
+void	ft_swap_env(char **env1, char **env2, char c);
 
 #endif
