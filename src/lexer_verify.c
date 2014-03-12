@@ -12,250 +12,53 @@
 
 #include "shell.h"
 #include <unistd.h>
-#include <stdio.h> //
 
-static char	*ft_rm_env_name(char **env, char *env_name)
+void	cursor_control(t_letter *list_let)
 {
-	int				i;
-	char			*env_value;
-	int				env_len;
+	int i;
 
 	i = 0;
-	env_len = ft_strlen(env_name);
-	while (env[i])
+	TPUTS(bt);
+	TPUTS(do);
+	while (i <  ft_list_len(list_let))
 	{
-		if (ft_strncmp(env[i], env_name, env_len) == 0)
-		{
-			env_value = ft_strsub(env[i], env_len, ft_strlen(env[i]) - env_len);
-			return (env_value);
-		}
+		TPUTS(le);
 		i++;
 	}
-	return (NULL);
+	TPUTS(bt);
 }
 
-static void	ft_run_cmd(const char *path, char **msh_av, char **env)
+void	ft_delete_list(t_letter **list_let)
 {
-	pid_t			cmd;
-	int				status;
+	t_letter *temp1;
 
-	cmd = fork();
-	if (cmd == 0)
+	temp1 = *list_let;
+	while (temp1->next != NULL)
 	{
-		execve(path, msh_av, env);
-		exit(-1);
-	}
-	wait(&status);
-}
-
-/*static void ft_cd_home(char **msh_av, char **env)
-  {
-  int		i;
-  char	*home;
-
-
-
-  if (!msh_av)
-  {
-  if (!ft_strncmp(env[i], "PWD=", 4))
-  env[i] = ft_strjoin("PWD=", old);
-  chdir(ft_rm_env_name(home, "HOME="));
-  }
-//	chdir(ft_rm_env_name(old, "PWD="));
-}*/
-
-
-/*static void	ft_rm_env_last_dir(char **env)
-  {
-  int		i;
-
-  i = 0;
-  while (env[0][i])
-  i++;
-  while (env[0][i] != '/')
-  i--;
-  env[0] = ft_strndup(env[0], i);
-  }*/
-
-/*
- ** zsh
- ** cd ..,    // voir avec des .. dans le chemin // voir avec la source de fichier.
- */
-/*static void ft_cd_dotdot(char **msh_av, char **env, int i, int j)
-  {
-  (void)msh_av;
-  while (env[i])
-  {
-  if (!ft_strncmp(env[i], "PWD=", 4))
-  break;
-  i++;
-  }
-  while (env[j])
-  {
-  if (!ft_strncmp(env[j], "OLDPWD=", 7))
-  break;
-  j++;
-  }
-  ft_swap_env(&env[j], &env[i], 0);
-  ft_rm_env_last_dir(&env[i]);
-  chdir(ft_rm_env_name(env, "PWD="));
-  }*/
-
-/*
- ** zsh
- ** cd .,
- */
-static void ft_cd_dot(char **msh_av, char **env, int i, int j)
-{
-	(void)msh_av;
-	while (env[i])
-	{
-		if (!ft_strncmp(env[i], "PWD=", 4))
-			break;
-		i++;
-	}
-	while (env[j])
-	{
-		if (!ft_strncmp(env[j], "OLDPWD=", 7))
-			break;
-		j++;
-	}
-	ft_swap_env(&env[j], &env[i], 0);
-	chdir(ft_rm_env_name(env, "PWD="));
-}
-
-/*
- ** sh
- ** cd -,
- */
-static void ft_cd_sub(char **msh_av, char **env, int i, int j)
-{
-	(void)msh_av;
-	while (env[i])
-	{
-		if (!ft_strncmp(env[i], "PWD=", 4))
-			break;
-		i++;
-	}
-	while (env[j])
-	{
-		if (!ft_strncmp(env[j], "OLDPWD=", 7))
-			break;
-		j++;
-	}
-	ft_swap_env(&env[i], &env[j], 1);
-	chdir(ft_rm_env_name(env, "PWD="));
-	ft_putendl(ft_rm_env_name(env, "PWD="));
-}
-
-/*
- ** zsh
- ** cd, cd ~, cd --
- */
-static void ft_cd_home(char **msh_av, char **env, int i, int j, int k)
-{
-	(void)msh_av;
-	while (env[i])
-	{
-		if (!ft_strncmp(env[i], "PWD=", 4))
-			break;
-		i++;
-	}
-	while (env[j])
-	{
-		if (!ft_strncmp(env[j], "OLDPWD=", 7))
-			break;
-		j++;
-	}
-	while (env[k])
-	{
-		if (!ft_strncmp(env[k], "HOME=", 5))
-			break;
-		k++;
-	}
-	ft_swap_env(&env[i], &env[j], 1);
-	ft_swap_env(&env[i], &env[k], 0);
-	chdir(ft_rm_env_name(env, "PWD="));
-}
-
-static void ft_cd(char **msh_av, char **env)
-{
-	// on peut initialiser OLDPWD ici;
-	if (!msh_av[1] || !ft_strcmp(msh_av[1], "--"))
-		ft_cd_home(msh_av, env, 0, 0, 0);
-	else if (!ft_strcmp(msh_av[1], "-"))
-		ft_cd_sub(msh_av, env, 0, 0);
-	else if (!ft_strcmp(msh_av[1], "~"))
-		ft_cd_home(msh_av, env, 0, 0, 0);
-	else if (!ft_strcmp(msh_av[1], "."))
-		ft_cd_dot(msh_av, env, 0, 0);
-	/*	else if (!ft_strcmp(msh_av[1], ".."))
-		ft_cd_dotdot(msh_av, env, 0, 0);*/
-	else
-	{
-		if (chdir(msh_av[1]))
-		{
-			ft_putstr("cd: no such file or directory: ");
-			ft_putendl(msh_av[1]);
-		}
-	}
-}
-
-/*
- **
- */
-static void	ft_parser(char **msh_av, char **env)
-{
-	struct stat		check;
-	char			**cmd_paths;
-	char			*slash_cmd;
-	char			*abs_path;
-	int				ret;
-
-	if (msh_av != NULL && stat(msh_av[0], &check) == 0)
-		ft_run_cmd(msh_av[0], msh_av, env);
-	else if (msh_av != NULL && strcmp(msh_av[0], "cd") == 0)
-		ft_cd(msh_av, env); // lancer cd; avec msh env
-	else
-	{
-		slash_cmd = ft_strjoin("/", msh_av[0]);
-		cmd_paths = ft_strsplit(ft_rm_env_name(env, "PATH="), ':');
-		while (*cmd_paths && \
-				(ret = stat(abs_path = ft_strjoin(*cmd_paths, slash_cmd), &check)))
-			++cmd_paths;
-		if (ret == 0)
-			ft_run_cmd(abs_path, msh_av, env);
-		else
-		{
-			ft_putstr("42sh: command not found: ");
-			ft_putendl(msh_av[0]);
-		}
+		temp1 = temp1->next;
 	}
 }
 
 void	ft_start_lexer(t_shell **shell, t_letter **list_let)
 {
-	t_history	*hist;
-	int i;
+	//	t_history	*hist;
+	//	int i;
 
-	hist = NULL;
-	i = 0;
+	//	hist = NULL;
+	//	i = 0;
 	if (!shell || !list_let)
 		return ;
 	if (list_let)
 	{
 		char_to_string(&(*shell)->data, *list_let);
+		cursor_control(*list_let);
 		TPUTS(bt);
-		TPUTS(do);
-		while (i <  ft_list_len(*list_let))
-		{
-			TPUTS(le);
-			i++;
-		}
-		TPUTS(bt);
+		lex_verify(shell, list_let);
+		TPUTS(cr);
+		cursor_control(*list_let);
 		show_prompt(shell);
+	//	ft_delete_list(list_let);
 	}
-	lex_verify(shell, list_let);
 }
 
 void	lex_verify(t_shell **shell, t_letter **let)

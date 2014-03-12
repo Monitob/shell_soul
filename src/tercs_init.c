@@ -46,7 +46,7 @@ void			init_trcs(t_tercs *tcs)
 	tcs->term_fd.c_cc[VTIME] = 0;
 	tcsetattr(tcs->tty_fd, TCSADRAIN, &tcs->term_fd);
 	TPUTS(cl);
-	TPUTS(li);
+	TPUTS(ei);
 }
 	
 int			trcs_putchar(int c)

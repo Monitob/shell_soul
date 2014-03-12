@@ -161,6 +161,7 @@ int				error_fd(char *s, int fd);
 
 void			lex_verify(t_shell **shell, t_letter **let);
 void			ft_start_lexer(t_shell **shell, t_letter **list_let);
+void	cursor_control(t_letter *list_let);
 
 /*
 ** init_hist.c
@@ -184,5 +185,11 @@ void			print_path(char **path);
 */
 
 void	ft_swap_env(char **env1, char **env2, char c);
+
+/*
+**  buil_cd.c
+*/
+
+void	ft_parser(char **msh_av, char **env);
 
 #endif

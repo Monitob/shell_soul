@@ -24,7 +24,7 @@ LFLAGS = -ltermcap
 SRC = init_shell.c init_shell2.c tercs_init.c init_types.c \
 	  tercs_control.c init_current_list.c \
 	  error.c fct_debug.c init_hist.c lexer_verify.c\
-	  ft_swap_env.c
+	  ft_swap_env.c buil_cd.c
 
 OBJ = $(patsubst %.c, $(PATH_OBJ)/%.o, $(SRC))
 

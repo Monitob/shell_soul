@@ -71,7 +71,7 @@ void		get_path(t_stack **tree, char **env)
 	i = 0;
 	l_path = NULL;
 	if (!(*tree = (t_stack *)malloc(sizeof(t_stack))))
-			exit(0);
+		exit(0);
 	while (strncmp(env[i] , "PATH=", 5) != 0)
 		i++;
 	l_path = ft_strsplit(env[i], '=');
