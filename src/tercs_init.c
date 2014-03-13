@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 23:02:18 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/01 14:57:06 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/13 19:10:09 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int			set_fd(void)
 		error_fd("Not a terminal", 2);
 	if ((path_fd = ttyname(STDIN_FILENO)) == NULL)
 		error_fd("ttayname fail", 2);
-	if ((fd = open(path_fd, O_WRONLY | O_NOCTTY)) < 0)
-		error_fd("open fail", 2);
+	fd =  dup(STDIN_FILENO);
 	return (fd);
 }
 
@@ -40,18 +39,18 @@ static	void	init_term(void)
 void			init_trcs(t_tercs *tcs)
 {
 	init_term();
-	tcgetattr(tcs->tty_fd, &tcs->term_save);
-	tcs->term_fd.c_iflag &= ~(ECHO | ICANON);
+	tcgetattr(tcs->tty_fd, &(tcs->term_save));
+	tcs->term_fd.c_lflag &= ~(ECHO | ICANON);
 	tcs->term_fd.c_cc[VMIN] = 1;
 	tcs->term_fd.c_cc[VTIME] = 0;
-	tcsetattr(tcs->tty_fd, TCSADRAIN, &tcs->term_fd);
+	tcsetattr(tcs->tty_fd, TCSADRAIN, &(tcs->term_fd));
 	TPUTS(cl);
 	TPUTS(ei);
 }
 	
 int			trcs_putchar(int c)
 {
-	write(1, &c, 1);
+	write(3, &c, 1);
 	return (1);
 }
 

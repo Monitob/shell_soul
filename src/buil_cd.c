@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/28 13:31:45 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/02/28 13:32:06 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/13 19:40:30 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,21 @@ static char	*ft_rm_env_name(char **env, char *env_name)
 	return (NULL);
 }
 
-static void	ft_run_cmd(const char *path, char **msh_av, char **env)
+static void			ft_run_cmd(const char *path, char **msh_av, char **env)
 {
 	pid_t			cmd;
 	int				status;
 
-	cmd = fork();
+/*	if (access(msh_av[0], X_OK) == -1)
+	{
+		ft_putstr("error: not access");
+		return ;
+	}*/
+	if ((cmd = fork()) == -1)
+	{
+		ft_putstr("error: fork fail");
+		return ;
+	}
 	if (cmd == 0)
 	{
 		execve(path, msh_av, env);
@@ -147,7 +156,6 @@ static void ft_cd_sub(char **msh_av, char **env, int i, int j)
 	chdir(ft_rm_env_name(env, "PWD="));
 	ft_putendl(ft_rm_env_name(env, "PWD="));
 }
-
 /*
  ** zsh
  ** cd, cd ~, cd --

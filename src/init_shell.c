@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 16:17:08 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/05 19:55:16 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/12 22:56:57 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ t_shell		*init_shell(t_shell *root)
 		error_fd("Not enought memory", 2);
 	root->tcs->tty_fd = set_fd();
 	init_trcs(root->tcs);
-	TPUTS(bc);
 	return (root);
 }
 
@@ -50,11 +49,14 @@ char		**init_env(void)
 	int		len_env;
 
 	len_env = ft_tab_len(environ);
-	env = (char **)malloc(sizeof(char *) * (len_env + 1));
+	if (!(env = (char **)malloc(sizeof(char *) * (len_env + 1))))
+		exit(-1);
 	i = 0;
 	while (i < len_env)
 	{
 		env[i] = (char *)malloc(sizeof(char) * (ft_strlen(environ[i]) + 1));
+		if (env[i] == NULL)
+			exit(-1);
 		ft_strcpy(env[i], environ[i]);
 		i++;
 	}
