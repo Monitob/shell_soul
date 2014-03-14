@@ -79,7 +79,7 @@ void	lex_verify(t_shell **shell, t_letter **let)
 		if ((msh_av = ft_strsplit((*shell)->data->line, ' ')) == 0)
 			return ;
 		if (msh_av[0] != NULL)
-			ft_parser(msh_av, (*shell)->env);
+			(*shell)->env = ft_parser(ft_tablen(msh_av), msh_av, (*shell)->env);
 	}
 	return ;
 }

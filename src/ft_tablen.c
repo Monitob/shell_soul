@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_tablen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flime <flime@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/22 19:13:20 by jbernabe          #+#    #+#             */
-/*   Updated: 2013/12/30 17:18:38 by jbernabe         ###   ########.fr       */
+/*   Created: 2014/03/14 06:16:27 by flime             #+#    #+#             */
+/*   Updated: 2014/03/14 06:25:01 by flime            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int		ft_isalnum(int c)
+/*
+** Return number of string in a tab
+*/
+int		ft_tablen(char **s)
 {
-	if (((ft_isdigit(c)) != 0) || (ft_isalpha(c) != 0))
-	{
-		return (1);
-	}
-	return (0);
+	int		i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
