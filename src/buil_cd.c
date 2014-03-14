@@ -237,6 +237,7 @@ void	ft_parser(char **msh_av, char **env)
 		{
 			ft_putstr("42sh: command not found: ");
 			ft_putendl(msh_av[0]);
+			TPUTS(cr);
 		}
 	}
 }

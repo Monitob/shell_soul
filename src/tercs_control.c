@@ -35,6 +35,12 @@ void	tercs_down(t_command **c_line, t_letter **let)
 
 void	tercs_right(t_command **c_line, t_letter **let)
 {
+	if (!(*let))
+	{
+		(void)let;
+		(void)c_line;
+		return ;
+	}
 	if (let && c_line)
 	{
 		if ((*let)->next == NULL)
@@ -50,9 +56,13 @@ void	tercs_right(t_command **c_line, t_letter **let)
 
 void	tercs_left(t_command **c_line, t_letter **let)
 {
-	if (!c_line && !let)
+	if (!(*let))
+	{
+		(void)let;
+		(void)c_line;
 		return ;
-	if (let)
+	}
+	if ((*let)->letter != '\0')
 	{
 		if ((*let)->prev == NULL)
 				return ;

@@ -30,12 +30,15 @@ void	cursor_control(t_letter *list_let)
 
 void	ft_delete_list(t_letter **list_let)
 {
-	t_letter *temp1;
+	t_letter *temp;
 
-	temp1 = *list_let;
-	while (temp1->next != NULL)
+	temp = (*list_let)->prev;
+	while (temp != NULL)
 	{
-		temp1 = temp1->next;
+		free(*list_let);
+		*list_let = NULL;
+		*list_let = temp;
+		temp = temp->prev;
 	}
 }
 /*
@@ -55,8 +58,8 @@ void	ft_start_lexer(t_shell **shell, t_letter **list_let)
 	if (list_let)
 	{
 		char_to_string(&(*shell)->data, *list_let);
-		cursor_control(*list_let);
 		TPUTS(bt);
+		cursor_control(*list_let);
 		tcsetattr((*shell)->tcs->tty_fd, TCSADRAIN,
 				&((*shell)->tcs->term_save));
 		lex_verify(shell, list_let);
