@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/13 19:33:23 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/14 18:12:34 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,16 @@ int				init_line(t_shell *root)
 {
 	int			type;
 	t_letter	*list_current;
+	int			stop;
 	char		key[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 	type = 0;
+	stop = 1;
 	list_current = NULL;
 	if (root)
 	{	
 		init_key_control(root);
-		while (!(key[0] == 27 && key[1] == 0))
+		while (stop != 0)
 		{
 			type = read_key(key, 0);
 			if (type > 0)
@@ -81,9 +83,7 @@ int				init_line(t_shell *root)
 				if (key[0] != 13)
 					init_ascii(&list_current, key[0], &root);
 			}
-			key[2] = 0;
-			key[3] = 0;
-			key[5] = 0;
+			ft_memset(key, 0, 8);
 		}
 	}
 	return (0);
