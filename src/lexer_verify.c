@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 19:51:16 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/15 17:13:09 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/15 18:23:05 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	ft_start_lexer(t_shell **shell, t_letter **list_let)
 		return ;
 	if (list_let)
 	{
+		init_history(*list_let, &hist);
 		char_to_string(&(*shell)->data, *list_let);
 		TPUTS(bt);
 		cursor_control(*list_let);
@@ -76,9 +77,7 @@ void	ft_start_lexer(t_shell **shell, t_letter **list_let)
 				&((*shell)->tcs->term_save));
 		lex_verify(shell, list_let);
 		tcsetattr((*shell)->tcs->tty_fd, TCSADRAIN, &((*shell)->tcs->term_fd));
-		init_history(*list_let, &hist);
 		cursor_control2(*list_let);
-	ft_print_hist(hist); //
 		show_prompt(shell);
 		ft_delete_list(list_let);
 		init_line(*shell);
