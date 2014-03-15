@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/01 19:46:41 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/04 16:10:46 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/15 17:01:45 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,21 @@ static void		ft_hist_to_list(t_history **l_hist, t_history *new_el)
 	new_el->prev_h = temp;
 	*l_hist = new_el;
 }
-	
+
+void		ft_print_hist(t_history *hist_p)
+{
+	t_history *temp;
+
+	temp = hist_p;
+	while (temp != NULL)
+	{
+		display_list_test(temp->curr);
+		temp = temp->prev_h;
+		write(1, "\n", 1);
+	}
+
+}
+
 void	init_history(t_letter *current_list, t_history **l_hist)
 {
 	t_history	*new_line;
@@ -48,9 +62,11 @@ void	init_history(t_letter *current_list, t_history **l_hist)
 	if (*l_hist == NULL)
 	{
 		*l_hist = creat_head_history(current_list);
+		ft_putstr("toot");
 	}
 	else
 	{
+		ft_putstr("tata");
 		ft_hist_to_list(l_hist, new_line);
 	}
 }

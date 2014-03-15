@@ -6,14 +6,14 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 19:51:16 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/14 18:22:21 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/15 17:13:09 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 #include <unistd.h>
 
-static void	cursor_control2(t_letter *list_let)
+void	cursor_control2(t_letter *list_let)
 {
 	int i;
 
@@ -56,17 +56,15 @@ void	ft_delete_list(t_letter **list_let)
 	}
 }
 /*
-* Every time you whish use execve to use any command you
-* got to passe in mod term_save and them term_fd as the fontions
-* below
-*/
+ * Every time you whish use execve to use any command you
+ * got to passe in mod term_save and them term_fd as the fontions
+ * below
+ */
 void	ft_start_lexer(t_shell **shell, t_letter **list_let)
 {
-	//	t_history	*hist;
-	//	int i;
+	t_history	*hist;
 
-	//	hist = NULL;
-	//	i = 0;
+	hist = NULL;
 	if (!shell || !list_let)
 		return ;
 	if (list_let)
@@ -78,10 +76,12 @@ void	ft_start_lexer(t_shell **shell, t_letter **list_let)
 				&((*shell)->tcs->term_save));
 		lex_verify(shell, list_let);
 		tcsetattr((*shell)->tcs->tty_fd, TCSADRAIN, &((*shell)->tcs->term_fd));
+		init_history(*list_let, &hist);
 		cursor_control2(*list_let);
+	ft_print_hist(hist); //
 		show_prompt(shell);
 		ft_delete_list(list_let);
-		init_line(*shell);	
+		init_line(*shell);
 	}
 }
 

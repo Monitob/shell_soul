@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/05 15:54:00 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/05 17:14:34 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/15 16:33:39 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ static	int		set_type_next(char key[8])
 	{
 		return (RETURN);
 	}
-/*	if (key[0])
-		return (ASCII);*/
 	return (-2);
 }
 

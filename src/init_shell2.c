@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/14 18:12:34 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/15 16:32:51 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ void			show_prompt(t_shell **shell)
 	return ;
 }
 
-static void		init_key_control(t_shell *shell)
+static void		init_key_control(t_shell *shell, t_letter **list_current)
 {
 	shell->data->line = NULL;
 	shell->tcs->line_len = 0;
+	*list_current = NULL;
 }
 
 static void		exec_type(t_shell **sh, t_letter **let, int type)
@@ -58,33 +59,39 @@ static void		exec_type(t_shell **sh, t_letter **let, int type)
 	}
 }
 
-int				init_line(t_shell *root)
+static void		control_read(t_shell *root, t_letter *list_current,
+		char key[8], int type)
+{
+	ft_memset(key, 0, 8);
+	if (!list_current && type == -1)
+	{
+		cursor_control(list_current);
+		show_prompt(&root);
+	}
+}
+
+void				init_line(t_shell *root)
 {
 	int			type;
 	t_letter	*list_current;
-	int			stop;
 	char		key[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 	type = 0;
-	stop = 1;
-	list_current = NULL;
-	if (root)
-	{	
-		init_key_control(root);
-		while (stop != 0)
-		{
-			type = read_key(key, 0);
-			if (type > 0)
-				exec_type(&root, &list_current, type);
-			if ((key[2] == 0 && key[3] == 0)|| type == -1) 
-			{
-				if (type == -1)
-					ft_start_lexer(&root, &list_current);
-				if (key[0] != 13)
-					init_ascii(&list_current, key[0], &root);
-			}
+	init_key_control(root, &list_current);
+	while (1)
+	{
+		type = read_key(key, 0);
+		if (key[0] == 27 && key[1] == 0 && key[2] == 0)
 			ft_memset(key, 0, 8);
+		if (type > 0)
+			exec_type(&root, &list_current, type);
+		if ((key[2] == 0 && key[3] == 0)|| type == -1) 
+		{
+			if (type == -1 && list_current)
+				ft_start_lexer(&root, &list_current);
+			if (key[0] != 13)
+				init_ascii(&list_current, key[0], &root);
 		}
+		control_read(root, list_current, key, type);
 	}
-	return (0);
 }

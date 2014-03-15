@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/02 12:30:39 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/05 19:52:57 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/15 16:59:08 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void			display_list_test(t_letter *head)
 	while (temp != NULL)
 	{
 		ft_putchar(temp->letter);
-		temp = temp->next;
+		temp = temp->prev;
 	}
 	write(1, "\n", 1);
 }

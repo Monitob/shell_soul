@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/11 12:36:21 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/15 16:53:09 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void			get_path(t_stack **tree, char **env);
 */
 
 void			show_prompt(t_shell **shell);
-int				init_line(t_shell *root);
+void			init_line(t_shell *root);
 
 /*
 **	init_types.c
@@ -162,6 +162,8 @@ int				error_fd(char *s, int fd);
 void			lex_verify(t_shell **shell, t_letter **let);
 void			ft_start_lexer(t_shell **shell, t_letter **list_let);
 void			cursor_control(t_letter *list_let);
+void			ft_delete_list(t_letter **list_let);
+void			cursor_control2(t_letter *list_let);
 
 /*
 ** init_hist.c
@@ -179,6 +181,7 @@ void			ft_key_int_type(char key[8], int type);
 void			ft_char_to_list(t_letter **ele, t_letter *new_el);
 t_letter		*creat_new_element(char let);
 void			print_path(char **path);
+void			ft_print_hist(t_history *hist_p);
 
 /*
 ** ft_swap_env.c
