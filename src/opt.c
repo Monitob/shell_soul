@@ -12,29 +12,10 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include "shell.h"
 #include <stdio.h> //attention
 
-static void	ft_putstr(char *s)
-{
-	while (*s)
-		write (1, s++, 1);
-}
-
-static void	ft_putendl(char *s)
-{
-	while (*s)
-		write (1, s++, 1);
-	write(1, "\n", 1);
-}
-
-static void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
 static int	opt_len(char **av);
-static int	ft_strunion_len(char *av);
-static char	*ft_strunion(char *av);
 
 /*
 ** Returns -1 if option is invalid
@@ -118,52 +99,18 @@ static int	opt_len(char **av)
 	return (len);
 }
 
-/*
-** Returns a string with only one iteration of each character
-*/
-static char	*ft_strunion(char *av)
+int		opt_end(char **av)
 {
 	int		i;
-	int		j;
-	int		k;
-	char	*ret;
 
-	k = 0;
-	ret = (char *)malloc(sizeof(char) * (ft_strunion_len(av) + 1));
-	ret[ft_strunion_len(av)] = 1;
-	i = 0;
-	while (av[i])
-	{
-		j = 0;
-		while (j < i && av[j] != av[i])
-			j++;
-		if (i++ == j)
-			*(ret + k++) = *(av + i - 1);
-	}
-	ret[k] = 0;
-	return (ret);
+	i = 1;
+	while (av[i] && !(av[i][0] != '-' || (av[i][0] == '-'
+						&& (av[i][1] == 0 || av[i][1] == '-'))))
+		i++;
+	if (av[i] && !ft_strncmp(av[i], "--", 2))
+		i++;
+	return (i);
 }
-
-static int	ft_strunion_len(char *av)
-{
-	int		i;
-	int		j;
-	int		len;
-
-	len = 0;
-	i = 0;
-	while (av[i])
-	{
-		j = 0;
-		while (j < i && av[j] != av[i])
-			j++;
-		if (i++ == j)
-			len++;
-	}
-	return (len);
-}
-
-
 /*int		main(int ac, char **av)
 {
 	char	usage[] = "usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]";

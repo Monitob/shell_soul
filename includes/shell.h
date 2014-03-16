@@ -23,6 +23,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include "libft.h"
+# include "buil.h"
 
 # define BUFFER_R			8	
 # define TRCS_PUT			1, trcs_putchar
@@ -182,34 +183,5 @@ void			ft_char_to_list(t_letter **ele, t_letter *new_el);
 t_letter		*creat_new_element(char let);
 void			print_path(char **path);
 void			ft_print_hist(t_history *hist_p);
-
-/*
-** ft_swap_env.c
-*/
-
-void	ft_swap_env(char **env1, char **env2, char c);
-
-/*
-**  buil_cd.c
-*/
-
-void	buil_cmd(const char *path, char **msh_av, char **env);
-void	buil_cd(int ac, char **msh_av, char **env, int opt_end, char *opt);
-void	buil_env(int ac, char **msh_av, char **env, int opt_end);
-char 	**buil_setenv(int ac, char **msh_av, char **env);
-char	**buil_unsetenv(int msh_ac, char **msh_av, char **env);
-
-char	*env_chkname(char *s);
-char	*env_rmname(char **env, char *env_name);
-
-char	**parser(int ac, char **msh_av, char **env);
-
-char	opt_chk(char *av, char *cmd_name, char *option,  char *usage);
-char	*opt_get(char **av);
-
-void	ft_puttab(char **s);
-int		ft_tablen(char **s);
-int		ft_tabidx(char **t, char *s, int len);
-char	*ft_strndup(const char *s1, size_t n);
 
 #endif

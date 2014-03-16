@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-#include <stdio.h>
+#include <stdio.h> //Attention
 
 static void buil_cd_swap(char **msh_av, char **env, int opt_end, int opt_p)
 {
@@ -30,7 +30,6 @@ static void buil_cd_swap(char **msh_av, char **env, int opt_end, int opt_p)
 	j = ft_tabidx(env, "OLDPWD=", 7);
 	cpy_pwd = ft_strdup(env[i]);
 	cpy_oldpwd = ft_strdup(env[j]);
-	// ft_swap_env(&env[i], &env[j], 1);
 	l = 0;
 	k = 0;
 	while (env[i][l] && msh_av[opt_end][k])
@@ -83,7 +82,7 @@ static void buil_cd_sub(char **msh_av, char **env, int opt_p)
 	(void)msh_av;
 	i = ft_tabidx(env, "PWD=", 4);
 	j = ft_tabidx(env, "OLDPWD=", 7);
-	ft_swap_env(&env[i], &env[j], 1);
+	env_swap(&env[i], &env[j], 1);
 	if (opt_p == 1)
 		env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));
 	chdir(env_rmname(env, "PWD="));
@@ -109,8 +108,8 @@ static void buil_cd_home(char **msh_av, char **env, int opt_end, int opt_p)
 	k = ft_tabidx(env, "HOME=", 5);
 	cpy_pwd = ft_strdup(env[i]);
 	cpy_oldpwd = ft_strdup(env[j]);
-	ft_swap_env(&env[i], &env[j], 1);
-	ft_swap_env(&env[i], &env[k], 0);
+	env_swap(&env[i], &env[j], 1);
+	env_swap(&env[i], &env[k], 0);
 	if (!msh_av[opt_end] || !ft_strcmp(msh_av[opt_end], "--") || !ft_strcmp(msh_av[opt_end], "~"))//probleme avec le tild
 	{
 		if (chdir(env_rmname(env, "PWD=")))
@@ -181,18 +180,24 @@ static void buil_cd_path(char **msh_av, char **env, int opt_end, int opt_p)
 
 	i = ft_tabidx(env, "PWD=", 4);
 	j = ft_tabidx(env, "OLDPWD=", 7);
-	ft_swap_env(&env[i], &env[j], 1);
+	env_swap(&env[i], &env[j], 1);
 	if (!ft_strncmp(msh_av[opt_end], "/", 1))
 	{
 		if (opt_p == 0)
+		{
 			sub1 = ft_strdup(msh_av[opt_end]);
+		}
 		else
+		{
 			sub1 = getcwd(NULL, 0);
+		}
 		env[i] = ft_strjoin("PWD=", sub1);
 		free(sub1);
 	}
 	else
+	{
 		env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));
+	}
 	chdir(env_rmname(env, "PWD=")); //tester la valeur de retour; voir si chdir est inutile vu qu' on en fait un avant;
 }
 
@@ -205,24 +210,32 @@ void 		buil_cd(int ac, char **msh_av, char **env, int opt_end, char *opt)
 	if (strchr(opt, 'P'))
 		opt_p = 1;
 	if ((opt_chk(opt, "cd", "PL", usage) == -1))
-		/*ft_putendl(opt_chk(opt, "cd", "PL", usage))*/;
+		;
 	else if ((ac - opt_end) == 2)
-	{
 		buil_cd_swap(msh_av, env, opt_end, opt_p);
-	}
 	else if(ac - opt_end < 2)
 	{
 		if (!msh_av[opt_end]  || !ft_strncmp(msh_av[opt_end], "~", 1))
+		{
 			buil_cd_home(msh_av, env, opt_end, opt_p);
-		else if (!ft_strcmp(msh_av[opt_end], "-")) // gerer les options
+			ft_putstr("4");
+		}
+		else if (!ft_strcmp(msh_av[opt_end], "-"))
+		{
+			ft_putstr("3");
 			buil_cd_sub(msh_av, env, opt_p);
+		}
 		else if (chdir(msh_av[opt_end]))
 		{
-				ft_putstr("cd: no such file or directory: ");
-				ft_putendl(msh_av[opt_end]);
+			ft_putstr("4");
+			ft_putstr("cd: no such file or directory: ");
+			ft_putendl(msh_av[opt_end]);
 		}
 		else
+		{
+			ft_putstr("5");
 			buil_cd_path(msh_av, env, opt_end, opt_p);
+		}
 	}
 	else
 		ft_putendl("cd: too many arguments");
