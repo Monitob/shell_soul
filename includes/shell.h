@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/15 16:53:09 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/16 20:20:22 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define EXEC_INST			{tercs_ascii, tercs_up, tercs_down, tercs_right,
 # define EXEC_INST2			tercs_left}
 # define EXE_PARAM			t_command **line, t_letter **
+# define PARAM_ECHO         char **msh_av, char **env
+# define FT_ECHO			{echo_no_opt, echo_op_n}
 
 extern char **environ;
 
@@ -183,5 +185,11 @@ void			ft_char_to_list(t_letter **ele, t_letter *new_el);
 t_letter		*creat_new_element(char let);
 void			print_path(char **path);
 void			ft_print_hist(t_history *hist_p);
+
+/*
+** buil_echo.c
+*/
+
+void			buil_echo(int ac, char **msh_av, char **env, char *opt);
 
 #endif

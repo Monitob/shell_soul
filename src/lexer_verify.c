@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 19:51:16 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/15 18:23:05 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/16 20:23:26 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,6 @@ void	cursor_control(t_letter *list_let)
 	}
 	TPUTS(bt);
 }
-
-void	ft_delete_list(t_letter **list_let)
-{
-	t_letter *temp;
-
-	temp = (*list_let)->prev;
-	while (temp != NULL)
-	{
-		(*list_let)->letter = 0;
-		*list_let = NULL;
-		*list_let = temp;
-		temp = temp->prev;
-	}
-}
 /*
  * Every time you whish use execve to use any command you
  * got to passe in mod term_save and them term_fd as the fontions
@@ -81,6 +67,7 @@ void	ft_start_lexer(t_shell **shell, t_letter **list_let)
 		show_prompt(shell);
 		ft_delete_list(list_let);
 		init_line(*shell);
+		free((*shell)->data->line);
 	}
 }
 
@@ -94,6 +81,7 @@ void	lex_verify(t_shell **shell, t_letter **let)
 			return ;
 		if (msh_av[0] != NULL)
 			(*shell)->env = parser(ft_tablen(msh_av), msh_av, (*shell)->env);
+		free(msh_av);
 	}
 	return ;
 }

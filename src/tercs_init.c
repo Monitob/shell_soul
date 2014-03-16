@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 23:02:18 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/13 19:10:09 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/16 20:22:54 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,5 @@ void		reset_term(t_shell	*root)
 	TPUTS(cl);
 	TPUTS(te);
 	TPUTS(ve);
+	free(root);
 }

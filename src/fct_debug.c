@@ -6,35 +6,11 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/02 12:30:39 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/15 17:47:21 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/16 20:10:48 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-t_letter		*creat_new_element(char let)
-{
-	t_letter	*root;
-
-	if (!(root = (t_letter *)malloc(sizeof(t_letter))))
-		return (NULL);
-	root->letter = let;
-	root->next = NULL;
-	root->prev = NULL;
-	return (root);
-}
-
-void			ft_char_to_list(t_letter **ele, t_letter *new_el)
-{
-	t_letter	*temp;
-
-	temp = *ele;
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp->next = new_el;
-	new_el->prev = temp;
-	*ele = new_el;
-}
 
 void			ft_key_int_type(char key[8], int type)
 {

@@ -6,7 +6,7 @@
 /*   By: flime <flime@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 03:18:10 by flime             #+#    #+#             */
-/*   Updated: 2014/03/14 03:57:27 by flime            ###   ########.fr       */
+/*   Updated: 2014/03/16 16:35:49 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ char	*opt_get(char **av)
 	int		k;
 	char	*opt;
 
-	opt = (char *)malloc(sizeof(char) * (opt_len(av) + 1));
+	if (!(opt = (char *)malloc(sizeof(char) * (opt_len(av) + 1))))
+		exit(0);
 	k = 0;
 	j = 1; //a verifier si 1 ou 2;
 	while (av[j] && !(av[j][0] != '-' ||

@@ -6,7 +6,7 @@
 /*   By: flime <flime@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/16 13:10:24 by flime             #+#    #+#             */
-/*   Updated: 2014/03/16 13:10:25 by flime            ###   ########.fr       */
+/*   Updated: 2014/03/16 19:58:12 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ char	**parser(int ac, char **av, char **env)
 
 	o_end = opt_end(av);
 	opt = opt_get(av);
-
-	if (o_end > 1)
-		opt = opt_get(av);
-
 	if (av != NULL && stat(av[0], &check) == 0)
 		buil_cmd(av[0], av, env);
 	else if (av != NULL && ft_strcmp(av[0], "cd") == 0)
@@ -42,6 +38,8 @@ char	**parser(int ac, char **av, char **env)
 	env = buil_unsetenv(ac, av, env);
 	else if (av != NULL && ft_strcmp(av[0], "env") == 0) //-option -i
 		buil_env(ac, av, env, o_end);
+	else if (av != NULL && ft_strncmp(av[0], "echo", 4) == 0)
+		buil_echo(ac, av, env, opt);
 	else if (av != NULL && ft_strncmp(av[0], "exit", 4) == 0)//csh
 		_Exit(0);
 	else

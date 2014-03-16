@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 16:17:08 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/12 22:56:57 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/16 19:54:24 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,5 @@ void		get_path(t_stack **tree, char **env)
 	(*tree)->right = NULL;
 	(*tree)->left = NULL;
 	(*tree)->cmd = NULL;
+	free(l_path);
 }

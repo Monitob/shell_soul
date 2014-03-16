@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/15 16:32:51 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/16 20:23:16 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void			show_prompt(t_shell **shell)
 	(*shell)->pro->size_prompt = ft_strlen(*temp) + 4;
 	ft_putstr((*shell)->pro->prompt);
 	ft_putstr("\033[35m -> \033[0m");
+	free(*temp);
 	return ;
 }
 
