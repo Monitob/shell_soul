@@ -197,5 +197,10 @@ char	**ft_parser(int ac, char **msh_av, char **env);
 
 int		ft_tablen(char **s);
 char	*ft_chkenv_name(char *s);
+char	*ft_strndup(const char *s1, size_t n);
+char	opt_chk(char *av, char *cmd_name, char *option,  char *usage);
+char	*opt_get(char **av);
+int		ft_tablen(char **s);
+void	ft_puttab(char **s);
 
 #endif

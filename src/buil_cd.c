@@ -14,6 +14,8 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+#include <stdio.h>
+
 static char	*ft_rm_env_name(char **env, char *env_name)
 {
 	int				i;
@@ -65,11 +67,66 @@ static int	ft_getenv_num(char **env, char *name, int len)
 	return (-1);
 }
 
+static void ft_cd_swap(char **msh_av, char **env, int opt_end, int opt_p)
+{
+	int		i;
+	int		j;
+	int		k;
+	int		start;
+	int		l;
+	char	*cpy_pwd;
+	char	*cpy_oldpwd;
+	(void)opt_p;
+	i = ft_getenv_num(env, "PWD=", 4);
+	j = ft_getenv_num(env, "OLDPWD=", 7);
+	cpy_pwd = ft_strdup(env[i]);
+	cpy_oldpwd = ft_strdup(env[j]);
+	// ft_swap_env(&env[i], &env[j], 1);
+	l = 0;
+	k = 0;
+	while (env[i][l] && msh_av[opt_end][k])
+	{
+		k = 0;
+		start = l;
+		while (msh_av[opt_end][k] == env[i][l] && env[i][l] && msh_av[opt_end][0])
+		{
+			k++;
+			l++;
+		}
+		if (!msh_av[opt_end][k])
+		{
+			env[i] = ft_strndup(env[i], start);
+			env[i] = ft_strjoin(env[i], msh_av[opt_end + 1]);
+			env[i] = ft_strjoin(env[i], ft_strsub(cpy_pwd, l, ft_strlen(cpy_pwd)));
+			if (chdir(ft_rm_env_name(env, "PWD=")))
+			{
+				ft_putstr("cd: no such file or directory: ");
+				ft_putendl(ft_rm_env_name(env, "PWD="));
+				env[i] = cpy_pwd;
+				env[j] = cpy_oldpwd;
+			}
+			else if (opt_p == 1)
+			{
+				env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));
+				env[j] = cpy_oldpwd;
+				chdir(ft_rm_env_name(env, "PWD="));
+			}
+			break ;
+		}
+		l++;
+	}
+	if (msh_av[opt_end][k])
+	{
+		ft_putstr("cd: string not in pwd: ");
+		ft_putendl(msh_av[opt_end]);
+	}
+}
+
 /*
 ** sh
 ** cd -,
 */
-static void ft_cd_sub(char **msh_av, char **env)
+static void ft_cd_sub(char **msh_av, char **env, int opt_p)
 {
 	int		i;
 	int		j;
@@ -78,6 +135,8 @@ static void ft_cd_sub(char **msh_av, char **env)
 	i = ft_getenv_num(env, "PWD=", 4);
 	j = ft_getenv_num(env, "OLDPWD=", 7);
 	ft_swap_env(&env[i], &env[j], 1);
+	if (opt_p == 1)
+		env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));
 	chdir(ft_rm_env_name(env, "PWD="));
 	ft_putendl(ft_rm_env_name(env, "PWD="));
 }
@@ -86,7 +145,7 @@ static void ft_cd_sub(char **msh_av, char **env)
 ** zsh
 ** cd, cd ~, cd --
 */
-static void ft_cd_home(char **msh_av, char **env)
+static void ft_cd_home(char **msh_av, char **env, int opt_end, int opt_p)
 {
 	int		i;
 	int		j;
@@ -95,28 +154,57 @@ static void ft_cd_home(char **msh_av, char **env)
 	char	*cpy_pwd;
 	char	*cpy_oldpwd;
 
+	(void)opt_p;
 	i = ft_getenv_num(env, "PWD=", 4);
 	j = ft_getenv_num(env, "OLDPWD=", 7);
 	k = ft_getenv_num(env, "HOME=", 5);
-	append = ft_strsub(msh_av[1], 1, ft_strlen(msh_av[1]));
-	if (!msh_av[1] || !ft_strcmp(msh_av[1], "--") || !ft_strcmp(msh_av[1], "~"))
+	cpy_pwd = ft_strdup(env[i]);
+	cpy_oldpwd = ft_strdup(env[j]);
+	ft_swap_env(&env[i], &env[j], 1);
+	ft_swap_env(&env[i], &env[k], 0);
+	if (!msh_av[opt_end] || !ft_strcmp(msh_av[opt_end], "--") || !ft_strcmp(msh_av[opt_end], "~"))//probleme avec le tild
 	{
-		ft_swap_env(&env[i], &env[j], 1);
-		ft_swap_env(&env[i], &env[k], 0);
-		chdir(ft_rm_env_name(env, "PWD="));
+		if (chdir(ft_rm_env_name(env, "PWD=")))
+		{
+			ft_putstr("cd: no such file or directory: ");
+			ft_putendl(ft_rm_env_name(env, "PWD="));
+			env[i] = cpy_pwd;
+			env[j] = cpy_oldpwd;
+		}
+		else if (opt_p == 1)
+		{
+			env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));
+			chdir(ft_rm_env_name(env, "PWD="));
+		}
 	}
-	else if (ft_strncmp(msh_av[1], "~/", 2))
+	else if (ft_strncmp(msh_av[opt_end], "~/", 2)) //tild dans le parseur.
 	{
-		ft_putstr("cd: no such file or directory: "); //verifier perror permisssion ou file directory
-		//zsh: permission denied: /nfs/zfs-student-2/users/2013/flime
-		ft_putendl(ft_rm_env_name(env, "PWD=")); //faux , fait une recherche dans tous users
+
+		env[i] = ft_rm_env_name(env, "HOME=");
+		k = 0;
+		while (env[i][k])
+			k++;
+		while (k > 0 && env[i][k] != '/')
+			k--;
+		k++;
+		env[i] = ft_strndup(env[i], k);
+		env[i] = ft_strjoin("PWD=", env[i]);
+		env[i] = ft_strjoin(env[i], ft_strsub(msh_av[opt_end], 1, ft_strlen(msh_av[opt_end])));
+		if (chdir(ft_rm_env_name(env, "PWD=")))
+		{
+			ft_putendl("42sh: no such user or named directory: dgsdf");
+			env[i] = cpy_pwd;
+			env[j] = cpy_oldpwd;
+		}
+		else if (opt_p == 1)
+		{
+			env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));
+			chdir(ft_rm_env_name(env, "PWD="));
+		}
 	}
 	else
 	{
-		cpy_pwd = ft_strdup(env[i]);
-		cpy_oldpwd = ft_strdup(env[j]);
-		ft_swap_env(&env[i], &env[j], 1);
-		ft_swap_env(&env[i], &env[k], 0);
+		append = ft_strsub(msh_av[opt_end], 1, ft_strlen(msh_av[opt_end]));
 		env[i] = ft_strjoin(env[i], append);
 		if (chdir(ft_rm_env_name(env, "PWD=")))
 		{
@@ -125,14 +213,18 @@ static void ft_cd_home(char **msh_av, char **env)
 			env[i] = cpy_pwd;
 			env[j] = cpy_oldpwd;
 		}
-		
+		else if (opt_p == 1)
+		{
+			env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));
+			chdir(ft_rm_env_name(env, "PWD="));
+		}
 	}
 }
 /*
 ** zsh
 ** cd ., cd .., cd ./../../././., cd /path/to/lol
 */
-static void ft_cd_path(char **msh_av, char **env)
+static void ft_cd_path(char **msh_av, char **env, int opt_end, int opt_p)
 {
 	int		i;
 	int		j;
@@ -141,52 +233,62 @@ static void ft_cd_path(char **msh_av, char **env)
 	i = ft_getenv_num(env, "PWD=", 4);
 	j = ft_getenv_num(env, "OLDPWD=", 7);
 	ft_swap_env(&env[i], &env[j], 1);
-	if (!ft_strnequ(msh_av[1], "/Volume/Data/", 14) && ft_strcmp(msh_av[1], "/"))
+	if (!ft_strncmp(msh_av[opt_end], "/", 1))
 	{
-		sub1 = ft_strsub(getcwd(NULL, 0), 13, ft_strlen(getcwd(NULL, 0)));
+		if (opt_p == 0)
+			sub1 = ft_strdup(msh_av[opt_end]);
+		else
+			sub1 = getcwd(NULL, 0);
 		env[i] = ft_strjoin("PWD=", sub1);
 		free(sub1);
 	}
 	else
 		env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));
-	chdir(ft_rm_env_name(env, "PWD=")); //tester la veleur de retour; voir si chdir est inutile vu qu' on en fait un avant;
+	chdir(ft_rm_env_name(env, "PWD=")); //tester la valeur de retour; voir si chdir est inutile vu qu' on en fait un avant;
 }
 
-static void ft_cd(int ac, char **msh_av, char **env)
+static void ft_cd(int ac, char **msh_av, char **env, int opt_end, char *opt)
 {
-	(void)ac;
-	if (!msh_av[1] || !ft_strcmp(msh_av[1], "--") || !ft_strncmp(msh_av[1], "~", 1))
-		ft_cd_home(msh_av, env);
-	else if (!ft_strncmp(msh_av[1], "-", 1)) // gerer les options
-		ft_cd_sub(msh_av, env);
-	else
+	char	usage[] = "Usage: cd [-PL][-|<dir>]."; // ce message n'existe pas sous zsh.
+	char	opt_p;
+
+	opt_p = 0;
+	if (strchr(opt, 'P'))
+		opt_p = 1;
+	if ((opt_chk(opt, "cd", "PL", usage) == -1))
+		/*ft_putendl(opt_chk(opt, "cd", "PL", usage))*/;
+	else if ((ac - opt_end) == 2)
 	{
-		if (chdir(msh_av[1]))
+		ft_cd_swap(msh_av, env, opt_end, opt_p);
+	}
+	else if(ac - opt_end < 2)
+	{
+		if (!msh_av[opt_end]  || !ft_strncmp(msh_av[opt_end], "~", 1))
+			ft_cd_home(msh_av, env, opt_end, opt_p);
+		else if (!ft_strcmp(msh_av[opt_end], "-")) // gerer les options
+			ft_cd_sub(msh_av, env, opt_p);
+		else if (chdir(msh_av[opt_end]))
 		{
-			ft_putstr("cd: no such file or directory: ");
-			ft_putendl(msh_av[1]);
+				ft_putstr("cd: no such file or directory: ");
+				ft_putendl(msh_av[opt_end]);
 		}
 		else
-			ft_cd_path(msh_av, env);
+			ft_cd_path(msh_av, env, opt_end, opt_p);
 	}
-}
-
-
-static void	ft_disp_env(char **env)
-{
-	while (*env)
-		ft_putendl(*(env++));
+	else
+		ft_putendl("cd: too many arguments");
 }
 
 /*
 ** csh
 */
-static void ft_env(int ac, char **msh_av, char **env)
+static void ft_env(int ac, char **msh_av, char **env, int opt_end)
 {
 	//option -i -iiiiiiiiiiii
 	(void)ac;
 	(void)msh_av;
-	ft_disp_env(env);
+	(void)opt_end;
+	ft_puttab(env);
 }
 
 /*
@@ -230,7 +332,7 @@ static char **ft_setenv(int ac, char **msh_av, char **env)
 	(void)ac;
 	i = 0;
 	if (!msh_av[1])
-		ft_disp_env(env);
+		ft_puttab(env);
 	else if (msh_av[1] && !msh_av[2]) //mieux vaut utiliser msh_ac!!!!!!!
 	{
 		if ((i = ft_getenv_num(env, ft_strjoin(msh_av[1], "="), ft_strlen(msh_av[1]))) != -1)
@@ -297,9 +399,10 @@ static char **ft_unsetenv(int msh_ac, char **msh_av, char **env)
 }
 
 /*
- **
- */
-char		**ft_parser(int ac, char **msh_av, char **env)
+**
+*/
+
+char	**ft_parser(int ac, char **msh_av, char **env)
 {
 	struct stat		check;
 	char			**cmd_paths;
@@ -310,18 +413,30 @@ char		**ft_parser(int ac, char **msh_av, char **env)
 
 	int				i;
 
-	(void)ac;
+	int				opt_end;
+	char 			*opt;
+
+	opt = opt_get(msh_av);
+	opt_end = 1; //a verifier si 1 ou 2;
+	while (msh_av[opt_end] && !(msh_av[opt_end][0] != '-' ||
+			(msh_av[opt_end][0] == '-' && (msh_av[opt_end][1] == 0 || msh_av[opt_end][1] == '-'))))
+		opt_end++;
+	if (msh_av[opt_end] && !ft_strncmp(msh_av[opt_end], "--", 2))
+		opt_end++;
+	if (opt_end > 1)
+		opt = opt_get(msh_av);
+
 	if (msh_av != NULL && stat(msh_av[0], &check) == 0)
 		ft_run_cmd(msh_av[0], msh_av, env);
-	else if (msh_av != NULL && strcmp(msh_av[0], "cd") == 0)
-		ft_cd(ac, msh_av, env);
-	else if (msh_av != NULL && strcmp(msh_av[0], "setenv") == 0)
+	else if (msh_av != NULL && ft_strcmp(msh_av[0], "cd") == 0)
+		ft_cd(ac, msh_av, env, opt_end, opt);
+	else if (msh_av != NULL && ft_strcmp(msh_av[0], "setenv") == 0)
 		env = ft_setenv(ac, msh_av, env);
-	else if (msh_av != NULL && strcmp(msh_av[0], "unsetenv") == 0)
+	else if (msh_av != NULL && ft_strcmp(msh_av[0], "unsetenv") == 0)
 	env = ft_unsetenv(ac, msh_av, env);
-	else if (msh_av != NULL && strcmp(msh_av[0], "env") == 0) //-option -i
-		ft_env(ac, msh_av, env);
-	else if (msh_av != NULL && strcmp(msh_av[0], "exit") == 0)
+	else if (msh_av != NULL && ft_strcmp(msh_av[0], "env") == 0) //-option -i
+		ft_env(ac, msh_av, env, opt_end);
+	else if (msh_av != NULL && ft_strncmp(msh_av[0], "exit", 4) == 0)//csh
 		_Exit(0);
 	else
 	{
@@ -329,6 +444,7 @@ char		**ft_parser(int ac, char **msh_av, char **env)
 		rm = ft_rm_env_name(env, "PATH=");
 		if (rm)
 		{
+
 			cmd_paths = ft_strsplit(rm, ':');
 			while (*cmd_paths && \
 				(ret = stat(abs_path = ft_strjoin(*cmd_paths, slash_cmd), &check)))
