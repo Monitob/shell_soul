@@ -193,6 +193,8 @@ void	ft_swap_env(char **env1, char **env2, char c);
 **  buil_cd.c
 */
 
+void	buil_cmd(const char *path, char **msh_av, char **env);
+
 char	**ft_parser(int ac, char **msh_av, char **env);
 
 int		ft_tablen(char **s);

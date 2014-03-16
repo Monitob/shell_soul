@@ -25,7 +25,7 @@ SRC = init_shell.c init_shell2.c tercs_init.c init_types.c \
 	  tercs_control.c init_current_list.c \
 	  error.c fct_debug.c init_hist.c lexer_verify.c\
 	  ft_swap_env.c buil_cd.c ft_tablen.c ft_chkenv_name.c \
-	  ft_puttab.c ft_strndup.c opt.c
+	  ft_puttab.c ft_strndup.c opt.c buil_cmd.c
 
 OBJ = $(patsubst %.c, $(PATH_OBJ)/%.o, $(SRC))
 

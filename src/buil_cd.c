@@ -36,20 +36,6 @@ static char	*ft_rm_env_name(char **env, char *env_name)
 	return (NULL);
 }
 
-static void	ft_run_cmd(const char *path, char **msh_av, char **env)
-{
-	pid_t			cmd;
-	int				status;
-
-	cmd = fork();
-	if (cmd == 0)
-	{
-		execve(path, msh_av, env);
-		exit(-1);
-	}
-	wait(&status);
-}
-
 /*
 ** Get env variable number, if variable is not found return -1
 */
@@ -427,7 +413,7 @@ char	**ft_parser(int ac, char **msh_av, char **env)
 		opt = opt_get(msh_av);
 
 	if (msh_av != NULL && stat(msh_av[0], &check) == 0)
-		ft_run_cmd(msh_av[0], msh_av, env);
+		buil_cmd(msh_av[0], msh_av, env);
 	else if (msh_av != NULL && ft_strcmp(msh_av[0], "cd") == 0)
 		ft_cd(ac, msh_av, env, opt_end, opt);
 	else if (msh_av != NULL && ft_strcmp(msh_av[0], "setenv") == 0)
@@ -452,7 +438,7 @@ char	**ft_parser(int ac, char **msh_av, char **env)
 				++cmd_paths;
 			}
 			if (ret == 0)
-				ft_run_cmd(abs_path, msh_av, env); //mettre une condition pour l'env sans PATH ou PATH modifi'e
+				buil_cmd(abs_path, msh_av, env); //mettre une condition pour l'env sans PATH ou PATH modifi'e
 			else
 			{
 				ft_putstr("42sh: command not found: ");
