@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buil_cmd.c                                         :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flime <flime@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/03/16 12:30:57 by flime             #+#    #+#             */
-/*   Updated: 2014/03/16 12:31:00 by flime            ###   ########.fr       */
+/*   Created: 2014/02/04 10:40:33 by flime             #+#    #+#             */
+/*   Updated: 2014/02/04 11:27:09 by flime            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/wait.h>
-#include "shell.h"
-
-void	buil_cmd(const char *path, char **msh_av, char **env)
+int		ft_isspace(int c)
 {
-	pid_t			cmd;
-	int				status;
-
-	cmd = fork();
-	if (cmd == 0)
-	{
-		execve(path, msh_av, env);
-		exit(-1);
-	}
-	wait(&status);
+	if (c == '\t' || c == '\n' || c == '\v'\
+		|| c == '\f' || c == '\r' || c == ' ')
+		return (1);
+	return (0);
 }

@@ -26,8 +26,10 @@ SRC = init_shell.c init_shell2.c tercs_init.c init_types.c \
 	  error.c fct_debug.c init_hist.c lexer_verify.c\
 	  env_swap.c buil_cd.c ft_tablen.c env_chkname.c \
 	  ft_puttab.c ft_strndup.c opt.c buil_cmd.c buil_setenv.c \
-	  buil_unsetenv.c parser.c buil_env.c ft_tabidx.c env_rmname.c \
-	  ft_strunion.c buil_echo.c list_fct_char.c
+	  buil_unsetenv.c buil.c buil_env.c ft_tabidx.c env_rmname.c \
+	  ft_strunion.c buil_echo.c list_fct_char.c ft_strsplit_space.c \
+	  ft_isspace.c
+
 
 OBJ = $(patsubst %.c, $(PATH_OBJ)/%.o, $(SRC))
 

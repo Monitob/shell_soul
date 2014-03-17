@@ -77,10 +77,10 @@ void	lex_verify(t_shell **shell, t_letter **let)
 
 	if ((*shell)->data || (*let)->letter)
 	{
-		if ((msh_av = ft_strsplit((*shell)->data->line, ' ')) == 0)
+		if ((msh_av = ft_strsplit_space((*shell)->data->line)) == 0)
 			return ;
 		if (msh_av[0] != NULL)
-			(*shell)->env = parser(ft_tablen(msh_av), msh_av, (*shell)->env);
+			(*shell)->env = buil(ft_tablen(msh_av), msh_av, (*shell)->env);
 		free(msh_av);
 	}
 	return ;

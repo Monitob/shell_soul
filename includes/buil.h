@@ -31,7 +31,8 @@ char	**buil_unsetenv(int msh_ac, char **msh_av, char **env);
 char	*env_chkname(char *s);
 char	*env_rmname(char **env, char *env_name);
 
-char	**parser(int ac, char **msh_av, char **env);
+char	**buil(int ac, char **msh_av, char **env);
+
 
 /*
 ** opt.c
@@ -45,5 +46,7 @@ int		ft_tablen(char **s);
 int		ft_tabidx(char **t, char *s, int len);
 char	*ft_strndup(const char *s1, size_t n);
 char	*ft_strunion(char *av);
+char	**ft_strsplit_space(char const *s);
+int		ft_isspace(int c);
 
 #endif /* !BUIL_H */
