@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 16:17:08 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/17 03:31:03 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/17 05:04:40 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void		get_path(t_stack **tree, char **env)
 	free(antifuite[0]);
 	antifuite++;
 	l_path = ft_strsplit(*antifuite, ':');
-	printf("%s\n", antifuite[0] );
 	free(antifuite[0]);
 	nb_path = 0;
 	while (l_path[nb_path])
