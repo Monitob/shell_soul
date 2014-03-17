@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "shell.h"
+
 char	*env_rmname(char **env, char *env_name)
 {
 	int				i;

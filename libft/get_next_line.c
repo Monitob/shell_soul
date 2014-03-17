@@ -53,7 +53,7 @@ static t_read	*ft_newread(int fd)
 	return (red);
 }
 
-static int	ft_print(int n, t_read **tab, t_read **s, char** l)
+static int		ft_print(int n, t_read **tab, t_read **s, char** l)
 {
 	char	*tmpstr;
 	int		index;
@@ -61,7 +61,7 @@ static int	ft_print(int n, t_read **tab, t_read **s, char** l)
 	if (!tab[0])
 		return (-1);
 	index = (tab[0])->index;
-	if (n == -1 || !(tmpstr = (char *)malloc(sizeof (char) * (n + 1))))
+	if (n == -1 || !(tmpstr = (char *)malloc(sizeof(char) * (n + 1))))
 		return (-1);
 	*l = tmpstr;
 	while (n--)
@@ -82,7 +82,7 @@ static int	ft_print(int n, t_read **tab, t_read **s, char** l)
 	return (1);
 }
 
-static int	ft_findendl(int fd, t_read *red)
+static int		ft_findendl(int fd, t_read *red)
 {
 	int		index;
 	int		size;
@@ -107,7 +107,7 @@ static int	ft_findendl(int fd, t_read *red)
 	return (size);
 }
 
-int					get_next_line(int fd, char **line)
+int				get_next_line(int fd, char **line)
 {
 	static t_read	*start = NULL;
 	t_read			*red;

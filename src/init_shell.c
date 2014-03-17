@@ -34,7 +34,7 @@ t_shell		*init_shell(t_shell *root)
 	root->data = (t_command *)malloc(sizeof(*(root->data)));
 	root->tcs = (t_tercs *)malloc(sizeof(*(root->tcs)));
 	root->pro = (t_prompt *)malloc(sizeof(*(root->pro)));
-	root->line_h = (t_history *)malloc(sizeof(*(root->line_h)));	
+	root->line_h = (t_history *)malloc(sizeof(*(root->line_h)));
 	if (root == NULL || root->data == NULL || root->tcs == NULL
 			|| root->line_h == NULL
 			|| root->pro == NULL)

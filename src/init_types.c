@@ -10,20 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_types.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/26 11:08:59 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/05 15:53:47 by jbernabe         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "shell.h"
-#include <stdio.h> //
 
 int			read_key(char key[8], int fd)
 {
@@ -37,7 +24,10 @@ int			read_key(char key[8], int fd)
 	return (type);
 }
 
-static	int		set_type_next(char key[8])
+/*On a le droit de faire ca?????????????????
+char key[8]??????
+*/
+static int	set_type_next(char key[8])
 {
 	if 		(key[0] == 27 && key[1] == 27 && key[2] == 91)
 	{
@@ -62,17 +52,17 @@ static	int		set_type_next(char key[8])
 			return (-2);
 		}
 	}
-	if 		(key[0] == 127)
+	if		(key[0] == 127)
 	{
 		ft_putstr("del  left");
 		return (-2);
 	}
-	if		( key[0] == 12)
+	if		(key[0] == 12)
 	{
 		ft_putstr("clea");
 		return (-2);
 	}
-	if 		(key[0] == 13)
+	if		(key[0] == 13)
 	{
 		return (RETURN);
 	}

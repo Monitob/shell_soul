@@ -49,7 +49,7 @@ static void		exec_type(t_shell **sh, t_letter **let, int type)
 	int			i;
 
 	i = 0;
-	while(i < 5)
+	while (i < 5)
 	{
 		if (i == type)
 		{
@@ -71,7 +71,7 @@ static void		control_read(t_shell *root, t_letter *list_current,
 	}
 }
 
-void				init_line(t_shell *root)
+void			init_line(t_shell *root)
 {
 	int			type;
 	t_letter	*list_current;
@@ -86,7 +86,7 @@ void				init_line(t_shell *root)
 			ft_memset(key, 0, 8);
 		if (type > 0)
 			exec_type(&root, &list_current, type);
-		if ((key[2] == 0 && key[3] == 0)|| type == -1) 
+		if ((key[2] == 0 && key[3] == 0)|| type == -1)
 		{
 			if (type == -1 && list_current)
 				ft_start_lexer(&root, &list_current);

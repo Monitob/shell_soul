@@ -25,7 +25,7 @@ static int	ft_wc_space(char const *s)
 		while (ft_isspace(*s))
 			s++;
 	}
-	return (wc);	
+	return (wc);
 }
 
 static char	**ft_fill_array(char const *s, char **ar)
@@ -42,10 +42,7 @@ static char	**ft_fill_array(char const *s, char **ar)
 			wc++;
 		start = i;
 		while ((!ft_isspace(s[i]) && s[i]) || (s[i] == ' ' && s[i - 1] == '\\'))
-		{
-/*			if (!(s[i] == ' ' && s[i - 1] == '\\'))*/
 				i++;
-		}
 		ar[wc] = (char *)malloc(sizeof(char) * (i - start + 1));
 		if (ar[wc] == NULL)
 			return (NULL);

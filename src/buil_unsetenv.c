@@ -15,7 +15,7 @@
 /*
 ** csh
 */
-char **buil_unsetenv(int msh_ac, char **msh_av, char **env)
+char	**buil_unsetenv(int msh_ac, char **msh_av, char **env)
 {
 	int		i;
 	int		j;
@@ -35,15 +35,11 @@ char **buil_unsetenv(int msh_ac, char **msh_av, char **env)
 			if (env[j])
 			{
 				ret = (char **)malloc(sizeof(char *) * ft_tablen(env));
-				j = 0;
-				k = 0;
+				j = (k = 0);
 				while (env[j])
 				{
 					if (ft_strncmp(env[j], msh_av[i], ft_strlen(msh_av[i])))
-					{
-						ret[k] = env[j];
-						k++;
-					}
+						*(ret + k++) = env[j];
 					j++;
 				}
 				ret[k] = 0;

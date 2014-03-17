@@ -18,7 +18,7 @@ static void	ft_putendl(char *s)
 	write(1, "\n", 1);
 }
 
-void	ft_puttab(char **s)
+void		ft_puttab(char **s)
 {
 	while (*s)
 		ft_putendl(*(s++));

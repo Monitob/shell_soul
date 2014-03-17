@@ -15,9 +15,9 @@
 /*
 ** csh
 */
-void buil_env(int ac, char **msh_av, char **env, int opt_end)
+void	buil_env(int ac, char **msh_av, char **env, int opt_end)
 {
-	//option -i -iiiiiiiiiiii
+	/*option -i -iiiiiiiiiiii*/
 	(void)ac;
 	(void)msh_av;
 	(void)opt_end;

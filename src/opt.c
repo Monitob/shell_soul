@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_opt.c                                           :+:      :+:    :+:   */
+/*   opt.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flime <flime@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "shell.h"
-#include <stdio.h> //attention
 
 static int	opt_len(char **av);
 
@@ -23,12 +22,12 @@ static int	opt_len(char **av);
 ** Returns 0 if no option;
 ** Returns 1 if valid
 */
-char		opt_chk(char *av, char *cmd_name, char *option,  char *usage)
+char		opt_chk(char *av, char *cmd_name, char *option, char *usage)
 {
 	int		i;
 	int		j;
 	char	*ret;
-	
+
 	if (av)
 	{
 		ret = av;
@@ -58,7 +57,7 @@ char		opt_chk(char *av, char *cmd_name, char *option,  char *usage)
 ** where X is different from '-'
 ** with with one iteration of each option.
 */
-char	*opt_get(char **av)
+char		*opt_get(char **av)
 {
 	int		i;
 	int		j;
@@ -100,7 +99,7 @@ static int	opt_len(char **av)
 	return (len);
 }
 
-int		opt_end(char **av)
+int			opt_end(char **av)
 {
 	int		i;
 
@@ -112,6 +111,7 @@ int		opt_end(char **av)
 		i++;
 	return (i);
 }
+
 /*int		main(int ac, char **av)
 {
 	char	usage[] = "usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]";

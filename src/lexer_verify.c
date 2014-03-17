@@ -15,11 +15,11 @@
 
 void	cursor_control2(t_letter *list_let)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	TPUTS(bt);
-	while (i <  ft_list_len(list_let))
+	while (i < ft_list_len(list_let))
 	{
 		TPUTS(le);
 		i++;
@@ -29,23 +29,24 @@ void	cursor_control2(t_letter *list_let)
 
 void	cursor_control(t_letter *list_let)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	TPUTS(bt);
 	TPUTS(do);
-	while (i <  ft_list_len(list_let))
+	while (i < ft_list_len(list_let))
 	{
 		TPUTS(le);
 		i++;
 	}
 	TPUTS(bt);
 }
+
 /*
- * Every time you whish use execve to use any command you
- * got to passe in mod term_save and them term_fd as the fontions
- * below
- */
+** Every time you whish use execve to use any command you
+** got to passe in mod term_save and them term_fd as the fontions
+** below
+*/
 void	ft_start_lexer(t_shell **shell, t_letter **list_let)
 {
 	t_history	*hist;
@@ -77,16 +78,14 @@ void	lex_verify(t_shell **shell, t_letter **let)
 
 	if ((*shell)->data || (*let)->letter)
 	{
-
 		if ((msh_av = ft_strsplit_space((*shell)->data->line)) == 0)
 			return ;
 		if (msh_av[0] != NULL)
 		{
-			//ft_puttab(msh_av);
+			/*ft_puttab(msh_av);*/
 			if (parse_tilde(msh_av, (*shell)->env) != -1)
 				(*shell)->env = buil(ft_tablen(msh_av), msh_av, (*shell)->env);
 		}
-
 		free(msh_av);
 	}
 	return ;

@@ -12,34 +12,31 @@
 
 #include "shell.h"
 
-#include <stdio.h> //
-
-static void ft_clean(char **av)
+static void		ft_clean(char **av)
 {
-	int i;
+	int	i;
 
 	if (*av[0] == 34)
 		(*av)++;
 	if ((*av)[ft_strlen(*av) - 1] == 34)
 		(*av)[ft_strlen(*av) - 1] = '\0';
 	i = 1;
-	while((*av)[i])
+	while ((*av)[i])
 	{
 		if ((*av)[i] == '\t')
 			(*av)[i] = ' ';
 		i++;
 	}
-
 }
 
-static void echo_no_opt(char **msh_av, char **env)
+static void		echo_no_opt(char **msh_av, char **env)
 {
 	int	i;
 	int	j;
-	
+
 	i = 1;
 	j = 0;
-	while(msh_av[i] != NULL)
+	while (msh_av[i] != NULL)
 	{
 		ft_clean(&(msh_av[i]));
 		write(1, msh_av[i], ft_strlen(msh_av[i]));
@@ -51,7 +48,7 @@ static void echo_no_opt(char **msh_av, char **env)
 	(void)env;
 }
 
-static void echo_op_n(char **msh_av, char **env)
+static void		echo_op_n(char **msh_av, char **env)
 {
 	int			i;
 	char		*str;
@@ -59,7 +56,7 @@ static void echo_op_n(char **msh_av, char **env)
 
 	i = 2;
 	len_char = 0;
-	while(msh_av[i] != NULL)
+	while (msh_av[i] != NULL)
 	{
 		len_char += ft_strlen(msh_av[i]);
 		i++;
@@ -79,6 +76,7 @@ static void echo_op_n(char **msh_av, char **env)
 	write(3, "\n", 1);
 	(void)env;
 }
+
 /*
 static int		ft_isspace(int c)
 {
@@ -89,18 +87,14 @@ static int		ft_isspace(int c)
 //static void echo_op_e(char **msh_av, char **env)
 //{
 
-	
-
-	
-
-static int set_option_echo(char *opt)
+static int		set_option_echo(char *opt)
 {
 	if (ft_strcmp(opt, "n") == 0)
 		return (1);
 	return (0);
 }
 
-void 		buil_echo(int ac, char **msh_av, char **env, char *opt)
+void			buil_echo(int ac, char **msh_av, char **env, char *opt)
 {
 	void	(*echo_control[2])(PARAM_ECHO) = FT_ECHO;
 	int		ret;

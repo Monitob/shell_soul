@@ -12,7 +12,7 @@
 
 #include "shell.h"
 
-int			set_fd(void)
+int				set_fd(void)
 {
 	int		fd;
 	char	*path_fd;
@@ -21,11 +21,11 @@ int			set_fd(void)
 		error_fd("Not a terminal", 2);
 	if ((path_fd = ttyname(STDIN_FILENO)) == NULL)
 		error_fd("ttayname fail", 2);
-	fd =  dup(STDIN_FILENO);
+	fd = dup(STDIN_FILENO);
 	return (fd);
 }
 
-static	void	init_term(void)
+static void		init_term(void)
 {
 	char	*term_type;
 
@@ -47,14 +47,14 @@ void			init_trcs(t_tercs *tcs)
 	TPUTS(cl);
 	TPUTS(ei);
 }
-	
-int			trcs_putchar(int c)
+
+int				trcs_putchar(int c)
 {
 	write(3, &c, 1);
 	return (1);
 }
 
-void		reset_term(t_shell	*root)
+void			reset_term(t_shell *root)
 {
 	root->tcs->term_save.c_lflag = (ICANON | ECHO);
 	tcsetattr(STDIN_FILENO, TCSANOW, &root->tcs->term_save);

@@ -37,8 +37,8 @@ int		parse_tilde(char **s, char **env)
 			if (chdir(tmp))
 			{
 				ft_putstr("42sh: ");
-				ft_putstr(strerror(errno));//check error
-				ft_putstr(" : "); 
+				ft_putstr(strerror(errno));/*Attention check error*/
+				ft_putstr(" : ");
 				ft_putendl(ft_strsub(s[i], 1, ft_strlen(s[i])));
 				chdir(pwd);
 				return (-1);

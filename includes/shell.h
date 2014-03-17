@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include "libft.h"
 # include "buil.h"
+# include <stdio.h> //////////////////////////////////Attention
 
 # define BUFFER_R			8	
 # define TRCS_PUT			1, trcs_putchar
@@ -48,7 +49,7 @@ typedef struct			s_stack
 }						t_stack;
 
 typedef struct			s_command
-{	
+{
 	char				*line;
 }						t_command;
 
@@ -61,7 +62,7 @@ typedef struct			s_letter
 
 struct					s_tercs
 {
-	int					tty_fd;	
+	int					tty_fd;
 	struct termios		term_fd;
 	struct termios		term_save;
 	size_t				line_len;
@@ -123,7 +124,7 @@ int				read_key(char key[8], int fd);
 ** tercs_init.c
 */
 
-void			reset_term(t_shell	*root);
+void			reset_term(t_shell *root);
 int				trcs_putchar(int c);
 void			init_trcs(t_tercs *tcs);
 int				set_fd(void);
@@ -141,7 +142,7 @@ void			tercs_ascii(t_command **c_line, t_letter **let);
 /*
 ** tercs_control2.c
 */
-	
+
 void			tercs_return(t_command **c_line, t_letter **let);
 
 /*

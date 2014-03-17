@@ -22,9 +22,9 @@ static t_history	*creat_head_history(t_letter *current_list)
 	start->next_h = NULL;
 	start->prev_h = NULL;
 	return (start);
-}
-*/
-static void		ft_hist_to_list(t_history **l_hist, t_history **new_el)
+}*/
+
+static void			ft_hist_to_list(t_history **l_hist, t_history **new_el)
 {
 	t_history	*temp;
 
@@ -36,9 +36,9 @@ static void		ft_hist_to_list(t_history **l_hist, t_history **new_el)
 	*l_hist = *new_el;
 }
 
-void		ft_print_hist(t_history *hist_p)
+void				ft_print_hist(t_history *hist_p)
 {
-	t_history *temp;
+	t_history	*temp;
 
 	temp = hist_p;
 	while (temp != NULL)
@@ -47,10 +47,9 @@ void		ft_print_hist(t_history *hist_p)
 		temp = temp->next_h;
 		write(1, "\n", 1);
 	}
-
 }
 
-void	init_history(t_letter *current_list, t_history **l_hist)
+void				init_history(t_letter *current_list, t_history **l_hist)
 {
 	t_history	*new_line;
 

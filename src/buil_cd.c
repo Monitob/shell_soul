@@ -14,9 +14,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-#include <stdio.h> //Attention
-
-static void buil_cd_swap(char **msh_av, char **env, int opt_end, int opt_p)
+static void		buil_cd_swap(char **msh_av, char **env, int opt_end, int opt_p)
 {
 	int		i;
 	int		j;
@@ -25,7 +23,7 @@ static void buil_cd_swap(char **msh_av, char **env, int opt_end, int opt_p)
 	int		l;
 	char	*cpy_pwd;
 	char	*cpy_oldpwd;
-	(void)opt_p;
+
 	i = ft_tabidx(env, "PWD=", 4);
 	j = ft_tabidx(env, "OLDPWD=", 7);
 	cpy_pwd = ft_strdup(env[i]);
@@ -74,7 +72,7 @@ static void buil_cd_swap(char **msh_av, char **env, int opt_end, int opt_p)
 ** sh
 ** cd -,
 */
-static void buil_cd_sub(char **msh_av, char **env, int opt_p)
+static void		buil_cd_sub(char **msh_av, char **env, int opt_p)
 {
 	int		i;
 	int		j;
@@ -93,7 +91,7 @@ static void buil_cd_sub(char **msh_av, char **env, int opt_p)
 ** zsh
 ** cd, cd ~, cd --
 */
-static void buil_cd_home(char **msh_av, char **env, int opt_end, int opt_p)
+static void		buil_cd_home(char **msh_av, char **env, int opt_end, int opt_p)
 {
 	int		i;
 	int		j;
@@ -110,7 +108,7 @@ static void buil_cd_home(char **msh_av, char **env, int opt_end, int opt_p)
 	cpy_oldpwd = ft_strdup(env[j]);
 	env_swap(&env[i], &env[j], 1);
 	env_swap(&env[i], &env[k], 0);
-	if (!msh_av[opt_end] || !ft_strcmp(msh_av[opt_end], "--") || !ft_strcmp(msh_av[opt_end], "~"))//probleme avec le tild
+	if (!msh_av[opt_end] || !ft_strcmp(msh_av[opt_end], "--") || !ft_strcmp(msh_av[opt_end], "~")) /*probleme avec le tild*/
 	{
 		if (chdir(env_rmname(env, "PWD=")))
 		{
@@ -125,7 +123,7 @@ static void buil_cd_home(char **msh_av, char **env, int opt_end, int opt_p)
 			chdir(env_rmname(env, "PWD="));
 		}
 	}
-	else if (ft_strncmp(msh_av[opt_end], "~/", 2)) //tild dans le parseur.
+	else if (ft_strncmp(msh_av[opt_end], "~/", 2)) /*tild dans le parseur.*/
 	{
 
 		env[i] = env_rmname(env, "HOME=");
@@ -172,7 +170,7 @@ static void buil_cd_home(char **msh_av, char **env, int opt_end, int opt_p)
 ** zsh
 ** cd ., cd .., cd ./../../././., cd /path/to/lol
 */
-static void buil_cd_path(char **msh_av, char **env, int opt_end, int opt_p) // a revoir, les pwd ne marchent pas
+static void		buil_cd_path(char **msh_av, char **env, int opt_end, int opt_p)/*a revoir, les pwd ne marchent pas*/
 {
 	int		i;
 	int		j;
@@ -180,7 +178,6 @@ static void buil_cd_path(char **msh_av, char **env, int opt_end, int opt_p) // a
 
 	i = ft_tabidx(env, "PWD=", 4);
 	j = ft_tabidx(env, "OLDPWD=", 7);
-//	env_swap(&env[i], &env[j], 1);
 	if (!ft_strncmp(msh_av[opt_end], "/", 1))
 	{
 		if (opt_p == 0)
@@ -203,12 +200,12 @@ static void buil_cd_path(char **msh_av, char **env, int opt_end, int opt_p) // a
 		env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));
 		ft_putendl(env[i]);
 	}
-	chdir(env_rmname(env, "PWD=")); //tester la valeur de retour; voir si chdir est inutile vu qu' on en fait un avant;
+	chdir(env_rmname(env, "PWD=")); /*tester la valeur de retour; voir si chdir est inutile vu qu' on en fait un avant;*/
 }
 
-void 		buil_cd(int ac, char **msh_av, char **env, int opt_end, char *opt)
+void			buil_cd(int ac, char **msh_av, char **env, int opt_end, char *opt)
 {
-	char	usage[] = "Usage: cd [-PL][-|<dir>]."; // ce message n'existe pas sous zsh.
+	char	usage[] = "Usage: cd [-PL][-|<dir>].";/*ce message n'existe pas sous zsh.*/
 	char	opt_p;
 
 	opt_p = 0;
@@ -227,13 +224,13 @@ void 		buil_cd(int ac, char **msh_av, char **env, int opt_end, char *opt)
 		ft_putendl("buil_cd_swap");
 		buil_cd_swap(msh_av, env, opt_end, opt_p);
 	}
-	else if(ac - opt_end < 2)
+	else if (ac - opt_end < 2)
 	{
 		ft_putendl("2");
 		if (!msh_av[opt_end]  || !ft_strncmp(msh_av[opt_end], "~", 1))
 		{
 			ft_putendl("buil_cd_home");
-			buil_cd_home(msh_av, env, opt_end, opt_p);	
+			buil_cd_home(msh_av, env, opt_end, opt_p);
 		}
 		else if (!ft_strcmp(msh_av[opt_end], "-"))
 		{

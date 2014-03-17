@@ -10,15 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <shell.h>
 
-static int	ft_strlen(char *s);
 /*static int	ft_count_chr(char *s, char c);*/
 
 /*
 ** Format the environement name
 */
-char	*env_chkname(char *s) //revoir les mallocs c sale
+char	*env_chkname(char *s)/*revoir les mallocs c sale*/
 {
 	int		i;
 	char	*ret;
@@ -30,7 +29,7 @@ char	*env_chkname(char *s) //revoir les mallocs c sale
 	test = 0;
 	while (*s)
 	{
-		if (*s == '=' && test == 0) //faire une fonction seule;
+		if (*s == '=' && test == 0) /*faire une fonction seule*/
 			return (NULL);
 		else if (*s != '\\')
 		{
@@ -48,16 +47,6 @@ char	*env_chkname(char *s) //revoir les mallocs c sale
 	}
 	ret[i] = 0;
 	return (ret);
-}
-
-static int	ft_strlen(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		++i;
-	return (i);
 }
 
 /*static int	ft_count_chr(char *s, char c)

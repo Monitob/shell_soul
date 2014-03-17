@@ -20,7 +20,7 @@ void			ft_key_int_type(char key[8], int type)
 	ft_putnbr(key[3]);
 	ft_putnbr(key[4]);
 	ft_putchar('\n');
-	ft_putnbr(type);  
+	ft_putnbr(type);
 }
 
 void			print_path(char **path)

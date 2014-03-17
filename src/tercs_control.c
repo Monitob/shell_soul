@@ -12,14 +12,13 @@
 
 #include "shell.h"
 
-#include <stdio.h> //
-
 void	tercs_ascii(t_command **c_line, t_letter **let)
 {
 	(void)let;
 	(void)c_line;
 	return ;
 }
+
 void	tercs_up(t_command **c_line, t_letter **let)
 {
 	(void)c_line;
@@ -46,7 +45,7 @@ void	tercs_right(t_command **c_line, t_letter **let)
 		if ((*let)->next == NULL)
 			return ;
 		if ((*let)->next)
-		{	
+		{
 			TPUTS(nd);
 			(*let) = (*let)->next;
 			(void)c_line;

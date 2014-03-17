@@ -16,7 +16,7 @@ static int	ft_strunion_len(char *av);
 /*
 ** Returns a string with only one iteration of each character
 */
-char	*ft_strunion(char *av)
+char		*ft_strunion(char *av)
 {
 	int		i;
 	int		j;

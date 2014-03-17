@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int		is_white(char s)
+static int	is_white(char s)
 {
 	if (s == ' ' || s == '\n' || s == '\t')
 		return (1);

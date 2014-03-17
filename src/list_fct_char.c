@@ -12,9 +12,9 @@
 
 #include "shell.h"
 
-void	ft_delete_list(t_letter **list_let)
+void			ft_delete_list(t_letter **list_let)
 {
-	t_letter *temp;
+	t_letter	*temp;
 
 	temp = (*list_let)->prev;
 	while (temp != NULL)

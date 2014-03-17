@@ -12,14 +12,14 @@
 
 #include "shell.h"
 
-static char	**ft_addenv_var(char **msh_av, char **env, char option)
+static char		**ft_addenv_var(char **msh_av, char **env, char option)
 {
 	char	**new_env;
 	int		i;
 
 	new_env = NULL;
 	i = 0;
-	if ((msh_av[1] = env_chkname(msh_av[1]))) //un truc pour afficher les caracteres speciaux
+	if ((msh_av[1] = env_chkname(msh_av[1])))/*afficher les char speciaux*/
 	{
 		while (env[i])
 			i++;
@@ -43,23 +43,25 @@ static char	**ft_addenv_var(char **msh_av, char **env, char option)
 /*
 ** csh
 */
-char 		**buil_setenv(int ac, char **msh_av, char **env)
+char			**buil_setenv(int ac, char **msh_av, char **env)
 {
 	int		i;
 
 	i = 0;
 	if (!msh_av[1])
 		ft_puttab(env);
-	else if (msh_av[1] && !msh_av[2]) //mieux vaut utiliser msh_ac!!!!!!!
+	else if (msh_av[1] && !msh_av[2])/*mieux vaut utiliser msh_ac!!!!!!!*/
 	{
-		if ((i = ft_tabidx(env, ft_strjoin(msh_av[1], "="), ft_strlen(msh_av[1]))) != -1)
+		if ((i = ft_tabidx(env, ft_strjoin(msh_av[1], "="),
+												ft_strlen(msh_av[1]))) != -1)
 			env[i] = ft_strjoin(msh_av[1], "=");
 		else
 			env = ft_addenv_var(msh_av, env, 0);
 	}
 	else if (msh_av[1] && msh_av[2] && !msh_av[3])
 	{
-		if ((i = ft_tabidx(env, ft_strjoin(msh_av[1], "="), ft_strlen(msh_av[1]))) != -1)
+		if ((i = ft_tabidx(env, ft_strjoin(msh_av[1], "="),
+												ft_strlen(msh_av[1]))) != -1)
 		{
 			env[i] = ft_strjoin(msh_av[1], "=");
 			env[i] = ft_strjoin(env[i], msh_av[2]);
