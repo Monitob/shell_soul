@@ -79,8 +79,13 @@ void	lex_verify(t_shell **shell, t_letter **let)
 	{
 		if ((msh_av = ft_strsplit_space((*shell)->data->line)) == 0)
 			return ;
+		// parse_tilde(msh_av, (*shell)->env);
 		if (msh_av[0] != NULL)
+		{
+			parse_tilde(msh_av, (*shell)->env);
+			ft_puttab(msh_av);
 			(*shell)->env = buil(ft_tablen(msh_av), msh_av, (*shell)->env);
+		}
 		free(msh_av);
 	}
 	return ;
