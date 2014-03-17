@@ -52,6 +52,7 @@ char	**buil(int ac, char **av, char **env)
 			while (*cmd_paths && \
 				(ret = stat(abs_path = ft_strjoin(*cmd_paths, slash_cmd), &check)))
 			{
+				free(abs_path);
 				++cmd_paths;
 			}
 			if (ret == 0)

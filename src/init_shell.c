@@ -6,11 +6,13 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 16:17:08 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/16 19:54:24 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/17 03:31:03 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+#include <stdio.h>
 
 int			main(void)
 {
@@ -67,30 +69,35 @@ char		**init_env(void)
 void		get_path(t_stack **tree, char **env)
 {
 	char	**l_path;
+	char	**antifuite;
 	int		i;
 	int		nb_path;
+	char	*temp;
 
 	i = 0;
 	l_path = NULL;
+	temp = NULL;
 	if (!(*tree = (t_stack *)malloc(sizeof(t_stack))))
 		exit(0);
 	while (strncmp(env[i] , "PATH=", 5) != 0)
 		i++;
-	l_path = ft_strsplit(env[i], '=');
-	l_path++;
-	l_path = ft_strsplit(*l_path, ':');
+	antifuite = ft_strsplit(env[i], '=');
+	free(antifuite[0]);
+	antifuite++;
+	l_path = ft_strsplit(*antifuite, ':');
+	printf("%s\n", antifuite[0] );
+	free(antifuite[0]);
 	nb_path = 0;
 	while (l_path[nb_path])
 	{
+		temp = l_path[nb_path];
 		l_path[nb_path] = ft_strjoin(l_path[nb_path], "/");
+		free(temp);
 		nb_path++;
 	}
 	l_path[nb_path] = NULL;
-	if (!((*tree)->path = (char **)malloc(sizeof(char) * nb_path)))
-		error_command("\x1b[31Malloc error\x1b[0m");
 	(*tree)->path = l_path;
 	(*tree)->right = NULL;
 	(*tree)->left = NULL;
 	(*tree)->cmd = NULL;
-	free(l_path);
 }

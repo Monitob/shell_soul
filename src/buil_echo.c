@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/16 16:14:58 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/17 01:32:24 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/17 03:30:59 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,18 @@ static void ft_clean(char **av)
 {
 	int i;
 
-	i = 0;
 	if (*av[0] == 34)
 		(*av)++;
 	if ((*av)[ft_strlen(*av) - 1] == 34)
 		(*av)[ft_strlen(*av) - 1] = '\0';
+	i = 1;
+	while((*av)[i])
+	{
+		if ((*av)[i] == '\t')
+			(*av)[i] = ' ';
+		i++;
+	}
+
 }
 
 static void echo_no_opt(char **msh_av, char **env)
@@ -68,7 +75,7 @@ static void echo_op_n(char **msh_av, char **env)
 	}
 	str[len_char + i] = '\0';
 	str++;
-	write(3, str, ft_strlen(str) + 1);
+	write(3, str, ft_strlen(str));
 	write(3, "\n", 1);
 	(void)env;
 }
