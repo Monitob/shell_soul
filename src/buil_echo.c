@@ -6,28 +6,25 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/16 16:14:58 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/17 00:53:24 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/17 01:32:24 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 #include <stdio.h> //
-/*
+
 static void ft_clean(char **av)
 {
 	int i;
 
 	i = 0;
-	while (av[i] != '\0')
-	{
-		if ((av[i][0] == 34) || ((av[i][ft_strlen(av[i])]) == 34))
-			i++;
-		i++;
-	}
-
+	if (*av[0] == 34)
+		(*av)++;
+	if ((*av)[ft_strlen(*av) - 1] == 34)
+		(*av)[ft_strlen(*av) - 1] = '\0';
 }
-*/
+
 static void echo_no_opt(char **msh_av, char **env)
 {
 	int	i;
@@ -37,7 +34,7 @@ static void echo_no_opt(char **msh_av, char **env)
 	j = 0;
 	while(msh_av[i] != NULL)
 	{
-//		ft_clean(&(msh_av[i]));
+		ft_clean(&(msh_av[i]));
 		write(1, msh_av[i], ft_strlen(msh_av[i]));
 		write(1, " ", 1);
 		i++;
