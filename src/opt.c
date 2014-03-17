@@ -30,8 +30,7 @@ char		opt_chk(char *av, char *cmd_name, char *option, char *usage)
 
 	if (av)
 	{
-		ret = av;
-		i = 0;
+		ret = av + (i = 0);
 		while (ret[i++])
 		{
 			j = 0;
@@ -99,18 +98,40 @@ static int	opt_len(char **av)
 	return (len);
 }
 
-int			opt_end(char **av)
+int			opt_end(char **av/*, char *option*/)
 {
 	int		i;
+	// size_t	j;
+	// int		chk;
 
 	i = 1;
+//	chk = 0;
 	while (av[i] && !(av[i][0] != '-' || (av[i][0] == '-'
 						&& (av[i][1] == 0 || av[i][1] == '-'))))
+	{
+		// j = 0;
+		// chk = 0;
+		// while (option[j])
+		// {
+		// 	ft_putchar(option[j]);
+		// 	ft_putchar('\n');
+		// 	if (ft_strchr(av[i], option[j]) != NULL)
+		// 	{
+		// 		ft_putendl("option");
+		// 		chk = 1;
+		// 	}
+		// 	j++;
+		// }
+		// if (chk == 0)
+		// 	break ;
 		i++;
+	}
 	if (av[i] && !ft_strncmp(av[i], "--", 2))
 		i++;
 	return (i);
 }
+
+
 
 /*int		main(int ac, char **av)
 {
@@ -121,6 +142,14 @@ int			opt_end(char **av)
 		ft_putendl(opt_chk(av, "ls", "ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1", usage));
 	else
 		ft_putendl("NULL");
+	return (0);
+}
+*/
+/*
+int		main(int ac, char **av)
+{
+	printf("%d\n", opt_end(av, "PL"));
+	printf("%s\n", av[opt_end(av, "PL"));
 	return (0);
 }
 */

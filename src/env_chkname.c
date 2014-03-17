@@ -17,47 +17,28 @@
 /*
 ** Format the environement name
 */
-char	*env_chkname(char *s)/*revoir les mallocs c sale*/
+char	*env_chkname(char *s)
 {
 	int		i;
 	char	*ret;
 	char	test;
 
-	ret = (char *)malloc(sizeof(char) *
-								(ft_strlen(s) /*- ft_count_chr(s, c)*/ + 1));
+	ret = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
 	i = 0;
 	test = 0;
 	while (*s)
 	{
-		if (*s == '=' && test == 0) /*faire une fonction seule*/
+		if (*s == '=' && test == 0)
 			return (NULL);
-		else if (*s != '\\')
+		else if (*s != '\\' || (*s == '\\' && test == 1))
 		{
 			*(ret + i++) = *(s);
 			test = 0;
 		}
 		else if (*s == '\\' && test == 0)
 			test = 1;
-		else if (*s == '\\' && test == 1)
-		{
-			*(ret + i++) = *(s);
-			test = 0;
-		}
 		s++;
 	}
 	ret[i] = 0;
 	return (ret);
 }
-
-/*static int	ft_count_chr(char *s, char c)
-{
-	int		ret;
-
-	ret = 0;
-	while (*s)
-	{
-		if (*(s++) == c)
-			++ret;
-	}
-	return (ret);
-}*/

@@ -20,8 +20,8 @@ void	error_command(char *s)
 
 int		error_fd(char *s, int fd)
 {
-		ft_putstr_fd(s, fd);
-		ft_putchar('\n');
-		_exit(1);
+	ft_putstr_fd(s, fd);
+	ft_putchar('\n');
+	_exit(1);
 }
 

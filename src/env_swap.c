@@ -70,14 +70,3 @@ void	env_swap(char **env1, char **env2, char c)
 	if (c)
 		env2[0] = ft_strjoin(env_getname(env2[0]), env_getvalue(env1_cpy));
 }
-
-/* int		main(int ac, char **av) */
-/* { */
-/* 	(void)ac; */
-/* 	ft_putendl(av[1]); */
-/* 	ft_putendl(av[2]); */
-/* 	env_swap(&av[1], &av[2]); */
-/* 	ft_putendl(av[1]); */
-/* 	ft_putendl(av[2]); */
-/* 	return (0); */
-/* } */

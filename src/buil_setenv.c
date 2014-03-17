@@ -12,14 +12,14 @@
 
 #include "shell.h"
 
-static char		**ft_addenv_var(char **msh_av, char **env, char option)
+static char		**ft_addenv_var(char **av, char **env, char option)
 {
 	char	**new_env;
 	int		i;
 
 	new_env = NULL;
 	i = 0;
-	if ((msh_av[1] = env_chkname(msh_av[1])))/*afficher les char speciaux*/
+	if ((av[1] = env_chkname(av[1])))/*afficher les char speciaux*/
 	{
 		while (env[i])
 			i++;
@@ -31,9 +31,9 @@ static char		**ft_addenv_var(char **msh_av, char **env, char option)
 			new_env[i] = ft_strdup(env[i]);
 			i++;
 		}
-		new_env[i] = ft_strjoin(msh_av[1], "=");
+		new_env[i] = ft_strjoin(av[1], "=");
 		if (option)
-			new_env[i] = ft_strjoin(new_env[i], msh_av[2]);
+			new_env[i] = ft_strjoin(new_env[i], av[2]);
 	}
 	else
 		ft_putendl("setenv: Syntax Error.");
@@ -43,31 +43,28 @@ static char		**ft_addenv_var(char **msh_av, char **env, char option)
 /*
 ** csh
 */
-char			**buil_setenv(int ac, char **msh_av, char **env)
+char			**buil_setenv(int ac, char **av, char **env)
 {
 	int		i;
 
 	i = 0;
-	if (!msh_av[1])
+	if (!av[1])
 		ft_puttab(env);
-	else if (msh_av[1] && !msh_av[2])/*mieux vaut utiliser msh_ac!!!!!!!*/
+	else if (av[1] && !av[2])/*mieux vaut utiliser msh_ac!!!!!!!*/
 	{
-		if ((i = ft_tabidx(env, ft_strjoin(msh_av[1], "="),
-												ft_strlen(msh_av[1]))) != -1)
-			env[i] = ft_strjoin(msh_av[1], "=");
+		if ((i = ft_tabidx(env, ft_strjoin(av[1], "="),
+												ft_strlen(av[1]))) != -1)
+			env[i] = ft_strjoin(av[1], "=");
 		else
-			env = ft_addenv_var(msh_av, env, 0);
+			env = ft_addenv_var(av, env, 0);
 	}
-	else if (msh_av[1] && msh_av[2] && !msh_av[3])
+	else if (av[1] && av[2] && !av[3])
 	{
-		if ((i = ft_tabidx(env, ft_strjoin(msh_av[1], "="),
-												ft_strlen(msh_av[1]))) != -1)
-		{
-			env[i] = ft_strjoin(msh_av[1], "=");
-			env[i] = ft_strjoin(env[i], msh_av[2]);
-		}
+		if ((i = ft_tabidx(env, ft_strjoin(av[1], "="),
+												ft_strlen(av[1]))) != -1)
+			env[i] = ft_strjoin(ft_strjoin(av[1], "="), av[2]);
 		else
-			env = ft_addenv_var(msh_av, env, 1);
+			env = ft_addenv_var(av, env, 1);
 	}
 	else if (ac > 3)
 		ft_putendl("setenv: Too many arguments.");

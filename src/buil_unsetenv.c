@@ -12,41 +12,49 @@
 
 #include "shell.h"
 
+static char		**buil_unsetenv_del(char *av, char **env);
+
 /*
 ** csh
 */
-char	**buil_unsetenv(int msh_ac, char **msh_av, char **env)
+char			**buil_unsetenv(int msh_ac, char **av, char **env)
 {
 	int		i;
-	int		j;
-	int		k;
-	char	**ret;
 
 	i = 1;
 	if (msh_ac == 1)
 		ft_putendl("unsetenv: Too few arguments.");
 	else
 	{
-		while (msh_av[i])
+		while (av[i])
 		{
-			j = 0;
-			while (!ft_strncmp(env[j], msh_av[i], ft_strlen(msh_av[i])) && env[j])
-				j++;
-			if (env[j])
-			{
-				ret = (char **)malloc(sizeof(char *) * ft_tablen(env));
-				j = (k = 0);
-				while (env[j])
-				{
-					if (ft_strncmp(env[j], msh_av[i], ft_strlen(msh_av[i])))
-						*(ret + k++) = env[j];
-					j++;
-				}
-				ret[k] = 0;
-				env = ret;
-			}
+			env = buil_unsetenv_del(av[i], env);
 			i++;
 		}
+	}
+	return (env);
+}
+
+static char		**buil_unsetenv_del(char *av, char **env)
+{
+	int		j;
+	int		k;
+	char	**ret;
+
+	j = 0;
+	while (!ft_strncmp(env[j], av, ft_strlen(av)) && env[j])
+		j++;
+	if (env[j])
+	{
+		ret = (char **)malloc(sizeof(char *) * ft_tablen(env));
+		j = (k = 0);
+		while (*(env + j++))
+		{
+			if (ft_strncmp(env[j - 1], av, ft_strlen(av)))
+				*(ret + k++) = env[j - 1];
+		}
+		ret[k] = 0;
+		env = ret;
 	}
 	return (env);
 }

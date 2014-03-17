@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-static void		buil_cd_swap(char **msh_av, char **env, int opt_end, int opt_p)
+static void		buil_cd_swap(char **av, char **env, int opt_end, int opt_p)
 {
 	int		i;
 	int		j;
@@ -28,21 +28,16 @@ static void		buil_cd_swap(char **msh_av, char **env, int opt_end, int opt_p)
 	j = ft_tabidx(env, "OLDPWD=", 7);
 	cpy_pwd = ft_strdup(env[i]);
 	cpy_oldpwd = ft_strdup(env[j]);
-	l = 0;
-	k = 0;
-	while (env[i][l] && msh_av[opt_end][k])
+	l = (k = 0);
+	while (env[i][l] && av[opt_end][k])
 	{
 		k = 0;
 		start = l;
-		while (msh_av[opt_end][k] == env[i][l] && env[i][l] && msh_av[opt_end][0])
-		{
-			k++;
+		while (*(av[opt_end] + k++) == env[i][l] && env[i][l] && av[opt_end][0])
 			l++;
-		}
-		if (!msh_av[opt_end][k])
+		if (!av[opt_end][k])
 		{
-			env[i] = ft_strndup(env[i], start);
-			env[i] = ft_strjoin(env[i], msh_av[opt_end + 1]);
+			env[i] = ft_strjoin(ft_strndup(env[i], start), av[opt_end + 1]);
 			env[i] = ft_strjoin(env[i], ft_strsub(cpy_pwd, l, ft_strlen(cpy_pwd)));
 			if (chdir(env_rmname(env, "PWD=")))
 			{
@@ -61,10 +56,10 @@ static void		buil_cd_swap(char **msh_av, char **env, int opt_end, int opt_p)
 		}
 		l++;
 	}
-	if (msh_av[opt_end][k])
+	if (av[opt_end][k])
 	{
 		ft_putstr("cd: string not in pwd: ");
-		ft_putendl(msh_av[opt_end]);
+		ft_putendl(av[opt_end]);
 	}
 }
 
@@ -72,12 +67,12 @@ static void		buil_cd_swap(char **msh_av, char **env, int opt_end, int opt_p)
 ** sh
 ** cd -,
 */
-static void		buil_cd_sub(char **msh_av, char **env, int opt_p)
+static void		buil_cd_sub(char **av, char **env, int opt_p)
 {
 	int		i;
 	int		j;
 
-	(void)msh_av;
+	(void)av;
 	i = ft_tabidx(env, "PWD=", 4);
 	j = ft_tabidx(env, "OLDPWD=", 7);
 	env_swap(&env[i], &env[j], 1);
@@ -89,9 +84,9 @@ static void		buil_cd_sub(char **msh_av, char **env, int opt_p)
 
 /*
 ** zsh
-** cd, cd ~, cd --
+** cd, cd --
 */
-static void		buil_cd_home(char **msh_av, char **env, int opt_end, int opt_p)
+static void		buil_cd_home(char **av, char **env, int opt_end, int opt_p)
 {
 	int		i;
 	int		j;
@@ -108,7 +103,7 @@ static void		buil_cd_home(char **msh_av, char **env, int opt_end, int opt_p)
 	cpy_oldpwd = ft_strdup(env[j]);
 	env_swap(&env[i], &env[j], 1);
 	env_swap(&env[i], &env[k], 0);
-	if (!msh_av[opt_end] || !ft_strcmp(msh_av[opt_end], "--") || !ft_strcmp(msh_av[opt_end], "~")) /*probleme avec le tild*/
+	if (!av[opt_end] || !ft_strcmp(av[opt_end], "--")) /*probleme avec le tild*/
 	{
 		if (chdir(env_rmname(env, "PWD=")))
 		{
@@ -123,34 +118,9 @@ static void		buil_cd_home(char **msh_av, char **env, int opt_end, int opt_p)
 			chdir(env_rmname(env, "PWD="));
 		}
 	}
-	else if (ft_strncmp(msh_av[opt_end], "~/", 2)) /*tild dans le parseur.*/
-	{
-
-		env[i] = env_rmname(env, "HOME=");
-		k = 0;
-		while (env[i][k])
-			k++;
-		while (k > 0 && env[i][k] != '/')
-			k--;
-		k++;
-		env[i] = ft_strndup(env[i], k);
-		env[i] = ft_strjoin("PWD=", env[i]);
-		env[i] = ft_strjoin(env[i], ft_strsub(msh_av[opt_end], 1, ft_strlen(msh_av[opt_end])));
-		if (chdir(env_rmname(env, "PWD=")))
-		{
-			ft_putendl("42sh: no such user or named directory: dgsdf");
-			env[i] = cpy_pwd;
-			env[j] = cpy_oldpwd;
-		}
-		else if (opt_p == 1)
-		{
-			env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));
-			chdir(env_rmname(env, "PWD="));
-		}
-	}
 	else
 	{
-		append = ft_strsub(msh_av[opt_end], 1, ft_strlen(msh_av[opt_end]));
+		append = ft_strsub(av[opt_end], 1, ft_strlen(av[opt_end]));
 		env[i] = ft_strjoin(env[i], append);
 		if (chdir(env_rmname(env, "PWD=")))
 		{
@@ -168,9 +138,9 @@ static void		buil_cd_home(char **msh_av, char **env, int opt_end, int opt_p)
 }
 /*
 ** zsh
-** cd ., cd .., cd ./../../././., cd /path/to/lol
+** cd ., cd .., cd ./../../././., cd /path/to/lol, ~, ~/
 */
-static void		buil_cd_path(char **msh_av, char **env, int opt_end, int opt_p)/*a revoir, les pwd ne marchent pas*/
+static void		buil_cd_path(char **av, char **env, int opt_end, int opt_p)/*a revoir, les pwd ne marchent pas*/
 {
 	int		i;
 	int		j;
@@ -178,80 +148,46 @@ static void		buil_cd_path(char **msh_av, char **env, int opt_end, int opt_p)/*a 
 
 	i = ft_tabidx(env, "PWD=", 4);
 	j = ft_tabidx(env, "OLDPWD=", 7);
-	if (!ft_strncmp(msh_av[opt_end], "/", 1))
+	if (!ft_strncmp(av[opt_end], "/", 1))
 	{
 		if (opt_p == 0)
-		{
-			ft_putendl("1");
-			sub1 = ft_strdup(msh_av[opt_end]);
-		}
+			sub1 = ft_strdup(av[opt_end]);
 		else
-		{
-			ft_putendl("2");
 			sub1 = getcwd(NULL, 0);
-		}
 		env[i] = ft_strjoin("PWD=", sub1);
 		free(sub1);
 	}
 	else
 	{
-		ft_putendl("3");
-		ft_putendl(env[i]);
-		env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));
+		env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));//chemin absolue a revoir;
 		ft_putendl(env[i]);
 	}
 	chdir(env_rmname(env, "PWD=")); /*tester la valeur de retour; voir si chdir est inutile vu qu' on en fait un avant;*/
 }
 
-void			buil_cd(int ac, char **msh_av, char **env, int opt_end, char *opt)
+void			buil_cd(int ac, char **av, char **env, int opt_end, char *opt)
 {
 	char	usage[] = "Usage: cd [-PL][-|<dir>].";/*ce message n'existe pas sous zsh.*/
 	char	opt_p;
 
 	opt_p = 0;
-	ft_putendl("1");
-	if (strchr(opt, 'P'))
-	{
-		ft_putendl("strchr");
+	if (strchr(opt, 'P')) //ternaire
 		opt_p = 1;
-	}
 	if ((opt_chk(opt, "cd", "PL", usage) == -1))
-	{
 		ft_putendl("opt_chk");
-	}
 	else if ((ac - opt_end) == 2)
+		buil_cd_swap(av, env, opt_end, opt_p);
+	else if ((ac - opt_end) < 2 && !av[opt_end])
+		buil_cd_home(av, env, opt_end, opt_p);
+	else if ((ac - opt_end) < 2 && !ft_strcmp(av[opt_end], "-"))
+			buil_cd_sub(av, env, opt_p);
+	else if ((ac - opt_end) < 2 && chdir(av[opt_end]))
 	{
-		ft_putendl("buil_cd_swap");
-		buil_cd_swap(msh_av, env, opt_end, opt_p);
+		ft_putstr("cd: no such file or directory: ");
+		ft_putendl(av[opt_end]);
 	}
-	else if (ac - opt_end < 2)
-	{
-		ft_putendl("2");
-		if (!msh_av[opt_end]  || !ft_strncmp(msh_av[opt_end], "~", 1))
-		{
-			ft_putendl("buil_cd_home");
-			buil_cd_home(msh_av, env, opt_end, opt_p);
-		}
-		else if (!ft_strcmp(msh_av[opt_end], "-"))
-		{
-			ft_putendl("buil_cd_sub");
-			buil_cd_sub(msh_av, env, opt_p);
-		}
-		else if (chdir(msh_av[opt_end]))
-		{
-			ft_putendl("chdir");
-			ft_putstr("cd: no such file or directory: ");
-			ft_putendl(msh_av[opt_end]);
-		}
-		else
-		{
-			ft_putendl("buil_cd_path");
-			buil_cd_path(msh_av, env, opt_end, opt_p);
-		}
-	}
+	else if ((ac - opt_end) < 2)
+			buil_cd_path(av, env, opt_end, opt_p);
 	else
-	{
-		ft_putendl("3");
 		ft_putendl("cd: too many arguments");
-	}
 }

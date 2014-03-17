@@ -24,7 +24,8 @@ char	*env_rmname(char **env, char *env_name)
 	{
 		if (ft_strncmp(env[i], env_name, env_len) == 0)
 		{
-			env_value = ft_strsub(env[i], env_len, ft_strlen(env[i]) - env_len);
+			env_value = ft_strsub(env[i], env_len,
+												ft_strlen(env[i]) - env_len);
 			return (env_value);
 		}
 		i++;

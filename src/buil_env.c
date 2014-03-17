@@ -15,11 +15,11 @@
 /*
 ** csh
 */
-void	buil_env(int ac, char **msh_av, char **env, int opt_end)
+void	buil_env(int ac, char **av, char **env, int opt_end)
 {
 	/*option -i -iiiiiiiiiiii*/
 	(void)ac;
-	(void)msh_av;
+	(void)av;
 	(void)opt_end;
 	ft_puttab(env);
 }

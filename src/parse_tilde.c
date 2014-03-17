@@ -13,14 +13,34 @@
 #include "shell.h"
 #include <sys/errno.h>
 
-int		parse_tilde(char **s, char **env)
+static int		parse_tilde_login(char **s, char **env)
+{
+	char	*tmp;
+	char	*pwd;
+
+	pwd = env_rmname(env, "PWD=");
+	tmp = ft_strndup(env_rmname(env, "HOME="),
+	ft_strlen(env_rmname(env, "HOME=")) - ft_strlen(env_rmname(env, "USER=")));
+	tmp = ft_strjoin(tmp, ft_strsub(*s, 1, ft_strlen(*s)));
+	if (chdir(tmp))
+	{
+		ft_putstr("42sh: ");
+		ft_putstr(strerror(errno));/*Attention check error*/
+		ft_putstr(" : ");
+		ft_putendl(ft_strsub(*s, 1, ft_strlen(*s)));
+		chdir(pwd);
+		return (-1);
+	}
+	else
+		*s = tmp;
+	return (0);
+}
+
+int				parse_tilde(char **s, char **env)
 {
 	int		i;
-	char	*pwd;
-	char	*tmp;
 
 	i = 0;
-	pwd = env_rmname(env, "PWD=");
 	while (s[i])
 	{
 		if (!ft_strncmp(s[i], "~+", 2))
@@ -28,32 +48,22 @@ int		parse_tilde(char **s, char **env)
 		else if (!ft_strncmp(s[i], "~-", 2))
 			s[i] = env_rmname(env, "OLDPWD=");
 		else if (!ft_strncmp(s[i], "~/", 2))
-			s[i] = ft_strjoin(env_rmname(env, "HOME="), ft_strsub(s[i], 1, ft_strlen(s[i])));
-		else if (!ft_strncmp(s[i], "~", 1) && ft_strcmp(s[i], "~"))
-		{
-			tmp = ft_strndup(env_rmname(env, "HOME="),
-				ft_strlen(env_rmname(env, "HOME=")) - ft_strlen(env_rmname(env, "USER=")));
-			tmp = ft_strjoin(tmp, ft_strsub(s[i], 1, ft_strlen(s[i])));
-			if (chdir(tmp))
-			{
-				ft_putstr("42sh: ");
-				ft_putstr(strerror(errno));/*Attention check error*/
-				ft_putstr(" : ");
-				ft_putendl(ft_strsub(s[i], 1, ft_strlen(s[i])));
-				chdir(pwd);
-				return (-1);
-			}
-			else
-				s[i] = tmp;
-		}
-		else if (!ft_strcmp(s[i], "~"))
+			s[i] = ft_strjoin(env_rmname(env, "HOME="),
+				ft_strsub(s[i], 1, ft_strlen(s[i])));
+		else if (!ft_strncmp(s[i], "~", 1) && ft_strcmp(s[i], "~") &&
+								parse_tilde_login(&s[i], env) == -1)
+			return (-1);
+		else if (!ft_strcmp(s[i], "~") && !(!ft_strncmp(s[i], "~", 1)
+														&& ft_strcmp(s[i], "~")))
 			s[i] = env_rmname(env, "HOME=");
 		i++;
 	}
 	return (0);
 }
-// 	int		main(int ac, char **av, **env)
-// {
-// 	printf("%d\n", parse_tilde(av[1], env));
-// 	return (0);
-// }
+
+/*	int		main(int ac, char **av, **env)
+{
+	printf("%d\n", parse_tilde(av[1], env));
+	return (0);
+}
+*/

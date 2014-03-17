@@ -38,7 +38,7 @@ char	**buil(int ac, char **msh_av, char **env);
 */
 char	opt_chk(char *av, char *cmd_name, char *option, char *usage);
 char	*opt_get(char **av);
-int		opt_end(char **av);
+int		opt_end(char **av/*, char *option*/);
 
 void	ft_puttab(char **s);
 int		ft_tablen(char **s);

@@ -12,20 +12,45 @@
 
 #include "shell.h"
 
-char	**buil(int ac, char **av, char **env)
+void	buil_cmd_slash(char **av, char **env, struct stat check)
 {
-	struct stat		check;
 	char			**cmd_paths;
 	char			*slash_cmd;
 	char			*abs_path;
 	char			*rm;
 	int				ret;
-	int				i;
+
+	slash_cmd = ft_strjoin("/", av[0]);
+	rm = env_rmname(env, "PATH=");
+	cmd_paths = ft_strsplit(rm, ':');
+	while (*cmd_paths && (ret = stat(abs_path =
+						ft_strjoin(*(cmd_paths++), slash_cmd), &check)))
+		free(abs_path);
+	if (rm && !ret)
+	{
+		buil_cmd(abs_path, av, env);/*att env sans PATH ou PATH modif*/
+		free(slash_cmd);
+		while (*cmd_paths)
+			free(*(cmd_paths++));
+	}
+	else
+	{
+		ft_putstr("42sh: command not found: ");
+		ft_putendl(av[0]);
+	}
+	free(rm);
+}
+
+char	**buil(int ac, char **av, char **env)
+{
+	struct stat		check;
 	char			*opt;
 	int				o_end;
 
-	o_end = opt_end(av);
+	o_end = opt_end(av/*, "PL"*/);
+	ft_putnbr(o_end);
 	opt = opt_get(av);
+	ft_putendl(opt);
 	if (av != NULL && stat(av[0], &check) == 0)
 		buil_cmd(av[0], av, env);
 	else if (av != NULL && ft_strcmp(av[0], "cd") == 0)
@@ -41,40 +66,6 @@ char	**buil(int ac, char **av, char **env)
 	else if (av != NULL && ft_strncmp(av[0], "exit", 4) == 0)
 		_Exit(0);
 	else
-	{
-		slash_cmd = ft_strjoin("/", av[0]);
-		rm = env_rmname(env, "PATH=");
-		if (rm)
-		{
-			cmd_paths = ft_strsplit(rm, ':');
-			while (*cmd_paths && \
-				(ret = stat(abs_path =
-					ft_strjoin(*cmd_paths, slash_cmd), &check)))
-			{
-				free(abs_path);
-				++cmd_paths;
-			}
-			if (ret == 0)
-				buil_cmd(abs_path, av, env);/*att env sans PATH ou PATH modif*/
-			else
-			{
-				ft_putstr("42sh: command not found: ");
-				ft_putendl(av[0]);
-			}
-			free(slash_cmd);
-			i = 0;
-			while (cmd_paths[i])
-			{
-				free(cmd_paths[i]);
-				i++;
-			}
-		}
-		else
-		{
-			ft_putstr("42sh: command not found: ");
-			ft_putendl(av[0]);
-		}
-		free(rm);
-	}
+		buil_cmd_slash(av, env, check);
 	return (env);
 }
