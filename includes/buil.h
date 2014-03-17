@@ -49,6 +49,6 @@ char	*ft_strunion(char *av);
 char	**ft_strsplit_space(char const *s);
 int		ft_isspace(int c);
 
-void	parse_tilde(char **s, char **env);
+int		parse_tilde(char **s, char **env);
 
 #endif /* !BUIL_H */
