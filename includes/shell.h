@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/16 20:20:22 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/25 05:38:09 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,12 @@ extern char **environ;
 
 typedef struct s_tercs	t_tercs;
 
-typedef struct			s_stack
+typedef struct			s_parser
 {
 	char				*cmd;
-	char				**path;
-	struct s_stack		*right;
-	struct s_stack		*left;
-}						t_stack;
+	int					id;
+	struct s_parser		*next;
+}						t_parser;
 
 typedef struct			s_command
 {
@@ -89,7 +88,7 @@ typedef struct			s_shell
 	t_history			*line_h;
 	char				**env;
 	t_prompt			*pro;
-	t_stack				*tree;
+	t_parser			*el_parser;
 }						t_shell;
 
 enum					e_key
@@ -104,7 +103,7 @@ enum					e_key
 
 t_shell			*init_shell(t_shell *root);
 char			**init_env(void);
-void			get_path(t_stack **tree, char **env);
+void			get_path(t_parser **el_parser, char **env);
 
 /*
 ** init_shell2.c
@@ -192,5 +191,7 @@ void			ft_print_hist(t_history *hist_p);
 */
 
 void			buil_echo(int ac, char **msh_av, char **env, char *opt);
+char			**buil(t_shell **shell, int ac, char **av, char **env);
+void			ft_element_parser(char **av, t_parser **el_parser);
 
 #endif

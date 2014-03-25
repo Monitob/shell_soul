@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   buil.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flime <flime@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/16 14:10:01 by flime             #+#    #+#             */
-/*   Updated: 2014/03/16 14:10:45 by flime            ###   ########.fr       */
+/*   Updated: 2014/03/25 02:46:35 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef BUIL_H
 # define BUIL_H
 
@@ -22,6 +23,7 @@ void	env_swap(char **env1, char **env2, char c);
 **  buil_cd.c
 */
 
+
 void	buil_cmd(const char *path, char **msh_av, char **env);
 void	buil_cd(int ac, char **msh_av, char **env, int opt_end, char *opt);
 void	buil_env(int ac, char **msh_av, char **env, int opt_end);
@@ -31,8 +33,7 @@ char	**buil_unsetenv(int msh_ac, char **msh_av, char **env);
 char	*env_chkname(char *s);
 char	*env_rmname(char **env, char *env_name);
 
-char	**buil(int ac, char **msh_av, char **env);
-
+//char	**buil(t_shell **shell, int ac, char **av, char **env);
 /*
 ** opt.c
 */

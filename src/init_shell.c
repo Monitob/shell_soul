@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 16:17:08 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/17 05:04:40 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/25 05:06:44 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			main(void)
 	root = NULL;
 	root = init_shell(root);
 	root->env = init_env();
-	get_path(&root->tree, root->env);
+	//get_path(&root->el_parser, root->env);
 	show_prompt(&root);
 	init_line(root);
 	reset_term(root);
@@ -65,8 +65,8 @@ char		**init_env(void)
 	env[i] = NULL;
 	return (env);
 }
-
-void		get_path(t_stack **tree, char **env)
+/*
+void		get_path(t_parser **el_parser, char **env)
 {
 	char	**l_path;
 	char	**antifuite;
@@ -77,7 +77,7 @@ void		get_path(t_stack **tree, char **env)
 	i = 0;
 	l_path = NULL;
 	temp = NULL;
-	if (!(*tree = (t_stack *)malloc(sizeof(t_stack))))
+	if (!(*el_parser = (t_parser *)malloc(sizeof(t_parser))))
 		exit(0);
 	while (strncmp(env[i] , "PATH=", 5) != 0)
 		i++;
@@ -95,8 +95,8 @@ void		get_path(t_stack **tree, char **env)
 		nb_path++;
 	}
 	l_path[nb_path] = NULL;
-	(*tree)->path = l_path;
-	(*tree)->right = NULL;
-	(*tree)->left = NULL;
-	(*tree)->cmd = NULL;
-}
+	(*el_parser)->path = l_path;
+	(*el_parser)->next = NULL;
+	(*el_parser)->cmd = NULL;
+	(*el_parser)->id = 0;
+}*/

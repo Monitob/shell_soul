@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/05 15:54:00 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/15 16:33:39 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/24 17:18:29 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	set_type_next(char key[8])
 	}
 	if		(key[0] == 12)
 	{
-		ft_putstr("clea");
+		ft_putstr("clear");
 		return (-2);
 	}
 	if		(key[0] == 13)

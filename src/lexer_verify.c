@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 19:51:16 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/16 20:23:26 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/25 02:37:18 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,6 @@ void	cursor_control(t_letter *list_let)
 	TPUTS(bt);
 }
 
-/*
-** Every time you whish use execve to use any command you
-** got to passe in mod term_save and them term_fd as the fontions
-** below
-*/
 void	ft_start_lexer(t_shell **shell, t_letter **list_let)
 {
 	t_history	*hist;
@@ -84,7 +79,8 @@ void	lex_verify(t_shell **shell, t_letter **let)
 		{
 			/*ft_puttab(msh_av);*/
 			if (parse_tilde(msh_av, (*shell)->env) != -1)
-				(*shell)->env = buil(ft_tablen(msh_av), msh_av, (*shell)->env);
+				(*shell)->env = buil(shell, ft_tablen(msh_av),
+								 msh_av, (*shell)->env);
 		}
 		free(msh_av);
 	}

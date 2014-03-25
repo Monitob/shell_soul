@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buil_cmd.c                                         :+:      :+:    :+:   */
+/*   fcn_rediret.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/03/16 12:30:57 by flime             #+#    #+#             */
-/*   Updated: 2014/03/25 02:06:59 by jbernabe         ###   ########.fr       */
+/*   Created: 2014/03/24 19:17:29 by jbernabe          #+#    #+#             */
+/*   Updated: 2014/03/25 04:14:07 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/wait.h>
 #include "shell.h"
 
-#include <stdio.h>
-
-void	buil_cmd(const char *path, char **msh_av, char **env)
+void ft_element_parser(t_shell *line, char **av, t_parser *el_parser)
 {
-	pid_t			cmd;
-	int				status;
-
-	cmd = fork();
-	if (cmd == 0)
-	{
-		execve(path, msh_av, env);
-		exit(-1);
-	}
-	wait(&status);
+	dprintf(%av[0], av[0]);
+	dprintf("-->%i\n");   
 }

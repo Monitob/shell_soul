@@ -6,7 +6,7 @@
 #    By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/04 22:30:52 by jbernabe          #+#    #+#              #
-#    Updated: 2014/03/17 04:43:11 by jbernabe         ###   ########.fr        #
+#    Updated: 2014/03/25 05:48:40 by jbernabe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC = init_shell.c init_shell2.c tercs_init.c init_types.c \
 	  ft_puttab.c ft_strndup.c opt.c buil_cmd.c buil_setenv.c \
 	  buil_unsetenv.c buil.c buil_env.c ft_tabidx.c env_rmname.c \
 	  ft_strunion.c buil_echo.c list_fct_char.c ft_strsplit_space.c \
-	  ft_isspace.c parse_tilde.c
+	  ft_isspace.c parse_tilde.c #fcn_rediret.c
 
 
 OBJ = $(patsubst %.c, $(PATH_OBJ)/%.o, $(SRC))
