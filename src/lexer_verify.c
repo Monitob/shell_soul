@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 19:51:16 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/26 19:02:11 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/26 22:57:50 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void		cursor_control2(t_letter *list_let)
 	int		i;
 
 	i = 0;
-	TPUTS(bt);
+	//TPUTS(bt);
+	tputs(tgetstr("bt", NULL), 1, trcs_putchar);
 	while (i < ft_list_len(list_let))
 	{
 		TPUTS(le);
