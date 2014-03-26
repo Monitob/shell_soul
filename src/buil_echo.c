@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/16 16:14:58 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/17 03:30:59 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/26 01:57:36 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void		echo_op_n(char **msh_av, char **env)
 		i++;
 	}
 	len_char += 1;
-	if (!(str = (char *)malloc(sizeof(char *) * len_char)))
+	if (!(str = (char *)malloc(sizeof(char) * len_char)))
 		return ;
 	i = 2;
 	while (msh_av[i] != NULL)

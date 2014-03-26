@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/16 13:10:24 by flime             #+#    #+#             */
-/*   Updated: 2014/03/25 05:48:14 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/26 05:45:28 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,23 @@ void	buil_cmd_slash(char **av, char **env, struct stat check)
 
 static void		ft_push_parser(t_parser *new_el, t_parser **el_parser)
 {
-	t_parser	*temp;
+	if (*el_parser && new_el)
+	{
+		t_parser	*temp;
 
-	temp = *el_parser;
-	if (temp == NULL)
+		temp = *el_parser;
+		while (temp->next != NULL)
+		{
+			dprintf(3, "ADD2 in while %p\n", temp->next);
+			temp = temp->next;
+		}
+		temp->next = new_el;
+	}
+	else
 	{
+		dprintf(3, "add  null -> %p\n", el_parser);
 		*el_parser = new_el;
-		return ;
 	}
-	while (temp->next != NULL)
-	{
-		temp = temp->next;
-	}
-	temp->next = new_el;
 }
 
 static int	ft_get_id(char *str)
@@ -88,14 +92,23 @@ void	ft_element_parser(char **av, t_parser **el_parser)
 	i = 0;
 	while (av[i] != NULL)
 	{
+
 		if (!(new_el = (t_parser *)malloc(sizeof(t_parser))))
 			return ;
 		new_el->cmd = av[i];
+		dprintf(1, "cmd %s\n", new_el->cmd);
 		new_el->id = ft_get_id(av[i]);
+		new_el->next = NULL;
 		if (el_parser == NULL)
+		{
+			dprintf(1, "el_parser NULL %p", *el_parser);
 			*el_parser = new_el;
+		}
 		else
+		{
+			//dprintf(1, "hola seg fault");
 			ft_push_parser(new_el, el_parser);
+		}
 		i++;
 	}
 }
@@ -110,10 +123,9 @@ char	**buil(t_shell **shell, int ac, char **av, char **env)
 
 	el_parser = NULL;
 	o_end = opt_end(av/*, "PL"*/);
-	ft_putnbr(o_end);
 	opt = opt_get(av);
-	ft_putendl(opt);
 	ft_element_parser(av, &el_parser);
+	//ft_printf_lexer(av, &el)
 	if (av != NULL && stat(av[0], &check) == 0)
 		buil_cmd(av[0], av, env);
 	else if (av != NULL && ft_strcmp(av[0], "cd") == 0)
