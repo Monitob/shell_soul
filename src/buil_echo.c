@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/16 16:14:58 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/26 18:48:00 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/26 20:47:00 by flime            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int				set_option_echo(char *opt)
 	return (0);
 }
 
-void				buil_echo(int ac, char **msh_av, char **env, char *opt)
+void					buil_echo(int ac, char **msh_av, char **env, char *opt)
 {
 	static void		(*echo_control[2])(PARAM_ECHO) = FT_ECHO;
 	int				ret;
