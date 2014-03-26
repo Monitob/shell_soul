@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 16:17:08 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/25 05:06:44 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/26 18:50:47 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int			main(void)
 	root = NULL;
 	root = init_shell(root);
 	root->env = init_env();
-	//get_path(&root->el_parser, root->env);
 	show_prompt(&root);
 	init_line(root);
 	reset_term(root);
@@ -65,39 +64,3 @@ char		**init_env(void)
 	env[i] = NULL;
 	return (env);
 }
-
-/*
-void		get_path(t_parser **el_parser, char **env)
-{
-	char	**l_path;
-	char	**antifuite;
-	int		i;
-	int		nb_path;
-	char	*temp;
-
-	i = 0;
-	l_path = NULL;
-	temp = NULL;
-	if (!(*el_parser = (t_parser *)malloc(sizeof(t_parser))))
-		exit(0);
-	while (strncmp(env[i] , "PATH=", 5) != 0)
-		i++;
-	antifuite = ft_strsplit(env[i], '=');
-	free(antifuite[0]);
-	antifuite++;
-	l_path = ft_strsplit(*antifuite, ':');
-	free(antifuite[0]);
-	nb_path = 0;
-	while (l_path[nb_path])
-	{
-		temp = l_path[nb_path];
-		l_path[nb_path] = ft_strjoin(l_path[nb_path], "/");
-		free(temp);
-		nb_path++;
-	}
-	l_path[nb_path] = NULL;
-	(*el_parser)->path = l_path;
-	(*el_parser)->next = NULL;
-	(*el_parser)->cmd = NULL;
-	(*el_parser)->id = 0;
-}*/

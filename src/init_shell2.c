@@ -6,13 +6,11 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/16 20:23:16 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/26 18:58:43 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-#include <stdio.h>
 
 void			show_prompt(t_shell **shell)
 {
@@ -45,7 +43,7 @@ static void		init_key_control(t_shell *shell, t_letter **list_current)
 
 static void		exec_type(t_shell **sh, t_letter **let, int type)
 {
-	void		(*key_control[5])(EXE_PARAM) = EXEC_INST EXEC_INST2; //'ca merde'
+	void		(*key_control[5])(EXE_PARAM) = EXEC_INST EXEC_INST2;
 	int			i;
 
 	i = 0;
@@ -61,7 +59,7 @@ static void		exec_type(t_shell **sh, t_letter **let, int type)
 }
 
 static void		control_read(t_shell *root, t_letter *list_current,
-		char key[8], int type)
+				char key[8], int type)
 {
 	ft_memset(key, 0, 8);
 	if (!list_current && type == -1)
@@ -86,7 +84,7 @@ void			init_line(t_shell *root)
 			ft_memset(key, 0, 8);
 		if (type > 0)
 			exec_type(&root, &list_current, type);
-		if ((key[2] == 0 && key[3] == 0)|| type == -1)
+		if ((key[2] == 0 && key[3] == 0) || type == -1)
 		{
 			if (type == -1 && list_current)
 				ft_start_lexer(&root, &list_current);

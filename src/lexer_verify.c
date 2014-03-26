@@ -6,13 +6,13 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 19:51:16 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/25 02:37:18 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/26 19:02:11 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	cursor_control2(t_letter *list_let)
+void		cursor_control2(t_letter *list_let)
 {
 	int		i;
 
@@ -26,7 +26,7 @@ void	cursor_control2(t_letter *list_let)
 	TPUTS(bt);
 }
 
-void	cursor_control(t_letter *list_let)
+void		cursor_control(t_letter *list_let)
 {
 	int		i;
 
@@ -41,7 +41,7 @@ void	cursor_control(t_letter *list_let)
 	TPUTS(bt);
 }
 
-void	ft_start_lexer(t_shell **shell, t_letter **list_let)
+void			ft_start_lexer(t_shell **shell, t_letter **list_let)
 {
 	t_history	*hist;
 
@@ -66,7 +66,7 @@ void	ft_start_lexer(t_shell **shell, t_letter **list_let)
 	}
 }
 
-void	lex_verify(t_shell **shell, t_letter **let)
+void		lex_verify(t_shell **shell, t_letter **let)
 {
 	char	**msh_av;
 
@@ -78,8 +78,7 @@ void	lex_verify(t_shell **shell, t_letter **let)
 		{
 			ft_putendl("lex");
 			if (parse_tilde(msh_av, (*shell)->env) != -1)
-				(*shell)->env = buil(ft_tablen(msh_av),
-								 msh_av, (*shell)->env);
+				(*shell)->env = buil(ft_tablen(msh_av), msh_av, (*shell)->env);
 		}
 		free(msh_av);
 	}

@@ -6,14 +6,14 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/16 16:14:58 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/26 01:57:36 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/26 18:48:00 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 #include <stdio.h>
 
-static void		echo_no_opt(char **msh_av, char **env)
+static void				echo_no_opt(char **msh_av, char **env)
 {
 	int	i;
 	int	j;
@@ -37,7 +37,7 @@ static void		echo_no_opt(char **msh_av, char **env)
 	(void)env;
 }
 
-static void		echo_op_n(char **msh_av, char **env)
+static void				echo_op_n(char **msh_av, char **env)
 {
 	int			i;
 	char		*str;
@@ -66,17 +66,17 @@ static void		echo_op_n(char **msh_av, char **env)
 	(void)env;
 }
 
-static int		set_option_echo(char *opt)
+static int				set_option_echo(char *opt)
 {
 	if (ft_strcmp(opt, "n") == 0)
 		return (1);
 	return (0);
 }
 
-void			buil_echo(int ac, char **msh_av, char **env, char *opt)
+void				buil_echo(int ac, char **msh_av, char **env, char *opt)
 {
 	static void		(*echo_control[2])(PARAM_ECHO) = FT_ECHO;
-	int		ret;
+	int				ret;
 
 	ret = 0;
 	ret = set_option_echo(opt);

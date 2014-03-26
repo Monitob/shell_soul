@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/26 03:15:49 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/26 19:19:05 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@
 # include <sys/types.h>
 # include "libft.h"
 # include "buil.h"
-# include <stdio.h> //////////////////////////////////Attention
 
-# define BUFFER_R			8	
+# define BUFFER_R			8
 # define TRCS_PUT			1, trcs_putchar
 # define TPUTS(id)			tputs(tgetstr(#id, NULL), TRCS_PUT)
 # define TGOTO(id, y, x)	tputs(tgoto(tgetstr(#id, NULL), y, x), TRCS_PUT)
@@ -36,7 +35,7 @@
 # define PARAM_ECHO         char **msh_av, char **env
 # define FT_ECHO			{echo_no_opt, echo_op_n}
 
-extern char **environ;
+extern char	**environ;
 
 typedef struct s_tercs	t_tercs;
 
