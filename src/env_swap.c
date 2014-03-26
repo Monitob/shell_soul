@@ -57,10 +57,6 @@ char	*env_getvalue(char *env)
 	return (env_value);
 }
 
-/*
-** swap two environement variable value without the name of the variable;
-** if argurment 3 is equal to 1, env_swap only copy env2 value to env1;
-*/
 void	env_swap(char **env1, char **env2, char c)
 {
 	char	*env1_cpy;

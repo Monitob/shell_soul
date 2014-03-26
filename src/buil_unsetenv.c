@@ -12,11 +12,31 @@
 
 #include "shell.h"
 
-static char		**buil_unsetenv_del(char *av, char **env);
+static char		**buil_unsetenv_del(char *av, char **env)
+{
+	int		j;
+	int		k;
+	char	**ret;
 
-/*
-** csh
-*/
+	j = 0;
+	while (!ft_strncmp(env[j], av, ft_strlen(av)) && env[j])
+		j++;
+	if (env[j])
+	{
+		ret = (char **)malloc(sizeof(char *) * ft_tablen(env));
+		j = 0;
+		k = 0;
+		while (*(env + j++))
+		{
+			if (ft_strncmp(env[j - 1], av, ft_strlen(av)))
+				*(ret + k++) = env[j - 1];
+		}
+		ret[k] = 0;
+		env = ret;
+	}
+	return (env);
+}
+
 char			**buil_unsetenv(int msh_ac, char **av, char **env)
 {
 	int		i;
@@ -31,30 +51,6 @@ char			**buil_unsetenv(int msh_ac, char **av, char **env)
 			env = buil_unsetenv_del(av[i], env);
 			i++;
 		}
-	}
-	return (env);
-}
-
-static char		**buil_unsetenv_del(char *av, char **env)
-{
-	int		j;
-	int		k;
-	char	**ret;
-
-	j = 0;
-	while (!ft_strncmp(env[j], av, ft_strlen(av)) && env[j])
-		j++;
-	if (env[j])
-	{
-		ret = (char **)malloc(sizeof(char *) * ft_tablen(env));
-		j = (k = 0);
-		while (*(env + j++))
-		{
-			if (ft_strncmp(env[j - 1], av, ft_strlen(av)))
-				*(ret + k++) = env[j - 1];
-		}
-		ret[k] = 0;
-		env = ret;
 	}
 	return (env);
 }

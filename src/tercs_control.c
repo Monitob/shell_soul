@@ -64,7 +64,7 @@ void	tercs_left(t_command **c_line, t_letter **let)
 	if ((*let)->letter != '\0')
 	{
 		if ((*let)->prev == NULL)
-				return ;
+			return ;
 		if (let)
 		{
 			TPUTS(le);

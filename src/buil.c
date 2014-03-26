@@ -28,7 +28,7 @@ void	buil_cmd_slash(char **av, char **env, struct stat check)
 		free(abs_path);
 	if (rm && !ret)
 	{
-		buil_cmd(abs_path, av, env);/*att env sans PATH ou PATH modif*/
+		buil_cmd(abs_path, av, env);
 		free(slash_cmd);
 		while (*cmd_paths)
 			free(*(cmd_paths++));
@@ -105,15 +105,12 @@ void	ft_element_parser(char **av, t_parser **el_parser)
 			*el_parser = new_el;
 		}
 		else
-		{
-			//dprintf(1, "hola seg fault");
 			ft_push_parser(new_el, el_parser);
-		}
 		i++;
 	}
 }
 
-char	**buil(t_shell **shell, int ac, char **av, char **env)
+char	**buil(int ac, char **av, char **env)
 {
 	struct stat		check;
 	char			*opt;
@@ -122,26 +119,24 @@ char	**buil(t_shell **shell, int ac, char **av, char **env)
 
 
 	el_parser = NULL;
-	o_end = opt_end(av/*, "PL"*/);
+	o_end = opt_end(av);
 	opt = opt_get(av);
 	ft_element_parser(av, &el_parser);
-	//ft_printf_lexer(av, &el)
-	if (av != NULL && stat(av[0], &check) == 0)
+	if (av != NULL && !stat(av[0], &check))
 		buil_cmd(av[0], av, env);
-	else if (av != NULL && ft_strcmp(av[0], "cd") == 0)
+	else if (av != NULL && !ft_strcmp(av[0], "cd"))
 		buil_cd(ac, av, env, o_end, opt);
-	else if (av != NULL && ft_strcmp(av[0], "setenv") == 0)
+	else if (av != NULL && !ft_strcmp(av[0], "setenv"))
 		env = buil_setenv(ac, av, env);
-	else if (av != NULL && ft_strcmp(av[0], "unsetenv") == 0)
+	else if (av != NULL && !ft_strcmp(av[0], "unsetenv"))
 		env = buil_unsetenv(ac, av, env);
-	else if (av != NULL && ft_strcmp(av[0], "env") == 0)/* -option -i*/
+	else if (av != NULL && !ft_strcmp(av[0], "env"))
 		buil_env(ac, av, env, o_end);
-	else if (av != NULL && ft_strncmp(av[0], "echo", 4) == 0)
+	else if (av != NULL && !ft_strncmp(av[0], "echo", 4))
 		buil_echo(ac, av, env, opt);
-	else if (av != NULL && ft_strncmp(av[0], "exit", 4) == 0)
+	else if (av != NULL && !ft_strncmp(av[0], "exit", 4))
 		_Exit(0);
 	else
 		buil_cmd_slash(av, env, check);
 	return (env);
-	(void)shell;
 }

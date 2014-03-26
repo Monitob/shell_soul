@@ -12,8 +12,6 @@
 
 #include <shell.h>
 
-/*static int	ft_count_chr(char *s, char c);*/
-
 /*
 ** Format the environement name
 */

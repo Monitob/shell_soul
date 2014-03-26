@@ -19,7 +19,7 @@ static char		**ft_addenv_var(char **av, char **env, char option)
 
 	new_env = NULL;
 	i = 0;
-	if ((av[1] = env_chkname(av[1])))/*afficher les char speciaux*/
+	if ((av[1] = env_chkname(av[1])))
 	{
 		while (env[i])
 			i++;
@@ -40,9 +40,6 @@ static char		**ft_addenv_var(char **av, char **env, char option)
 	return (new_env);
 }
 
-/*
-** csh
-*/
 char			**buil_setenv(int ac, char **av, char **env)
 {
 	int		i;
@@ -50,10 +47,10 @@ char			**buil_setenv(int ac, char **av, char **env)
 	i = 0;
 	if (!av[1])
 		ft_puttab(env);
-	else if (av[1] && !av[2])/*mieux vaut utiliser msh_ac!!!!!!!*/
+	else if (av[1] && !av[2])
 	{
 		if ((i = ft_tabidx(env, ft_strjoin(av[1], "="),
-												ft_strlen(av[1]))) != -1)
+			ft_strlen(av[1]))) != -1)
 			env[i] = ft_strjoin(av[1], "=");
 		else
 			env = ft_addenv_var(av, env, 0);
@@ -61,7 +58,7 @@ char			**buil_setenv(int ac, char **av, char **env)
 	else if (av[1] && av[2] && !av[3])
 	{
 		if ((i = ft_tabidx(env, ft_strjoin(av[1], "="),
-												ft_strlen(av[1]))) != -1)
+			ft_strlen(av[1]))) != -1)
 			env[i] = ft_strjoin(ft_strjoin(av[1], "="), av[2]);
 		else
 			env = ft_addenv_var(av, env, 1);

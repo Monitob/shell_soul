@@ -25,7 +25,7 @@ static int		parse_tilde_login(char **s, char **env)
 	if (chdir(tmp))
 	{
 		ft_putstr("42sh: ");
-		ft_putstr(strerror(errno));/*Attention check error*/
+		ft_putstr(strerror(errno));
 		ft_putstr(" : ");
 		ft_putendl(ft_strsub(*s, 1, ft_strlen(*s)));
 		chdir(pwd);
@@ -51,19 +51,12 @@ int				parse_tilde(char **s, char **env)
 			s[i] = ft_strjoin(env_rmname(env, "HOME="),
 				ft_strsub(s[i], 1, ft_strlen(s[i])));
 		else if (!ft_strncmp(s[i], "~", 1) && ft_strcmp(s[i], "~") &&
-								parse_tilde_login(&s[i], env) == -1)
+			parse_tilde_login(&s[i], env) == -1)
 			return (-1);
 		else if (!ft_strcmp(s[i], "~") && !(!ft_strncmp(s[i], "~", 1)
-														&& ft_strcmp(s[i], "~")))
+			&& ft_strcmp(s[i], "~")))
 			s[i] = env_rmname(env, "HOME=");
 		i++;
 	}
 	return (0);
 }
-
-/*	int		main(int ac, char **av, **env)
-{
-	printf("%d\n", parse_tilde(av[1], env));
-	return (0);
-}
-*/

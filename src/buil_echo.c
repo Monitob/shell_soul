@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "shell.h"
 #include <stdio.h>
 
@@ -67,7 +66,6 @@ static void		echo_op_n(char **msh_av, char **env)
 	(void)env;
 }
 
-
 static int		set_option_echo(char *opt)
 {
 	if (ft_strcmp(opt, "n") == 0)
@@ -75,9 +73,10 @@ static int		set_option_echo(char *opt)
 	return (0);
 }
 
+static void		(*echo_control[2])(PARAM_ECHO) = FT_ECHO;
+
 void			buil_echo(int ac, char **msh_av, char **env, char *opt)
 {
-	void	(*echo_control[2])(PARAM_ECHO) = FT_ECHO;
 	int		ret;
 
 	ret = 0;

@@ -65,6 +65,7 @@ char		**init_env(void)
 	env[i] = NULL;
 	return (env);
 }
+
 /*
 void		get_path(t_parser **el_parser, char **env)
 {

@@ -191,7 +191,7 @@ void			ft_print_hist(t_history *hist_p);
 */
 
 void			buil_echo(int ac, char **msh_av, char **env, char *opt);
-char			**buil(t_shell **shell, int ac, char **av, char **env);
+char			**buil(int ac, char **av, char **env);
 void			ft_element_parser(char **av, t_parser **el_parser);
 
 #endif

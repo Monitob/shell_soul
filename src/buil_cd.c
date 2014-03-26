@@ -67,6 +67,7 @@ static void		buil_cd_swap(char **av, char **env, int opt_end, int opt_p)
 ** sh
 ** cd -,
 */
+
 static void		buil_cd_sub(char **av, char **env, int opt_p)
 {
 	int		i;
@@ -86,6 +87,7 @@ static void		buil_cd_sub(char **av, char **env, int opt_p)
 ** zsh
 ** cd, cd --
 */
+
 static void		buil_cd_home(char **av, char **env, int opt_end, int opt_p)
 {
 	int		i;
@@ -136,11 +138,13 @@ static void		buil_cd_home(char **av, char **env, int opt_end, int opt_p)
 		}
 	}
 }
+
 /*
 ** zsh
 ** cd ., cd .., cd ./../../././., cd /path/to/lol, ~, ~/
 */
-static void		buil_cd_path(char **av, char **env, int opt_end, int opt_p)/*a revoir, les pwd ne marchent pas*/
+
+static void		buil_cd_path(char **av, char **env, int opt_end, int opt_p)
 {
 	int		i;
 	int		j;
@@ -159,19 +163,19 @@ static void		buil_cd_path(char **av, char **env, int opt_end, int opt_p)/*a revo
 	}
 	else
 	{
-		env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));//chemin absolue a revoir;
+		env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));
 		ft_putendl(env[i]);
 	}
-	chdir(env_rmname(env, "PWD=")); /*tester la valeur de retour; voir si chdir est inutile vu qu' on en fait un avant;*/
+	chdir(env_rmname(env, "PWD="));
 }
 
 void			buil_cd(int ac, char **av, char **env, int opt_end, char *opt)
 {
-	char	usage[] = "Usage: cd [-PL][-|<dir>].";/*ce message n'existe pas sous zsh.*/
+	char	usage[] = "Usage: cd [-PL][-|<dir>].";
 	char	opt_p;
 
 	opt_p = 0;
-	if (strchr(opt, 'P')) //ternaire
+	if (strchr(opt, 'P'))
 		opt_p = 1;
 	if ((opt_chk(opt, "cd", "PL", usage) == -1))
 		ft_putendl("opt_chk");
@@ -180,14 +184,14 @@ void			buil_cd(int ac, char **av, char **env, int opt_end, char *opt)
 	else if ((ac - opt_end) < 2 && !av[opt_end])
 		buil_cd_home(av, env, opt_end, opt_p);
 	else if ((ac - opt_end) < 2 && !ft_strcmp(av[opt_end], "-"))
-			buil_cd_sub(av, env, opt_p);
+		buil_cd_sub(av, env, opt_p);
 	else if ((ac - opt_end) < 2 && chdir(av[opt_end]))
 	{
 		ft_putstr("cd: no such file or directory: ");
 		ft_putendl(av[opt_end]);
 	}
 	else if ((ac - opt_end) < 2)
-			buil_cd_path(av, env, opt_end, opt_p);
+		buil_cd_path(av, env, opt_end, opt_p);
 	else
 		ft_putendl("cd: too many arguments");
 }

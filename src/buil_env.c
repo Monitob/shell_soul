@@ -17,7 +17,6 @@
 */
 void	buil_env(int ac, char **av, char **env, int opt_end)
 {
-	/*option -i -iiiiiiiiiiii*/
 	(void)ac;
 	(void)av;
 	(void)opt_end;

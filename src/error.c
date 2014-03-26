@@ -22,6 +22,5 @@ int		error_fd(char *s, int fd)
 {
 	ft_putstr_fd(s, fd);
 	ft_putchar('\n');
-	_exit(1);
+	_Exit(1);
 }
-

@@ -24,7 +24,7 @@ static void		insert_char(t_letter **current_list, char key, t_prompt *pro)
 	let->prev = NULL;
 	if (*current_list == NULL)
 	{
-		if((*current_list = creat_new_element('*')) == NULL)
+		if ((*current_list = creat_new_element('*')) == NULL)
 			return ;
 		ft_char_to_list(current_list, let);
 		(void)pro;

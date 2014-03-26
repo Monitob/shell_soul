@@ -19,21 +19,17 @@ static int	ft_strncmp(char const *str1, char const *str2, size_t len)
 
 	i = 1;
 	result = 0;
-	while ((*str1 == *str2) && (*str1 != '\0') && (i < (int) len))
+	while ((*str1 == *str2) && (*str1 != '\0') && (i < (int)len))
 	{
 		str1++;
 		str2++;
 		i++;
 	}
 	if (len > 0)
-		result = (unsigned char) *str1 - (unsigned char) *str2;
+		result = (unsigned char)*str1 - (unsigned char)*str2;
 	return (result);
 }
 
-/*
-** If s is included in t, then ft_tabidx returns the matching index
-** otherwise the function returns -1
-*/
 int			ft_tabidx(char **t, char *s, int len)
 {
 	int		i;
