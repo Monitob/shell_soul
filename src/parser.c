@@ -10,72 +10,75 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+/*#include "shell.h"
 
 char	**parser(int ac, char **av, char **env)
 {
 	struct stat		check;
-	char			**cmd_paths;
-	char			*slash_cmd;
-	char			*abs_path;
-	char			*rm;
-	int				ret;
 
-	int				i;
 
-	char 			*opt;
-	int				o_end;
-
-	o_end = opt_end(av);
-	opt = opt_get(av);
-	if (av != NULL && stat(av[0], &check) == 0)
-		buil_cmd(av[0], av, env);
-	else if (av != NULL && ft_strcmp(av[0], "cd") == 0)
-		buil_cd(ac, av, env, o_end, opt);
-	else if (av != NULL && ft_strcmp(av[0], "setenv") == 0)
-		env = buil_setenv(ac, av, env);
-	else if (av != NULL && ft_strcmp(av[0], "unsetenv") == 0)
-	env = buil_unsetenv(ac, av, env);
-	else if (av != NULL && ft_strcmp(av[0], "env") == 0) //-option -i
-		buil_env(ac, av, env, o_end);
-	else if (av != NULL && ft_strncmp(av[0], "echo", 4) == 0)
-		buil_echo(ac, av, env, opt);
-	else if (av != NULL && ft_strncmp(av[0], "exit", 4) == 0)//csh
-		_Exit(0);
-	else
+	if (av)
 	{
-		slash_cmd = ft_strjoin("/", av[0]);
-		rm = env_rmname(env, "PATH=");
-		if (rm)
+		if (stat(av[0], &check) == 0)
+			buil_cmd(av[0], av, env);
+		else if (!ft_strcmp(av[0], "cd"))
+			buil_cd(ac, av, env, o_end, opt);
+		else if (!ft_strcmp(av[0], "setenv"))
+			env = buil_setenv(ac, av, env);
+		else if (!ft_strcmp(av[0], "unsetenv"))
+			env = buil_unsetenv(ac, av, env);
+		else if (!ft_strcmp(av[0], "env"))
+			buil_env(ac, av, env, o_end);
+		else if (!ft_strncmp(av[0], "echo", 4))
+			buil_echo(ac, av, env, opt);
+		else if (av && !ft_strncmp(av[0], "exit", 4))
+			_Exit(0);
+		else
 		{
-			cmd_paths = ft_strsplit(rm, ':');
-			while (*cmd_paths && \
-				(ret = stat(abs_path = ft_strjoin(*cmd_paths, slash_cmd), &check)))
+			int		i;
+			int		ret;
+			char	*rm;
+			char	*abs_path;
+			char	*slash_cmd;
+			char	**cmd_paths;
+			char	*opt;
+			int		o_end;
+
+			o_end = opt_end(av);
+			opt = opt_get(av);
+			slash_cmd = ft_strjoin("/", av[0]);
+			rm = env_rmname(env, "PATH=");
+			if (rm)
 			{
-				++cmd_paths;
+				abs_path = ft_strjoin(*cmd_paths, slash_cmd);
+				cmd_paths = ft_strsplit(rm, ':');
+				while (*cmd_paths && \
+					(ret = stat(abs_path, &check)))
+					++cmd_paths;
+				if (!ret)
+					buil_cmd(abs_path, av, env);
+				else
+				{
+					ft_putstr("42sh: command not found: ");
+					ft_putendl(av[0]);
+				}
+				free(abs_path);
+				free(slash_cmd);
+				i = 0;
+				while (cmd_paths[i])
+				{
+					free(cmd_paths[i]);
+					i++;
+				}
 			}
-			if (ret == 0)
-				buil_cmd(abs_path, av, env); //mettre une condition pour l'env sans PATH ou PATH modifi'e
 			else
 			{
 				ft_putstr("42sh: command not found: ");
 				ft_putendl(av[0]);
 			}
-			free(abs_path);
-			free(slash_cmd);
-			i = 0;
-			while (cmd_paths[i])
-			{
-				free(cmd_paths[i]);
-				i++;
-			}
+			free(rm);
 		}
-		else
-		{
-			ft_putstr("42sh: command not found: ");
-			ft_putendl(av[0]);
-		}
-		free(rm);
 	}
 	return (env);
 }
+*/
