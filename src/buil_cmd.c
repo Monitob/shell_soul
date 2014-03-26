@@ -22,6 +22,11 @@ void	buil_cmd(const char *path, char **msh_av, char **env)
 	pid_t			cmd;
 	int				status;
 
+	if (!chdir(path))
+	{
+		ft_putstr("42sh: permission denied: ");
+		ft_putendl(path);
+	}
 	cmd = fork();
 	if (cmd == 0)
 	{

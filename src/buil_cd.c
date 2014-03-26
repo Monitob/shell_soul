@@ -46,10 +46,7 @@ static void		buil_cd_path(char **av, char **env, int opt_end, int opt_p)
 		free(sub1);
 	}
 	else
-	{
 		env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));
-		ft_putendl(env[i]);
-	}
 	chdir(env_rmname(env, "PWD="));
 }
 

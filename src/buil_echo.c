@@ -73,10 +73,9 @@ static int		set_option_echo(char *opt)
 	return (0);
 }
 
-static void		(*echo_control[2])(PARAM_ECHO) = FT_ECHO;
-
 void			buil_echo(int ac, char **msh_av, char **env, char *opt)
 {
+	static void		(*echo_control[2])(PARAM_ECHO) = FT_ECHO;
 	int		ret;
 
 	ret = 0;
