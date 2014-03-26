@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "shell.h"
-#include <unistd.h>
 
 void	cursor_control2(t_letter *list_let)
 {

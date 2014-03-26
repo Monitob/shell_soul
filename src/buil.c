@@ -12,41 +12,12 @@
 
 #include "shell.h"
 
-void			buil_cmd_slash(char **av, char **env, struct stat check)
-{
-	char			**cmd_paths;
-	char			*slash_cmd;
-	char			*abs_path;
-	char			*rm;
-	int				ret;
-
-	slash_cmd = ft_strjoin("/", av[0]);
-	rm = env_rmname(env, "PATH=");
-	cmd_paths = ft_strsplit(rm, ':');
-	while (*cmd_paths && (ret = stat(abs_path =
-						ft_strjoin(*(cmd_paths++), slash_cmd), &check)))
-		free(abs_path);
-	if (rm && !ret)
-	{
-		buil_cmd(abs_path, av, env);
-		free(slash_cmd);
-		while (*cmd_paths)
-			free(*(cmd_paths++));
-	}
-	else
-	{
-		ft_putstr("42sh: command not found: ");
-		ft_putendl(av[0]);
-	}
-	free(rm);
-}
-
 static void		ft_push_parser(t_parser *new_el, t_parser **el_parser)
 {
+	t_parser	*temp;
+
 	if (*el_parser && new_el)
 	{
-		t_parser	*temp;
-
 		temp = *el_parser;
 		while (temp->next != NULL)
 		{
@@ -60,6 +31,34 @@ static void		ft_push_parser(t_parser *new_el, t_parser **el_parser)
 		dprintf(3, "add  null -> %p\n", el_parser);
 		*el_parser = new_el;
 	}
+}
+
+void			buil_cmd_slash(char **av, char **env, struct stat check)
+{
+	char			**cmd_paths;
+	char			*slash_cmd;
+	char			*rm;
+	int				ret;
+
+	slash_cmd = ft_strjoin("/", av[0]);
+	rm = env_rmname(env, "PATH=");
+	cmd_paths = ft_strsplit(rm, ':');
+	while (*cmd_paths && (ret = stat(ft_strjoin(*(cmd_paths), slash_cmd)
+		, &check)))
+		free(ft_strjoin(*(cmd_paths++), slash_cmd));
+	if (rm && !ret)
+	{
+		buil_cmd(ft_strjoin(*(cmd_paths), slash_cmd), av, env);
+		free(slash_cmd);
+		while (*cmd_paths)
+			free(*(cmd_paths++));
+	}
+	else
+	{
+		ft_putstr("42sh: command not found: ");
+		ft_putendl(av[0]);
+	}
+	free(rm);
 }
 
 static int		ft_get_id(char *str)
@@ -92,7 +91,6 @@ void			ft_element_parser(char **av, t_parser **el_parser)
 	i = 0;
 	while (av[i] != NULL)
 	{
-
 		if (!(new_el = (t_parser *)malloc(sizeof(t_parser))))
 			return ;
 		new_el->cmd = av[i];
@@ -113,29 +111,24 @@ void			ft_element_parser(char **av, t_parser **el_parser)
 char			**buil(int ac, char **av, char **env)
 {
 	struct stat		check;
-	char			*opt;
-	int				o_end;
 	t_parser		*el_parser;
 
-
 	el_parser = NULL;
-	o_end = opt_end(av);
-	opt = opt_get(av);
 	ft_element_parser(av, &el_parser);
 	if (av != NULL && !stat(av[0], &check))
 		buil_cmd(av[0], av, env);
 	else if (av != NULL && !ft_strcmp(av[0], "cd"))
-		buil_cd(ac, av, env, o_end, opt);
+		buil_cd(ac, av, env, opt_get(av));
 	else if (av != NULL && !ft_strcmp(av[0], "setenv"))
 		env = buil_setenv(ac, av, env);
 	else if (av != NULL && !ft_strcmp(av[0], "unsetenv"))
 		env = buil_unsetenv(ac, av, env);
 	else if (av != NULL && !ft_strcmp(av[0], "env"))
-		buil_env(ac, av, env, o_end);
+		buil_env(ac, av, env, opt_end(av));
 	else if (av != NULL && !ft_strncmp(av[0], "echo", 4))
-		buil_echo(ac, av, env, opt);
+		buil_echo(ac, av, env, opt_get(av));
 	else if (av != NULL && !ft_strncmp(av[0], "exit", 4))
-		_Exit(0);
+		exit(0);
 	else
 		buil_cmd_slash(av, env, check);
 	return (env);
