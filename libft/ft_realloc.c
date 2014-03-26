@@ -22,7 +22,7 @@ void	*ft_realloc(void *ptr, size_t size)
 	{
 		n = ft_strlen((char *)ptr);
 		if ((tmp = ft_memalloc(n + size + 1)) == NULL)
-				return (NULL);
+			return (NULL);
 		ft_memcpy(tmp, ptr, n);
 		ft_memdel(&ptr);
 	}

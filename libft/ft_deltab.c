@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_deltab.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbernabe <jbernabe@tabtudent.42.fr>          +#+  +:+       +#+      */
+/*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/14 20:29:36 by jbernabe          #+#    #+#             */
 /*   Updated: 2014/02/09 23:33:18 by jbernabe         ###   ########.fr       */

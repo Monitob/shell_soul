@@ -53,7 +53,7 @@ static t_read	*ft_newread(int fd)
 	return (red);
 }
 
-static int		ft_print(int n, t_read **tab, t_read **s, char** l)
+static int		ft_print(int n, t_read **tab, t_read **s, char **l)
 {
 	char	*tmpstr;
 	int		index;

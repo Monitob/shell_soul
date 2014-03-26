@@ -14,20 +14,20 @@
 
 char				*ft_strjoin_glue(char *s1, char *s2, char c)
 {
-		char		*new_string;
-		size_t		len;
+	char	*new_string;
+	size_t	len;
 
-		if (s1)
-		{
-				len = ft_strlen(s1);
-				new_string = s1;
-				s1 = (char *)malloc((len + 2) * sizeof(char));
-				ft_strcpy(s1, new_string);
-				s1[len] = c;
-				s1[len + 1] = '\0';
-				new_string = ft_strjoin(s1, s2);
-				free(s1);
-				return (new_string);
-		}
-		return (NULL);
+	if (s1)
+	{
+		len = ft_strlen(s1);
+		new_string = s1;
+		s1 = (char *)malloc((len + 2) * sizeof(char));
+		ft_strcpy(s1, new_string);
+		s1[len] = c;
+		s1[len + 1] = '\0';
+		new_string = ft_strjoin(s1, s2);
+		free(s1);
+		return (new_string);
+	}
+	return (NULL);
 }
