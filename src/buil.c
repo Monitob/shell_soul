@@ -12,7 +12,7 @@
 
 #include "shell.h"
 
-void	buil_cmd_slash(char **av, char **env, struct stat check)
+void			buil_cmd_slash(char **av, char **env, struct stat check)
 {
 	char			**cmd_paths;
 	char			*slash_cmd;
@@ -62,7 +62,7 @@ static void		ft_push_parser(t_parser *new_el, t_parser **el_parser)
 	}
 }
 
-static int	ft_get_id(char *str)
+static int		ft_get_id(char *str)
 {
 	if (ft_strcmp(str, "|"))
 		return (1);
@@ -84,7 +84,7 @@ static int	ft_get_id(char *str)
 		return (0);
 }
 
-void	ft_element_parser(char **av, t_parser **el_parser)
+void			ft_element_parser(char **av, t_parser **el_parser)
 {
 	int			i;
 	t_parser	*new_el;
@@ -110,7 +110,7 @@ void	ft_element_parser(char **av, t_parser **el_parser)
 	}
 }
 
-char	**buil(int ac, char **av, char **env)
+char			**buil(int ac, char **av, char **env)
 {
 	struct stat		check;
 	char			*opt;

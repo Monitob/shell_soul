@@ -28,15 +28,28 @@ static int	ft_wc_space(char const *s)
 	return (wc);
 }
 
-static char	**ft_fill_array(char const *s, char **ar, int i, int wc)
+static int	ft_fill_array_inc_wc(char c, int wc)
+{
+	if (!ft_isspace(c))
+		wc++;
+	return (wc);
+}
+
+static int	ft_fill_array_inc_i(const char *s, int i)
+{
+	while (ft_isspace(s[i]))
+		i++;
+	return (i);
+}
+
+static char	**ft_fill_array(const char *s, char **ar, int i, int wc)
 {
 	int		start;
 	int		j;
 
 	while (s[i])
 	{
-		if (!ft_isspace(s[i]))
-			wc++;
+		wc = ft_fill_array_inc_wc(s[i], wc);
 		start = i;
 		while ((!ft_isspace(s[i]) && s[i]) || (s[i] == ' ' && s[i - 1] == '\\'))
 			i++;
@@ -52,8 +65,7 @@ static char	**ft_fill_array(char const *s, char **ar, int i, int wc)
 				*(ar[wc] + j++) = *(s + start++);
 		}
 		ar[wc][j] = 0;
-		while (ft_isspace(s[i]))
-			i++;
+		i = ft_fill_array_inc_i(s, i);
 	}
 	ar[++wc] = 0;
 	return (ar);
