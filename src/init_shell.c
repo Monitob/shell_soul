@@ -12,8 +12,6 @@
 
 #include "shell.h"
 
-#include <stdio.h>
-
 int			main(void)
 {
 	t_shell	*root;
@@ -45,6 +43,7 @@ t_shell		*init_shell(t_shell *root)
 
 char		**init_env(void)
 {
+	extern char	**environ;
 	char	**env;
 	int		i;
 	int		len_env;

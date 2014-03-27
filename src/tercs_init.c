@@ -22,6 +22,8 @@ int				set_fd(void)
 	if ((path_fd = ttyname(STDIN_FILENO)) == NULL)
 		error_fd("ttayname fail", 2);
 	fd = dup(STDIN_FILENO);
+	if (fd < 0)
+		return (0);
 	return (fd);
 }
 
@@ -44,8 +46,8 @@ void			init_trcs(t_tercs *tcs)
 	tcs->term_fd.c_cc[VMIN] = 1;
 	tcs->term_fd.c_cc[VTIME] = 0;
 	tcsetattr(tcs->tty_fd, TCSADRAIN, &(tcs->term_fd));
-	TPUTS(cl);
-	TPUTS(ei);
+	tputs(tgetstr("cl", NULL), 1, trcs_putchar);
+	tputs(tgetstr("ei", NULL), 1, trcs_putchar);
 }
 
 int				trcs_putchar(int c)
@@ -58,8 +60,8 @@ void			reset_term(t_shell *root)
 {
 	root->tcs->term_save.c_lflag = (ICANON | ECHO);
 	tcsetattr(STDIN_FILENO, TCSANOW, &root->tcs->term_save);
-	TPUTS(cl);
-	TPUTS(te);
-	TPUTS(ve);
+	tputs(tgetstr("cl", NULL), 1, trcs_putchar);
+	tputs(tgetstr("te", NULL), 1, trcs_putchar);
+	tputs(tgetstr("ve", NULL), 1, trcs_putchar);
 	free(root);
 }

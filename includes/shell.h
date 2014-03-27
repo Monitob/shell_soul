@@ -13,8 +13,6 @@
 #ifndef SHELL_H
 # define SHELL_H
 
-# include <unistd.h>
-# include <fcntl.h>
 # include <stdlib.h>
 # include <dirent.h>
 # include <termios.h>
@@ -26,16 +24,6 @@
 # include "buil.h"
 
 # define BUFFER_R			8
-# define TRCS_PUT			1, trcs_putchar
-# define TPUTS(id)			tputs(tgetstr(#id, NULL), TRCS_PUT)
-# define TGOTO(id, y, x)	tputs(tgoto(tgetstr(#id, NULL), y, x), TRCS_PUT)
-# define EXEC_INST			{tercs_ascii, tercs_up, tercs_down, tercs_right,
-# define EXEC_INST2			tercs_left}
-# define EXE_PARAM			t_command **line, t_letter **
-# define PARAM_ECHO         char **msh_av, char **env
-# define FT_ECHO			{echo_no_opt, echo_op_n}
-
-extern char	**environ;
 
 typedef struct s_tercs	t_tercs;
 

@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "shell.h"
 
 void			show_prompt(t_shell **shell)
@@ -17,6 +18,7 @@ void			show_prompt(t_shell **shell)
 	int			i;
 	char		**temp;
 	int			len;
+	extern char	**environ;
 
 	i = 0;
 	while (strncmp(environ[i], "USER=", 5) != 0)
@@ -43,8 +45,10 @@ static void		init_key_control(t_shell *shell, t_letter **list_current)
 
 static void		exec_type(t_shell **sh, t_letter **let, int type)
 {
-	void		(*key_control[5])(EXE_PARAM) = EXEC_INST EXEC_INST2;
+
 	int			i;
+	void		(*key_control[5])(t_command **line, t_letter **) =
+				{tercs_ascii, tercs_up, tercs_down, tercs_right, tercs_left};
 
 	i = 0;
 	while (i < 5)
