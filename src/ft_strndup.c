@@ -6,13 +6,14 @@
 /*   By: flime <flime@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/11 07:35:00 by flime             #+#    #+#             */
-/*   Updated: 2014/03/11 07:49:32 by flime            ###   ########.fr       */
+/*   Updated: 2014/03/27 11:24:52 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <string.h>
 #include <stdlib.h>
 
-char	*ft_strndup(const char *s1, size_t n)
+char		*ft_strndup(const char *s1, size_t n)
 {
 	char	*ret;
 	size_t	i;

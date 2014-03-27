@@ -6,24 +6,13 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 23:02:18 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/26 20:21:01 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/27 12:18:20 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include <term.h>
 #include "shell.h"
-
-int				set_fd(void)
-{
-	int		fd;
-	char	*path_fd;
-
-	if (!(isatty(STDIN_FILENO)))
-		error_fd("Not a terminal", 2);
-	if ((path_fd = ttyname(STDIN_FILENO)) == NULL)
-		error_fd("ttayname fail", 2);
-	fd = dup(STDIN_FILENO);
-	return (fd);
-}
 
 static void		init_term(void)
 {
@@ -36,6 +25,21 @@ static void		init_term(void)
 		error_command("Could not access to termcap database");
 }
 
+int				set_fd(void)
+{
+	int		fd;
+	char	*path_fd;
+
+	if (!(isatty(STDIN_FILENO)))
+		error_fd("Not a terminal", 2);
+	if ((path_fd = ttyname(STDIN_FILENO)) == NULL)
+		error_fd("ttayname fail", 2);
+	fd = dup(STDIN_FILENO);
+	if (fd < 0)
+		return (0);
+	return (fd);
+}
+
 void			init_trcs(t_tercs *tcs)
 {
 	init_term();
@@ -44,8 +48,8 @@ void			init_trcs(t_tercs *tcs)
 	tcs->term_fd.c_cc[VMIN] = 1;
 	tcs->term_fd.c_cc[VTIME] = 0;
 	tcsetattr(tcs->tty_fd, TCSADRAIN, &(tcs->term_fd));
-	TPUTS(cl);
-	TPUTS(ei);
+	tputs(tgetstr("cl", NULL), 1, trcs_putchar);
+	tputs(tgetstr("ei", NULL), 1, trcs_putchar);
 }
 
 int				trcs_putchar(int c)
@@ -58,8 +62,8 @@ void			reset_term(t_shell *root)
 {
 	root->tcs->term_save.c_lflag = (ICANON | ECHO);
 	tcsetattr(STDIN_FILENO, TCSANOW, &root->tcs->term_save);
-	TPUTS(cl);
-	TPUTS(te);
-	TPUTS(ve);
+	tputs(tgetstr("cl", NULL), 1, trcs_putchar);
+	tputs(tgetstr("te", NULL), 1, trcs_putchar);
+	tputs(tgetstr("ve", NULL), 1, trcs_putchar);
 	free(root);
 }

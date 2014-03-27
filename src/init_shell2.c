@@ -6,17 +6,44 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:36:21 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/26 18:58:43 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/27 12:27:51 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "shell.h"
 
-void			show_prompt(t_shell **shell)
+static void				init_key_control(t_shell *shell, t_letter **list_current)
 {
+	shell->data->line = NULL;
+	shell->tcs->line_len = 0;
+	*list_current = NULL;
+}
+
+static void				exec_type(t_shell **sh, t_letter **let, int type)
+{
+	void		(*key_control[5])(t_command **line, t_letter **) =
+				{tercs_ascii, tercs_up, tercs_down, tercs_right, tercs_left};
 	int			i;
-	char		**temp;
-	int			len;
+
+	i = 0;
+	while (i < 5)
+	{
+		if (i == typ`e)
+		{
+			key_control[type](&(*sh)->data , let);
+			return ;
+		}
+		i++;
+	}
+}
+
+void				show_prompt(t_shell **shell)
+{
+	int				i;
+	char			**temp;
+	int				len;
+	extern char		**environ;
 
 	i = 0;
 	while (strncmp(environ[i], "USER=", 5) != 0)
@@ -34,32 +61,8 @@ void			show_prompt(t_shell **shell)
 	return ;
 }
 
-static void		init_key_control(t_shell *shell, t_letter **list_current)
-{
-	shell->data->line = NULL;
-	shell->tcs->line_len = 0;
-	*list_current = NULL;
-}
-
-static void		exec_type(t_shell **sh, t_letter **let, int type)
-{
-	void		(*key_control[5])(EXE_PARAM) = EXEC_INST EXEC_INST2;
-	int			i;
-
-	i = 0;
-	while (i < 5)
-	{
-		if (i == type)
-		{
-			key_control[type](&(*sh)->data , let);
-			return ;
-		}
-		i++;
-	}
-}
-
-static void		control_read(t_shell *root, t_letter *list_current,
-				char key[8], int type)
+void			control_read(t_shell *root, t_letter *list_current,
+						char key[8], int type)
 {
 	ft_memset(key, 0, 8);
 	if (!list_current && type == -1)

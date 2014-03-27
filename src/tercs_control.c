@@ -6,10 +6,12 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/25 02:51:39 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/05 19:05:59 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/27 12:13:38 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <termios.h>
+#include <term.h>
 #include "shell.h"
 
 void	tercs_ascii(t_command **c_line, t_letter **let)
@@ -46,7 +48,7 @@ void	tercs_right(t_command **c_line, t_letter **let)
 			return ;
 		if ((*let)->next)
 		{
-			TPUTS(nd);
+			tputs(tgetstr("nd", NULL), 1, trcs_putchar);
 			(*let) = (*let)->next;
 			(void)c_line;
 		}
@@ -67,7 +69,7 @@ void	tercs_left(t_command **c_line, t_letter **let)
 			return ;
 		if (let)
 		{
-			TPUTS(le);
+			tputs(tgetstr("le", NULL), 1, trcs_putchar);
 			(*let) = (*let)->prev;
 			(void)c_line;
 			(void)let;

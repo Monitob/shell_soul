@@ -6,7 +6,7 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/16 12:30:57 by flime             #+#    #+#             */
-/*   Updated: 2014/03/25 02:06:59 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/27 11:59:15 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include "shell.h"
-
-#include <stdio.h>
 
 void	buil_cmd(const char *path, char **msh_av, char **env)
 {

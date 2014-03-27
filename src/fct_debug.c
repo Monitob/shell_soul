@@ -6,10 +6,11 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/02 12:30:39 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/16 20:10:48 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/27 12:12:34 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "shell.h"
 
 void			ft_key_int_type(char key[8], int type)

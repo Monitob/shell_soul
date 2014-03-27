@@ -6,12 +6,12 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/16 16:14:58 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/26 18:48:00 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/27 12:25:32 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "shell.h"
-#include <stdio.h>
 
 static void				echo_no_opt(char **msh_av, char **env)
 {
@@ -39,9 +39,9 @@ static void				echo_no_opt(char **msh_av, char **env)
 
 static void				echo_op_n(char **msh_av, char **env)
 {
-	int			i;
-	char		*str;
-	int			len_char;
+	int		i;
+	char	*str;
+	int		len_char;
 
 	i = 2;
 	len_char = 0;
@@ -66,7 +66,7 @@ static void				echo_op_n(char **msh_av, char **env)
 	(void)env;
 }
 
-static int				set_option_echo(char *opt)
+static int			set_option_echo(char *opt)
 {
 	if (ft_strcmp(opt, "n") == 0)
 		return (1);
@@ -75,14 +75,13 @@ static int				set_option_echo(char *opt)
 
 void				buil_echo(int ac, char **msh_av, char **env, char *opt)
 {
-	static void		(*echo_control[2])(PARAM_ECHO) = FT_ECHO;
+	static void		(*echo_control[2])(char **msh_av, char **env) =
+					{echo_no_opt, echo_op_n};
 	int				ret;
 
-	ret = 0;
 	ret = set_option_echo(opt);
 	echo_control[ret](msh_av, env);
 	(void)ac;
 	(void)opt;
-	(void)env;
 	return ;
 }

@@ -31,11 +31,9 @@ static void		buil_cd_sub(char **av, char **env, int opt_p)
 static void		buil_cd_path(char **av, char **env, int opt_end, int opt_p)
 {
 	int		i;
-	int		j;
 	char	*sub1;
 
 	i = ft_tabidx(env, "PWD=", 4);
-	j = ft_tabidx(env, "OLDPWD=", 7);
 	if (!ft_strncmp(av[opt_end], "/", 1))
 	{
 		if (opt_p == 0)

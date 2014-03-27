@@ -6,10 +6,11 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/16 13:10:24 by flime             #+#    #+#             */
-/*   Updated: 2014/03/26 19:33:46 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/27 12:20:06 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/stat.h>
 #include "shell.h"
 
 void			buil_cmd_slash(char **av, char **env, struct stat check)

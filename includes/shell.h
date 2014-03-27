@@ -6,36 +6,18 @@
 /*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 19:06:30 by jbernabe          #+#    #+#             */
-/*   Updated: 2014/03/26 19:19:05 by jbernabe         ###   ########.fr       */
+/*   Updated: 2014/03/27 12:21:44 by jbernabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_H
 # define SHELL_H
 
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdlib.h>
-# include <dirent.h>
 # include <termios.h>
-# include <signal.h>
-# include <term.h>
-# include <sys/stat.h>
-# include <sys/types.h>
 # include "libft.h"
 # include "buil.h"
 
 # define BUFFER_R			8
-# define TRCS_PUT			1, trcs_putchar
-# define TPUTS(id)			tputs(tgetstr(#id, NULL), TRCS_PUT)
-# define TGOTO(id, y, x)	tputs(tgoto(tgetstr(#id, NULL), y, x), TRCS_PUT)
-# define EXEC_INST			{tercs_ascii, tercs_up, tercs_down, tercs_right,
-# define EXEC_INST2			tercs_left}
-# define EXE_PARAM			t_command **line, t_letter **
-# define PARAM_ECHO         char **msh_av, char **env
-# define FT_ECHO			{echo_no_opt, echo_op_n}
-
-extern char	**environ;
 
 typedef struct s_tercs	t_tercs;
 
@@ -110,9 +92,10 @@ void			get_path(t_parser **el_parser, char **env);
 
 void			show_prompt(t_shell **shell);
 void			init_line(t_shell *root);
-
+void			control_read(t_shell *root, t_letter *list_current,
+				char key[8], int type);
 /*
-**	init_types.c
+** init_types.c
 */
 
 int				set_type(char key[8]);
@@ -158,7 +141,7 @@ void			error_command(char *s);
 int				error_fd(char *s, int fd);
 
 /*
-**	lexer_verify.c
+** lexer_verify.c
 */
 
 void			lex_verify(t_shell **shell, t_letter **let);
