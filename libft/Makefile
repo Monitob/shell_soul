@@ -6,7 +6,7 @@
 #    By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/20 19:55:21 by jbernabe          #+#    #+#              #
-#    Updated: 2014/01/15 18:03:09 by jbernabe         ###   ########.fr        #
+#    Updated: 2014/03/27 18:46:52 by jbernabe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS =	ft_atoi.c ft_memset.c ft_bzero.c ft_strlen.c \
 			ft_strmap.c ft_strmapi.c ft_strequ.c ft_strsub.c \
 			ft_putchar_fd.c ft_putstr_fd.c ft_putendl.c \
 			ft_strjoin.c ft_strtrim.c ft_strsplit.c ft_itoa.c \
-			ft_realloc.c ft_strjoin_glue.c ft_tablen.c ft_deltab.c \
+			ft_strjoin_glue.c ft_tablen.c ft_deltab.c \
 			ft_deltab_int.c ft_close.c get_next_line.c
 
 V = 0

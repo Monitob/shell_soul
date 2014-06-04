@@ -24,7 +24,7 @@ void	ft_del_tab(char **tb)
 			free(tb[i]);
 			i++;
 		}
-		free (tb[i]);
-		free (tb);
+		free(tb[i]);
+		free(tb);
 	}
 }

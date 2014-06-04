@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: srabah-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/29 15:19:42 by jbernabe          #+#    #+#             */
-/*   Updated: 2013/12/03 09:44:50 by jbernabe         ###   ########.fr       */
+/*   Created: 2014/03/27 19:59:29 by srabah-m          #+#    #+#             */
+/*   Updated: 2014/03/27 20:56:23 by srabah-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "doseshell.h"
 
-void	ft_memdel(void **ap)
+void	del_node(t_cmd *elem)
 {
-	if (*ap && ap)
-	{
-		free(*ap);
-		*ap = NULL;
-	}
+	elem->prev->next = elem->next;
+	elem->next->prev = elem->prev;
+	free(elem);
 }

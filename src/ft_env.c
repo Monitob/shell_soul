@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbernabe <jbernabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: srabah-m <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/29 15:19:42 by jbernabe          #+#    #+#             */
-/*   Updated: 2013/12/03 09:44:50 by jbernabe         ###   ########.fr       */
+/*   Created: 2014/03/27 19:04:32 by srabah-m          #+#    #+#             */
+/*   Updated: 2014/03/27 19:04:47 by srabah-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "doseshell.h"
 
-void	ft_memdel(void **ap)
+int		my_env(t_cmd *cmd, t_shell *shell)
 {
-	if (*ap && ap)
+	t_env		*tmp;
+
+	(void)cmd;
+	tmp = shell->env->next;
+	while (tmp != shell->env)
 	{
-		free(*ap);
-		*ap = NULL;
+		ft_putstr_fd(tmp->var, 1);
+		ft_putchar('\n');
+		tmp = tmp->next;
 	}
+	return (1);
 }
